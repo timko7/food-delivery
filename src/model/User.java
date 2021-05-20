@@ -12,7 +12,7 @@ public class User {
 	private Gender gender;
 	private UserType userType;
 	// private UserState userState;
-	private String dateOfBirth;
+	private String dateOfBirth; // yyyy-mm-dd
 	private boolean blocked; // true-blocked
 
 	public User() {

@@ -54,7 +54,7 @@ public class Users {
 		users.put(a3.getUsername(), a3);
 	}
 
-	private void saveUsers() {
+	public void saveUsers() {
 		File file = new File(filePath);
 		System.out.println("saveUsers() -> Putanja za cuvanje:" + filePath);
 		try {

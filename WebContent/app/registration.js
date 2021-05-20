@@ -8,6 +8,7 @@ Vue.component('registration', {
                 name: null,
                 surname: null,
                 gender: null,
+                dateOfBirth: null,
             },
             passwordAgain: null,
             usnameE: false,
@@ -16,6 +17,7 @@ Vue.component('registration', {
             nameE: false,
             snameE: false,
             genderE: false,
+            dateOfBirthE: false,
         }
     },
 
@@ -60,8 +62,14 @@ Vue.component('registration', {
             	<label v-if="genderE" style="color: red">Niste odabrali pol!!</label></td>
             </tr>
             <tr>
+            	<td>Datum rodjenja</td>
+            	<td><input type="date" v-model="user.dateOfBirth" />
+            	<label v-if="dateOfBirthE" style="color: red">Niste uneli datum rodjenja!!</label></td>
+            </tr>
+            <tr>
             	<th colspan="2"><input type="button" value="Registruj se" v-on:click="register()" /></th>
             </tr>
+            <tr><td colspan="2"><a href="#/">Loguj se!</a></td></tr>
         </table>
     </div>
     `,
@@ -86,7 +94,8 @@ Vue.component('registration', {
                 if (response.data === '') { // registration error
                     toastt('Greška prilikom registrovanja naloga. Korisničko ime je zauzeto.');
                 } else {
-                    router.push('/');
+                    //router.push('/');
+                	toastt('Uspesno ste se registrovali! Molimo ulogujte se!')
                 }
             });
         },
@@ -140,12 +149,21 @@ Vue.component('registration', {
             	this.genderE = false;
             }
             
+            if (this.user.dateOfBirth == null) {
+            	toastt('Niste uneli datum rodjenja.');
+            	this.dateOfBirthE = true
+            	return false;
+            } else {
+            	this.dateOfBirthE = false;
+            }
+            
             this.usnameE = false;
             this.passE = false;
             this.passAE = false;
             this.nameE = false;
             this.snameE = false;
             this.genderE = false;
+            this.dateOfBirthE = false;
                         
             return true;
         }
