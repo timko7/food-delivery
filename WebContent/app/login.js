@@ -26,6 +26,8 @@ Vue.component('login', {
     <div v-else-if="userLoggedIn">
     	<admin-page v-if="loggedUser.userType === 'ADMIN'" :user="loggedUser"></admin-page>
     	
+    	<home-page-buyer v-if="loggedUser.userType === 'BUYER'" :user="loggedUser"></home-page-buyer>
+    	
     </div>
     `,
 
