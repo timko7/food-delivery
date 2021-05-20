@@ -151,4 +151,14 @@ public class Users {
 		this.users = users;
 	}
 
+	public User checkLogin(User userToCheck) {
+		for (User user : users.values()) {
+			if (user.getUsername().equals(userToCheck.getUsername())
+					&& user.getPassword().equals(userToCheck.getPassword())) {
+				return user;
+			}
+		}
+		return null;
+	}
+
 }
