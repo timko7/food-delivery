@@ -17,6 +17,7 @@ Vue.component('admin-page', {
     		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
     		
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>    		
+            <li><a href="#" v-on:click="showComponent('all-users')">Pregled svih korisnika</a></li>
     		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
             
     	</ul>

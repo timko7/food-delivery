@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.servlet.ServletContext;
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 
 import model.User;
 import model.collection.Users;
+import model.types.UserType;
 
 @Path("/data")
 public class DataService {
@@ -59,6 +61,17 @@ public class DataService {
 		users.saveUsers();
 
 		return userToEdit;
+	}
+	
+	@GET
+	@Path("/getAllUsers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<User> getAllUsers() {
+		User user = (User) request.getSession().getAttribute("user-info"); // only admin can get all users
+		if (user.getUserType() == UserType.ADMIN) {
+			return  Data.getUsers(servletContext).getUsers().values();
+		}
+		return new ArrayList<User>();
 	}
 
 }
