@@ -161,4 +161,13 @@ public class Users {
 		return null;
 	}
 
+	public User containsUsername(String username) {
+		for (User user : users.values()) {
+			if (user.getUsername().equals(username)) {
+				return user;
+			}
+		}
+		return null;
+	}
+
 }
