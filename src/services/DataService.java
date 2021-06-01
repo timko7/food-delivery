@@ -145,6 +145,47 @@ public class DataService {
 		return ret;
 
 	}
+
+	@POST
+	@Path("/addManager")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User addManager(User userM) {
+		System.out.println("addManager: " + userM);
+		Users users = Data.getUsers(servletContext);
+
+		if (users.getUsers().containsKey(userM.getUsername())) {
+			return null;
+		} else {
+			userM.setUserType(UserType.MANAGER);
+			userM.setBlocked(false);
+			
+			users.getUsers().put(userM.getUsername(), userM);
+			users.saveUsers();
+			
+			return userM;
+		}
+	}
 	
+	@POST
+	@Path("/addDeliveryMan")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User addDeliveryMan(User userD) {
+		System.out.println("addDeliveryMan: " + userD);
+		Users users = Data.getUsers(servletContext);
+
+		if (users.getUsers().containsKey(userD.getUsername())) {
+			return null;
+		} else {
+			userD.setUserType(UserType.DELIVERY_MAN);
+			userD.setBlocked(false);
+			
+			users.getUsers().put(userD.getUsername(), userD);
+			users.saveUsers();
+			
+			return userD;
+		}
+	}
 	
 }
