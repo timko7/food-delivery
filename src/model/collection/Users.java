@@ -6,14 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -71,7 +66,7 @@ public class Users {
 		try {
 			fileWriter = new FileWriter(file);
 			ObjectMapper objectMapper = new ObjectMapper();
-			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, false);
+			objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 			objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 			// Through the configure method we can extend the default process to ignore the
 			// new fields

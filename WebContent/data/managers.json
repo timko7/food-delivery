@@ -1,0 +1,14 @@
+{
+  "men" : {
+    "username" : "men",
+    "password" : "men",
+    "name" : "Men",
+    "surname" : "Menic",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "2017-06-05",
+    "blocked" : false,
+    "restaurant" : "",
+    "inCharge" : false
+  }
+}

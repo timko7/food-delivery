@@ -13,7 +13,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import model.Buyer;
+import model.DeliveryMan;
+import model.Manager;
 import model.User;
+import model.collection.Buyers;
+import model.collection.DeliveryMans;
+import model.collection.Managers;
 import model.collection.Users;
 import model.types.UserType;
 
@@ -59,6 +65,39 @@ public class DataService {
 		userToEdit.setPassword(user.getPassword());
 
 		users.saveUsers();
+		
+		if (userToEdit.getUserType().equals(UserType.BUYER)) {
+			Buyers buyers = Data.getBuyers(servletContext);
+			Buyer buyer = buyers.containsUsername(user.getUsername());
+			
+			buyer.setName(user.getName());
+			buyer.setSurname(user.getSurname());
+			buyer.setPassword(user.getPassword());
+			
+			buyers.saveBuyers();
+		}
+		
+		if (userToEdit.getUserType().equals(UserType.MANAGER)) {
+			Managers managers = Data.getManagers(servletContext);
+			Manager manager = managers.containsUsername(user.getUsername());
+			
+			manager.setName(user.getName());
+			manager.setSurname(user.getSurname());
+			manager.setPassword(user.getPassword());
+			
+			managers.saveManagers();
+		}
+		
+		if (userToEdit.getUserType().equals(UserType.DELIVERY_MAN)) {
+			DeliveryMans deliveryMans = Data.getDeliveryMans(servletContext);
+			DeliveryMan deliveryMan = deliveryMans.containsUsername(user.getUsername());
+			
+			deliveryMan.setName(user.getName());
+			deliveryMan.setSurname(user.getSurname());
+			deliveryMan.setPassword(user.getPassword());
+			
+			deliveryMans.saveDeliveryMans();
+		}
 
 		return userToEdit;
 	}
@@ -153,6 +192,7 @@ public class DataService {
 	public User addManager(User userM) {
 		System.out.println("addManager: " + userM);
 		Users users = Data.getUsers(servletContext);
+		Managers managers = Data.getManagers(servletContext);
 
 		if (users.getUsers().containsKey(userM.getUsername())) {
 			return null;
@@ -162,6 +202,12 @@ public class DataService {
 			
 			users.getUsers().put(userM.getUsername(), userM);
 			users.saveUsers();
+			
+			Manager manager = new Manager();
+			manager = manager.makeFromUser(userM);
+			
+			managers.getManagers().put(manager.getUsername(), manager);
+			managers.saveManagers();
 			
 			return userM;
 		}
@@ -174,6 +220,7 @@ public class DataService {
 	public User addDeliveryMan(User userD) {
 		System.out.println("addDeliveryMan: " + userD);
 		Users users = Data.getUsers(servletContext);
+		DeliveryMans deliveryMans = Data.getDeliveryMans(servletContext);
 
 		if (users.getUsers().containsKey(userD.getUsername())) {
 			return null;
@@ -183,6 +230,12 @@ public class DataService {
 			
 			users.getUsers().put(userD.getUsername(), userD);
 			users.saveUsers();
+			
+			DeliveryMan deliveryMan = new DeliveryMan();
+			deliveryMan = deliveryMan.makeFromUser(userD);
+			
+			deliveryMans.getDeliveryMans().put(deliveryMan.getUsername(), deliveryMan);
+			deliveryMans.saveDeliveryMans();
 			
 			return userD;
 		}

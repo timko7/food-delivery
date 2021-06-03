@@ -1,1 +1,62 @@
-{"adminko":{"username":"adminko","password":"admin","name":"Aja","surname":"Ajacic","gender":"FEMALE","userType":"ADMIN","dateOfBirth":"1999-11-23","blocked":true},"delivery":{"username":"delivery","password":"delivery","name":"Del","surname":"Ivery","gender":"FEMALE","userType":"DELIVERY_MAN","dateOfBirth":"2010-12-01","blocked":false},"ad":{"username":"ad","password":"admin","name":"Pera","surname":"Percic","gender":"MALE","userType":"ADMIN","dateOfBirth":"2000-2-20","blocked":false},"manager":{"username":"manager","password":"manager","name":"Man","surname":"Ager","gender":"MALE","userType":"MANAGER","dateOfBirth":"2020-12-31","blocked":false},"admin":{"username":"admin","password":"admin","name":"Aca","surname":"Acic","gender":"MALE","userType":"ADMIN","dateOfBirth":"2002-5-15","blocked":false},"da":{"username":"da","password":"da","name":"Dada","surname":"Dic","gender":"MALE","userType":"BUYER","dateOfBirth":"2021-05-20","blocked":false}}
+{
+  "adminko" : {
+    "username" : "adminko",
+    "password" : "admin",
+    "name" : "Aja",
+    "surname" : "Ajacic",
+    "gender" : "FEMALE",
+    "userType" : "ADMIN",
+    "dateOfBirth" : "1999-11-23",
+    "blocked" : false
+  },
+  "ad" : {
+    "username" : "ad",
+    "password" : "admin",
+    "name" : "Pera",
+    "surname" : "Percic",
+    "gender" : "MALE",
+    "userType" : "ADMIN",
+    "dateOfBirth" : "2000-2-20",
+    "blocked" : false
+  },
+  "men" : {
+    "username" : "men",
+    "password" : "men",
+    "name" : "Men",
+    "surname" : "Menic",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "2017-06-05",
+    "blocked" : false
+  },
+  "admin" : {
+    "username" : "admin",
+    "password" : "admin",
+    "name" : "Aca",
+    "surname" : "Acic",
+    "gender" : "MALE",
+    "userType" : "ADMIN",
+    "dateOfBirth" : "2002-5-15",
+    "blocked" : false
+  },
+  "dos" : {
+    "username" : "dos",
+    "password" : "dps",
+    "name" : "Dos",
+    "surname" : "Dosic",
+    "gender" : "FEMALE",
+    "userType" : "DELIVERY_MAN",
+    "dateOfBirth" : "2000-06-15",
+    "blocked" : false
+  },
+  "da" : {
+    "username" : "da",
+    "password" : "da",
+    "name" : "Da",
+    "surname" : "Dic",
+    "gender" : "MALE",
+    "userType" : "BUYER",
+    "dateOfBirth" : "2021-05-20",
+    "blocked" : false
+  }
+}
