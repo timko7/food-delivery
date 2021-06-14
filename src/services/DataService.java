@@ -1,5 +1,6 @@
 package services;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -13,15 +14,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
+
+import common.Consts;
 import model.Buyer;
 import model.DeliveryMan;
 import model.Manager;
+import model.Restaurant;
 import model.User;
 import model.collection.Buyers;
 import model.collection.DeliveryMans;
 import model.collection.Managers;
+import model.collection.Restaurants;
 import model.collection.Users;
 import model.types.UserType;
+import utils.ImageWriter;
 
 @Path("/data")
 public class DataService {
@@ -65,37 +73,37 @@ public class DataService {
 		userToEdit.setPassword(user.getPassword());
 
 		users.saveUsers();
-		
+
 		if (userToEdit.getUserType().equals(UserType.BUYER)) {
 			Buyers buyers = Data.getBuyers(servletContext);
 			Buyer buyer = buyers.containsUsername(user.getUsername());
-			
+
 			buyer.setName(user.getName());
 			buyer.setSurname(user.getSurname());
 			buyer.setPassword(user.getPassword());
-			
+
 			buyers.saveBuyers();
 		}
-		
+
 		if (userToEdit.getUserType().equals(UserType.MANAGER)) {
 			Managers managers = Data.getManagers(servletContext);
 			Manager manager = managers.containsUsername(user.getUsername());
-			
+
 			manager.setName(user.getName());
 			manager.setSurname(user.getSurname());
 			manager.setPassword(user.getPassword());
-			
+
 			managers.saveManagers();
 		}
-		
+
 		if (userToEdit.getUserType().equals(UserType.DELIVERY_MAN)) {
 			DeliveryMans deliveryMans = Data.getDeliveryMans(servletContext);
 			DeliveryMan deliveryMan = deliveryMans.containsUsername(user.getUsername());
-			
+
 			deliveryMan.setName(user.getName());
 			deliveryMan.setSurname(user.getSurname());
 			deliveryMan.setPassword(user.getPassword());
-			
+
 			deliveryMans.saveDeliveryMans();
 		}
 
@@ -136,7 +144,7 @@ public class DataService {
 		return ret;
 
 	}
-	
+
 	@GET
 	@Path("/getUsersSortSurnameA")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -199,20 +207,20 @@ public class DataService {
 		} else {
 			userM.setUserType(UserType.MANAGER);
 			userM.setBlocked(false);
-			
+
 			users.getUsers().put(userM.getUsername(), userM);
 			users.saveUsers();
-			
+
 			Manager manager = new Manager();
 			manager = manager.makeFromUser(userM);
-			
+
 			managers.getManagers().put(manager.getUsername(), manager);
 			managers.saveManagers();
-			
+
 			return userM;
 		}
 	}
-	
+
 	@POST
 	@Path("/addDeliveryMan")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -227,18 +235,71 @@ public class DataService {
 		} else {
 			userD.setUserType(UserType.DELIVERY_MAN);
 			userD.setBlocked(false);
-			
+
 			users.getUsers().put(userD.getUsername(), userD);
 			users.saveUsers();
-			
+
 			DeliveryMan deliveryMan = new DeliveryMan();
 			deliveryMan = deliveryMan.makeFromUser(userD);
-			
+
 			deliveryMans.getDeliveryMans().put(deliveryMan.getUsername(), deliveryMan);
 			deliveryMans.saveDeliveryMans();
-			
+
 			return userD;
 		}
+	}
+
+	@POST
+	@Path("/addRestaurant")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant addRestaurant(Restaurant restaurant) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+
+		if (restaurants.containsName(restaurant.getName()) == null) {
+			restaurant.setDeleted(false);
+			restaurant.setOpen(true);
+			restaurant.setLogo("logoPath");
+			restaurants.getRestaurants().put(restaurant.getName(), restaurant);
+			restaurants.saveRestaurants();
+			
+			return restaurant;
+		}
+
+		return null;
+	}
+
+	@POST
+	@Path("/addLogoForRestaurant")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant addLogoForRestaurant(@FormDataParam("name") String name,
+			@FormDataParam("file") InputStream inputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(name);
+
+		if (restaurant == null) {
+			return null;
+		} else {
+			String logoLocation = servletContext.getRealPath("") + Consts.restaurantsLogoLocation + "/" + name;
+			System.out.println("TEST(addLogoRest..) -> string logoLocation: " + logoLocation);
+			ImageWriter.saveImage(logoLocation, inputStream, fileDetail);
+			restaurant.setLogo(
+					Consts.restaurantsLogoLocation + "/" + restaurant.getName() + "/" + fileDetail.getFileName());
+			restaurants.saveRestaurants();
+		}
+
+		return restaurant;
+	}
+
+	
+	@GET
+	@Path("getAllRestaurants")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Restaurant> getAllRestaurants() {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		return restaurants.getRestaurants().values();
 	}
 	
 }

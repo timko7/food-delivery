@@ -21,7 +21,7 @@ import model.Manager;
 
 public class Managers {
 	
-	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\data\\managers.json";
+	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\managers.json";
 
 	private HashMap<String, Manager> managers;
 	

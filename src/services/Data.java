@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 import model.collection.Buyers;
 import model.collection.DeliveryMans;
 import model.collection.Managers;
+import model.collection.Restaurants;
 import model.collection.Users;
 
 public class Data {
@@ -41,15 +42,25 @@ public class Data {
 
 		return managers;
 	}
-	
+
 	public static DeliveryMans getDeliveryMans(ServletContext sCtx) {
 		DeliveryMans deliveryMans = (DeliveryMans) sCtx.getAttribute("deliveryMans");
-		
+
 		if (deliveryMans == null) {
 			deliveryMans = new DeliveryMans();
 			sCtx.setAttribute("deliveryMans", deliveryMans);
 		}
-		
+
 		return deliveryMans;
+	}
+
+	public static Restaurants getRestaurants(ServletContext sCtx) {
+		Restaurants restaurants = (Restaurants) sCtx.getAttribute("restaurants");
+
+		if (restaurants == null) {
+			restaurants = new Restaurants();
+			sCtx.setAttribute("restaurants", restaurants);
+		}
+		return restaurants;
 	}
 }

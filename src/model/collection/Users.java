@@ -26,7 +26,7 @@ import model.types.UserType;
 
 public class Users {
 
-	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\data\\users.json";
+	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\users.json";
 
 	private HashMap<String, User> users;
 

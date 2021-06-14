@@ -17,25 +17,25 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-import model.DeliveryMan;
+import model.Restaurant;
 
-public class DeliveryMans {
+public class Restaurants {
 
-	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\deliveryMans.json";
+	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\restaurants.json";
 
-	private HashMap<String, DeliveryMan> deliveryMans;
+	private HashMap<String, Restaurant> restaurants;
 
-	public DeliveryMans() {
+	public Restaurants() {
 		this(filePath);
 	}
 
-	public DeliveryMans(String path) {
-		deliveryMans = new HashMap<>();
-		loadDeliveryMans(path);
+	public Restaurants(String path) {
+		restaurants = new HashMap<>();
+		loadRestaurants(path);
 	}
 
-	public void saveDeliveryMans() {
-		System.out.println("Usao u save DeliveryMans..");
+	public void saveRestaurants() {
+		System.out.println("Usao u save Restaurants..");
 		File file = new File(filePath);
 		try {
 			file.createNewFile();
@@ -52,9 +52,9 @@ public class DeliveryMans {
 			// Through the configure method we can extend the default process to ignore the
 			// new fields
 			objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-			String deliveryMansToString = objectMapper.writeValueAsString(deliveryMans);
-			fileWriter.write(deliveryMansToString);
-			System.out.println("deliveryMansssss.... " + deliveryMansToString);
+			String restaurantsToString = objectMapper.writeValueAsString(restaurants);
+			fileWriter.write(restaurantsToString);
+			System.out.println("restaurantsssss.... " + restaurantsToString);
 			fileWriter.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class DeliveryMans {
 	}
 
 	@SuppressWarnings("unchecked")
-	public void loadDeliveryMans(String contextPath) {
+	public void loadRestaurants(String contextPath) {
 		File file = null;
 		FileWriter fileWriter = null;
 		BufferedReader in = null;
@@ -85,9 +85,9 @@ public class DeliveryMans {
 					VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
 
 			TypeFactory factory = TypeFactory.defaultInstance();
-			MapType type = factory.constructMapType(HashMap.class, String.class, DeliveryMan.class);
+			MapType type = factory.constructMapType(HashMap.class, String.class, Restaurant.class);
 			objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-			deliveryMans = (HashMap<String, DeliveryMan>) objectMapper.readValue(file, type);
+			restaurants = (HashMap<String, Restaurant>) objectMapper.readValue(file, type);
 		} catch (FileNotFoundException fnf) {
 			try {
 				file.createNewFile();
@@ -95,8 +95,8 @@ public class DeliveryMans {
 				ObjectMapper objectMapper = new ObjectMapper();
 				objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
 				objectMapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
-				String deliveryMansToString = objectMapper.writeValueAsString(deliveryMans);
-				fileWriter.write(deliveryMansToString);
+				String restaurantsToString = objectMapper.writeValueAsString(restaurants);
+				fileWriter.write(restaurantsToString);
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 			} finally {
@@ -119,21 +119,21 @@ public class DeliveryMans {
 				}
 			}
 		}
-		System.out.println("LOADED DeliveryMans: " + deliveryMans);
+		System.out.println("LOADED RESTAURANTS: " + restaurants);
 	}
 
-	public HashMap<String, DeliveryMan> getDeliveryMans() {
-		return deliveryMans;
+	public HashMap<String, Restaurant> getRestaurants() {
+		return restaurants;
 	}
 
-	public void setDeliveryMans(HashMap<String, DeliveryMan> deliveryMans) {
-		this.deliveryMans = deliveryMans;
+	public void setRestaurants(HashMap<String, Restaurant> restaurants) {
+		this.restaurants = restaurants;
 	}
 
-	public DeliveryMan containsUsername(String username) {
-		for (DeliveryMan deliveryMan : deliveryMans.values()) {
-			if (deliveryMan.getUsername().equals(username)) {
-				return deliveryMan;
+	public Restaurant containsName(String name) {
+		for (Restaurant restaurant : restaurants.values()) {
+			if (restaurant.getName().equals(name)) {
+				return restaurant;
 			}
 		}
 		return null;

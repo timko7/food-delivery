@@ -21,7 +21,7 @@ import model.Buyer;
 
 public class Buyers {
 
-	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\data\\buyers.json";
+	public static String filePath = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\buyers.json";
 
 	private HashMap<String, Buyer> buyers;
 
