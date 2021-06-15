@@ -255,13 +255,19 @@ public class DataService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Restaurant addRestaurant(Restaurant restaurant) {
 		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Managers managers = Data.getManagers(servletContext);
+		Manager manager = managers.containsUsername(restaurant.getManagerUsername());
 
-		if (restaurants.containsName(restaurant.getName()) == null) {
+		if (restaurants.containsName(restaurant.getName()) == null && manager != null) {
 			restaurant.setDeleted(false);
 			restaurant.setOpen(true);
 			restaurant.setLogo("logoPath");
 			restaurants.getRestaurants().put(restaurant.getName(), restaurant);
 			restaurants.saveRestaurants();
+			
+			manager.setRestaurant(restaurant.getName());
+			manager.setInCharge(true);
+			managers.saveManagers();
 			
 			return restaurant;
 		}
@@ -301,5 +307,19 @@ public class DataService {
 		Restaurants restaurants = Data.getRestaurants(servletContext);
 		return restaurants.getRestaurants().values();
 	}
+	
+	@GET
+	@Path("/getFreeManagers")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Manager> getFreeManagers() {
+		Managers managers = Data.getManagers(servletContext);
+		
+		ArrayList<Manager> freeManagers = new ArrayList<>();
+		freeManagers = managers.getFreeManagers();
+
+		return freeManagers;
+	}
+	
+	
 	
 }

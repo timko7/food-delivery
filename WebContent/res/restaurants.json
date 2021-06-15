@@ -1,19 +1,20 @@
 {
   "A" : {
     "name" : "A",
-    "type" : "a",
+    "type" : "as",
     "open" : true,
     "logo" : "res/images/restaurants/A/1_PHuNOhupnXwBWWUtYuieag.jpeg",
     "averageRating" : 0.0,
+    "managerUsername" : "men",
     "items" : [ ],
     "comments" : [ ],
     "location" : {
-      "longitude" : "2",
-      "latitude" : "3",
-      "street" : "4",
-      "number" : "1",
-      "place" : "Ter",
-      "postalCode" : "123",
+      "longitude" : "1",
+      "latitude" : "2",
+      "street" : "3",
+      "number" : "4",
+      "place" : "Petr",
+      "postalCode" : "1213",
       "address" : null
     },
     "deleted" : false

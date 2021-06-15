@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -137,6 +138,16 @@ public class Managers {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<Manager> getFreeManagers() {
+		ArrayList<Manager> ret = new ArrayList<>();
+		for (Manager manager : managers.values()) {
+			if (!manager.isInCharge()) {
+				ret.add(manager);
+			}
+		}
+		return ret;
 	}
 	
 	

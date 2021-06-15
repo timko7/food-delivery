@@ -8,7 +8,7 @@
     "userType" : "MANAGER",
     "dateOfBirth" : "2017-06-05",
     "blocked" : false,
-    "restaurant" : "",
-    "inCharge" : false
+    "restaurant" : "A",
+    "inCharge" : true
   }
 }

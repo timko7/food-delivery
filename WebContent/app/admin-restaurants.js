@@ -13,9 +13,12 @@ Vue.component('admin-restaurants', {
 					place: null,
 					postalCode: null,
 				},
+				managerUsername: null,
 			},
 			selectedLogo: null,
 			restaurants: [],
+			freeManagers: [],
+			restManager: null,
 		}
 	},
 	
@@ -103,6 +106,21 @@ Vue.component('admin-restaurants', {
 	                        <td><input class="btn btn-primary" type="file" accept="image/*" v-on:change="onFileChanged" /></td>
 	                        <td><img style="width: 100px; cursor: pointer;" :src="restaurant.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
 	                    </tr>
+	                    
+	                    <tr>
+                            <td>Menadžer</td>
+                            <td>
+                                <select v-model="restaurant.managerUsername">
+                                    <option v-for="man in freeManagers" :value="man.username">{{man.name}} {{man.surname}} ({{man.username}})</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>test</td>
+                            <td>
+                                <button class="btn btn-primary" v-on:click="test()">TEST</button>
+                            </td>
+                        </tr>
 	
 	                    <tr>
 	                        <td><button class="btn btn-primary" v-on:click="addRestaurant()">Dodaj</button>
@@ -190,11 +208,24 @@ Vue.component('admin-restaurants', {
 				toastt('Niste odabrali logo restorana!')
 				return false;
 			}
+			if (this.restaurant.managerUsername == null) {
+				toastt('Niste odabrali menadžera!')
+				return false;
+			}
+			
 			return true;
 		},
 		
 		getAllRestaurants: function() {
             axios.get('rest/data/getAllRestaurants').then(response => this.restaurants = response.data);
+		},
+		
+		test: function () {
+			console.log('Odabrani man: ', this.testVal);
+		},
+		
+		getFreeManagers: function() {
+			axios.get('rest/data/getFreeManagers').then(response => this.freeManagers = response.data);
 		}
 		
 	},
@@ -203,5 +234,6 @@ Vue.component('admin-restaurants', {
 	
 	mounted() {
 		this.getAllRestaurants();
+		this.getFreeManagers();
 	}
 });
