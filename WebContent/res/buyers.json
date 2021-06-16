@@ -1,0 +1,19 @@
+{
+  "da" : {
+    "username" : "da",
+    "password" : "da",
+    "name" : "Da",
+    "surname" : "Dic",
+    "gender" : "MALE",
+    "userType" : "BUYER",
+    "dateOfBirth" : "2021-05-20",
+    "blocked" : false,
+    "points" : 0,
+    "typeBuyer" : {
+      "name" : "OBICAN",
+      "discount" : 0,
+      "requiredPointsForNext" : 100
+    },
+    "orders" : [ ]
+  }
+}

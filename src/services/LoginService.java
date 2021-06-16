@@ -3,15 +3,20 @@ package services;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import model.Buyer;
+import model.TypeBuyer;
 import model.User;
+import model.collection.Buyers;
 import model.collection.Users;
 import model.types.UserType;
 
@@ -85,18 +90,46 @@ public class LoginService {
 	public User registration(User user) {
 		System.out.println("Registracija: " + user);
 		Users users = Data.getUsers(servletCtx);
+		Buyers buyers = Data.getBuyers(servletCtx);
 
 		if (users.getUsers().containsKey(user.getUsername())) {
 			return null;
 		} else {
 			user.setUserType(UserType.BUYER);
 			user.setBlocked(false);
-			
+
 			users.getUsers().put(user.getUsername(), user);
 			users.saveUsers();
-			
+
+			Buyer buyer = new Buyer();
+			buyer = buyer.makeFromUser(user);
+
+			buyer.setTypeBuyer(new TypeBuyer("OBICAN", 0, 100));
+
+			System.out.println("U registration:: " + buyer);
+			buyers.getBuyers().put(buyer.getUsername(), buyer);
+			buyers.saveBuyers();
+
 			return user;
 		}
+	}
+
+	@DELETE
+	@Path("/deleteUser/{username}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteUser(@PathParam("username") String username2) {
+		System.out.println("Deleting user: " + username2);
+		Users users = Data.getUsers(servletCtx);
+		User ret = new User();
+
+		if (!users.getUsers().containsKey(username2)) {
+			return null;
+		} else {
+			ret = users.getUsers().remove(username2);
+			users.saveUsers();
+		}
+		return Response.status(200).entity("Obrisan user: " + ret).build();
+
 	}
 
 }

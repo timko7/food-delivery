@@ -1,0 +1,42 @@
+{
+  "A" : {
+    "name" : "A",
+    "type" : "a",
+    "open" : true,
+    "logo" : "res/images/restaurants/A/1_PHuNOhupnXwBWWUtYuieag.jpeg",
+    "averageRating" : 0.0,
+    "managerUsername" : "manager",
+    "items" : [ ],
+    "comments" : [ ],
+    "location" : {
+      "longitude" : "1",
+      "latitude" : "2",
+      "street" : "3",
+      "number" : "123",
+      "place" : "DSA",
+      "postalCode" : "321",
+      "address" : null
+    },
+    "deleted" : false
+  },
+  "B" : {
+    "name" : "B",
+    "type" : "b",
+    "open" : true,
+    "logo" : "res/images/restaurants/B/IMG_20200215_124640-EFFECTS.jpg",
+    "averageRating" : 0.0,
+    "managerUsername" : "man",
+    "items" : [ ],
+    "comments" : [ ],
+    "location" : {
+      "longitude" : "1",
+      "latitude" : "2",
+      "street" : "3",
+      "number" : "4",
+      "place" : "Qweq",
+      "postalCode" : "321",
+      "address" : null
+    },
+    "deleted" : false
+  }
+}
