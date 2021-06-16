@@ -3,7 +3,6 @@ package services;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -287,10 +286,34 @@ public class DataService {
 
 		if (restaurant == null) {
 			return null;
-		} else {
+		} else {			
 			String logoLocation = servletContext.getRealPath("") + Consts.restaurantsLogoLocation + "/" + name;
 			System.out.println("TEST(addLogoRest..) -> string logoLocation: " + logoLocation);
 			ImageWriter.saveImage(logoLocation, inputStream, fileDetail);
+			restaurant.setLogo(
+					Consts.restaurantsLogoLocation + "/" + restaurant.getName() + "/" + fileDetail.getFileName());
+			restaurants.saveRestaurants();
+		}
+
+		return restaurant;
+	}
+	
+	@POST
+	@Path("/addLogoForRestaurant2")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant addLogoForRestaurant2(@FormDataParam("name") String name,
+			@FormDataParam("file") InputStream inputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(name);
+
+		if (restaurant == null) {
+			return null;
+		} else {			
+			String logoLocation2 = Consts.restaurantsLogoLocation2 + "/" + name;
+			System.out.println("TEST(addLogoRest..) -> string logoLocation: " + logoLocation2);
+			ImageWriter.saveImage(logoLocation2, inputStream, fileDetail);
 			restaurant.setLogo(
 					Consts.restaurantsLogoLocation + "/" + restaurant.getName() + "/" + fileDetail.getFileName());
 			restaurants.saveRestaurants();

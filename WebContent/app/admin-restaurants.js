@@ -206,6 +206,15 @@ Vue.component('admin-restaurants', {
 							toastt('Greska prilikom dodele logoa!');
 						} else {
 							toastt('Uspesno dodat logo..');
+							
+							axios.post('rest/data/addLogoForRestaurant2', formData)
+							.then(response => {
+								if (response.data === '') {
+									toastt('Greska prilikom dodele logoa2!');
+								} else {
+									toastt('Uspesno dodat logo2..');
+								}
+							});
 						}
 					});
 				}

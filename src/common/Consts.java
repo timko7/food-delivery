@@ -10,4 +10,5 @@ public class Consts {
 	
 	public static final String restaurantsLogoLocation = "res/images/restaurants";
 
+	public static final String restaurantsLogoLocation2 = "C:\\webProjekat-workspace\\food-delivery\\WebContent\\res\\images\\restaurants";
 }
