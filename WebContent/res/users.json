@@ -19,6 +19,16 @@
     "dateOfBirth" : "2000-2-20",
     "blocked" : false
   },
+  "manager" : {
+    "username" : "manager",
+    "password" : "manager",
+    "name" : "Man",
+    "surname" : "Ager",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "2021-05-18",
+    "blocked" : false
+  },
   "men" : {
     "username" : "men",
     "password" : "men",

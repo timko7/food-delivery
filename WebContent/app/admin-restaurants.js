@@ -18,7 +18,15 @@ Vue.component('admin-restaurants', {
 			selectedLogo: null,
 			restaurants: [],
 			freeManagers: [],
-			restManager: null,
+			
+			userM: {	// restaurantManager
+                username: null,
+                password: null,
+                name: null,
+                surname: null,
+                gender: null,
+                dateOfBirth: null,
+            },
 		}
 	},
 	
@@ -104,22 +112,55 @@ Vue.component('admin-restaurants', {
 	                    <tr>
 	                        <td>Logo</td>
 	                        <td><input class="btn btn-primary" type="file" accept="image/*" v-on:change="onFileChanged" /></td>
-	                        <td><img style="width: 100px; cursor: pointer;" :src="restaurant.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
 	                    </tr>
 	                    
 	                    <tr>
                             <td>Menadžer</td>
-                            <td>
+                            <td v-if="!freeManagers.length">
+                                <div>
+                                    <table class="table-form">
+                                        <tr>
+                                            <td>Korisničko ime</td>
+                                            <td><input type="text" v-model="userM.username" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lozinka</td>
+                                            <td><input type="password" v-model="userM.password" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ime</td>
+                                            <td><input type="text" v-model="userM.name" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Prezime</td>
+                                            <td><input type="text" v-model="userM.surname" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pol</td>
+                                            <td>
+                                                <select v-model="userM.gender">
+                                                    <option value="MALE" selected>Muški</option>
+                                                    <option value="FEMALE">Ženski</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Datum rodjenja</td>
+                                            <td><input type="date" v-model="userM.dateOfBirth" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th><button type="button" class="btn btn-primary" v-on:click="addManager()" >Dodaj menadžera</button></th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </td>
+
+                            <td v-else>
                                 <select v-model="restaurant.managerUsername">
                                     <option v-for="man in freeManagers" :value="man.username">{{man.name}} {{man.surname}} ({{man.username}})</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>test</td>
-                            <td>
-                                <button class="btn btn-primary" v-on:click="test()">TEST</button>
-                            </td>
+
                         </tr>
 	
 	                    <tr>
@@ -216,12 +257,52 @@ Vue.component('admin-restaurants', {
 			return true;
 		},
 		
-		getAllRestaurants: function() {
-            axios.get('rest/data/getAllRestaurants').then(response => this.restaurants = response.data);
+		addManager: function() {
+			if (!this.checkIfInputsAreFilledManager()) {
+				return;
+			}
+			
+			axios.post('rest/data/addManager', this.userM)
+			.then(response => {
+				if (response.data === '') {
+                    toastt('Greška prilikom kreiranja menadžera. Korisničko ime je zauzeto.');
+				} else {
+					toastt('Uspešno kreiranje menadžera!');
+					this.freeManagers.push(response.data);
+				}				
+			});
 		},
 		
-		test: function () {
-			console.log('Odabrani man: ', this.testVal);
+		checkIfInputsAreFilledManager: function() {
+			if (this.userM.username == null || this.userM.username.trim() === '') {
+				toastt('Niste uneli korisničko ime!');
+				return false;
+			}
+			if (this.userM.password == null || this.userM.password.trim() === '') {
+				toastt('Niste uneli lozinku!');
+				return false;
+			} 
+			if (this.userM.name == null || this.userM.name.trim() === '') {
+				toastt('Niste uneli ime!');
+				return false;
+			}
+			if (this.userM.surname == null || this.userM.surname.trim() === '') {
+				toastt('Niste uneli prezime!');
+				return false;
+			}
+			if (this.userM.gender == null || this.userM.gender.trim() === '') {
+				toastt('Niste odabrali pol!');
+				return false;
+			}
+			if (this.userM.dateOfBirth == null) {
+				toastt('Niste uneli datum rođenja!');
+				return false;
+			}
+			return true;
+		},
+		
+		getAllRestaurants: function() {
+            axios.get('rest/data/getAllRestaurants').then(response => this.restaurants = response.data);
 		},
 		
 		getFreeManagers: function() {

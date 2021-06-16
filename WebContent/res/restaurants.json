@@ -1,7 +1,7 @@
 {
   "A" : {
     "name" : "A",
-    "type" : "as",
+    "type" : "a",
     "open" : true,
     "logo" : "res/images/restaurants/A/1_PHuNOhupnXwBWWUtYuieag.jpeg",
     "averageRating" : 0.0,
@@ -12,9 +12,29 @@
       "longitude" : "1",
       "latitude" : "2",
       "street" : "3",
-      "number" : "4",
-      "place" : "Petr",
-      "postalCode" : "1213",
+      "number" : "123",
+      "place" : "P",
+      "postalCode" : "1233",
+      "address" : null
+    },
+    "deleted" : false
+  },
+  "B" : {
+    "name" : "B",
+    "type" : "b",
+    "open" : true,
+    "logo" : "res/images/restaurants/B/1_PHuNOhupnXwBWWUtYuieag.jpeg",
+    "averageRating" : 0.0,
+    "managerUsername" : "manager",
+    "items" : [ ],
+    "comments" : [ ],
+    "location" : {
+      "longitude" : "1",
+      "latitude" : "2",
+      "street" : "3",
+      "number" : "123",
+      "place" : "Ere",
+      "postalCode" : "1233",
       "address" : null
     },
     "deleted" : false

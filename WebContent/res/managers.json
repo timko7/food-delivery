@@ -1,4 +1,16 @@
 {
+  "manager" : {
+    "username" : "manager",
+    "password" : "manager",
+    "name" : "Man",
+    "surname" : "Ager",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "2021-05-18",
+    "blocked" : false,
+    "restaurant" : "B",
+    "inCharge" : true
+  },
   "men" : {
     "username" : "men",
     "password" : "men",
