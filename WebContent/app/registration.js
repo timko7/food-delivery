@@ -109,7 +109,7 @@ Vue.component('registration', {
             	this.usnameE = false;
             }
             
-            if (this.user.password == null || this.user.username.trim() === '') {
+            if (this.user.password == null || this.user.password.trim() === '') {
                 toastt('Niste uneli lozinku.');
                 this.passE = true;
                 return false;
