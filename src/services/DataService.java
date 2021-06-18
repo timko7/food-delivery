@@ -9,6 +9,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -332,6 +333,49 @@ public class DataService {
 	}
 	
 	@GET
+	@Path("/getRestaurant/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant getRestaurant(@PathParam("restaurantName") String restaurantName) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		return restaurants.containsName(restaurantName);
+	}
+	
+	@GET
+	@Path("/openRestaurant/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant openRestaurant(@PathParam("restaurantName") String restaurantName) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return null;
+		} else {
+			restaurant.setOpen(true);
+			restaurants.saveRestaurants();
+		}
+		
+		return restaurant;
+	}
+	
+	@GET
+	@Path("/closeRestaurant/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Restaurant closeRestaurant(@PathParam("restaurantName") String restaurantName) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return null;
+		} else {
+			restaurant.setOpen(false);
+			restaurants.saveRestaurants();
+		}
+		
+		return restaurant;
+	}
+	
+	@GET
 	@Path("/getFreeManagers")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Collection<Manager> getFreeManagers() {
@@ -343,6 +387,14 @@ public class DataService {
 		return freeManagers;
 	}
 	
+	@GET
+	@Path("/getManager/{username}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Manager getManager(@PathParam("username") String username) {
+		Managers managers = Data.getManagers(servletContext);
+		return managers.containsUsername(username);
+	}
 	
 	
 }
