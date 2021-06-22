@@ -17,7 +17,7 @@ Vue.component('manager-restaurant', {
     	<div>
     		<div class='card-body'>
 	            <h3>Osnovne informacije restorana za koji sam zadužen</h3>
-	            <table class="table table-hover table-dark">
+	            <table class="table table-hover table-dark" v-if="restaurant">
 	                <thead>
 	                    <tr>
 	                        <th scope="col">Naziv</th>
@@ -41,10 +41,10 @@ Vue.component('manager-restaurant', {
 	                </tbody>
 	                
 	            </table>
-	            
-	            <button v-if="!restaurant.open" type="button" class="btn btn-dark" v-on:click="openRestaurant()" >Otvori restoran</button>
-	            <button v-if="restaurant.open" type="button" class="btn btn-dark" v-on:click="closeRestaurant()" >Zatvori restoran</button>
-	            
+	            <div v-if="restaurant">
+	            	<button v-if="!restaurant.open" type="button" class="btn btn-dark" v-on:click="openRestaurant()" >Otvori restoran</button>
+	            	<button v-if="restaurant.open" type="button" class="btn btn-dark" v-on:click="closeRestaurant()" >Zatvori restoran</button>
+	            </div>
 	        </div>
     	</div>
     	
