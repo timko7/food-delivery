@@ -36,13 +36,22 @@
       "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
       "deleted" : false
     }, {
-      "name" : "a",
-      "price" : 12,
-      "type" : "ds",
+      "name" : "v",
+      "price" : 32,
+      "type" : "vdsg",
       "restaurantName" : "B",
-      "quantity" : "fjj",
-      "description" : "fg",
-      "image" : "res/images/restaurants/B/a/appIcon3.png",
+      "quantity" : "fdssdf",
+      "description" : "sddsf",
+      "image" : "res/images/restaurants/B/v/appIcon2.png",
+      "deleted" : false
+    }, {
+      "name" : "vv",
+      "price" : 111111,
+      "type" : "sad",
+      "restaurantName" : "B",
+      "quantity" : "sfd",
+      "description" : "tttretrttrte",
+      "image" : "res/images/restaurants/B/vv/appIcon.png",
       "deleted" : false
     } ],
     "comments" : [ ],

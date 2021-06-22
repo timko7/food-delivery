@@ -483,6 +483,34 @@ public class DataService {
 		}
 	}
 	
+	@POST
+	@Path("/editItem")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item editItem(Item item) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(item.getRestaurantName());
+		
+		if (restaurant == null) {
+			return null;
+		} else {
+			Item itemToEdit = restaurant.containsItem(item.getName());
+			if (itemToEdit == null) {
+				return null;
+			} else {
+				
+				itemToEdit.setPrice(item.getPrice());
+				itemToEdit.setType(item.getType());
+				itemToEdit.setDescription(item.getDescription());
+				itemToEdit.setQuantity(item.getQuantity());
+				restaurants.saveRestaurants();
+				
+				return itemToEdit;
+			}
+		}
+		
+	}
+	
 	
 	
 }

@@ -10,6 +10,17 @@ Vue.component('manager-items', {
         		description: '',
         		image: null,
         	},
+        	backupItem: {
+        		name: null,
+        		price: null,
+        		type: null,
+        		restaurantName: null,
+        		quantity: '',
+        		description: '',
+        		image: null,
+        	},
+        	editing: false,
+        	
         	selectedImage: null,
         	
         	restaurant: null,
@@ -53,14 +64,59 @@ Vue.component('manager-items', {
                             <td>{{i.type}}</td>
                             <td>{{i.quantity}}</td>
                             <td>{{i.description}}</td>
+                            <td>
+                    			<input type="button" value="Izmeni" v-on:click="onClickEdit(i)" />
+                			</td>
 	                    </tr>
 	                </tbody>
 	                
 	            </table>
             </div>
+            
+            <div class='card-body' v-if="editing">
+                <h3>Izmena postojećeg artikla</h3>
+
+                <table>
+                    <tr>
+                        <td>Naziv</td>
+                        <td><input type="text" v-model="backupItem.name" disabled/></td>
+                    </tr>
+                    <tr>
+                        <td>Cena (RSD)</td>
+                        <td><input type="number" v-model="backupItem.price" min="0"/></td>
+                    </tr>
+                    <tr>
+                        <td>Tip</td>
+                        <td><input type="text" v-model="backupItem.type"/></td>
+                    </tr>
+
+                    <tr>
+                        <td>Slika</td>
+                        <td><input class="btn btn-primary" type="file" accept="image/*" v-on:change="onFileChanged" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Opis</td>
+                        <td><input type="text" v-model="backupItem.description"/></td>
+                    </tr>
+                    <tr>
+                        <td>Količina</td>
+                        <td><input type="text" v-model="backupItem.quantity"/></td>
+                    </tr>
 
 
-            <div class='card-body'>
+                    <tr>
+                        <td>
+                            <button class="btn btn-primary" v-on:click="editItem()">Izmeni artikal</button>
+                            <button class="btn btn-danger" v-on:click="cancelEdit()">Odustani</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+
+            <div class='card-body' v-if="!editing">
                 <h3>Dodavanje novog artikla</h3>
                 <table>
                     <tr>
@@ -144,6 +200,7 @@ Vue.component('manager-items', {
 									toastt('Greska prilikom dodele slike2!');
 								} else {
 									toastt('Uspesno dodata slika2..');
+									this.selectedImage = null;
 								}
 							});
 						}
@@ -152,6 +209,67 @@ Vue.component('manager-items', {
 			});
 		},
 		
+		onClickEdit: function(itemToEdit) {
+			this.editing = true;
+			this.backupItem = Object.assign({}, itemToEdit);
+		},
+		
+		editItem: function() {
+			if (!this.checkIfInputsAreFilled2()) {
+				return
+			}
+			axios.post('rest/data/editItem', this.backupItem)
+			.then(response => {
+                if (response.data === '') {
+                    toast('Došlo je do greške prilikom izmene artikla..');
+                    return;
+                }
+                
+                let itemToEdit = this.restaurant.items.find(obj => obj.name === this.backupItem.name);
+                this.copyDataIntoObject(itemToEdit, response.data)
+
+                if (this.selectedImage != null) {
+                    const formData = new FormData();
+                    formData.append('restaurantName', this.restaurant.name);
+					formData.append('itemName', this.backupItem.name);
+					formData.append('file', this.selectedImage, this.selectedImage.name);
+                    
+					axios.post('rest/data/addImageItem', formData)
+					.then(response => {
+						if (response.data === '') {
+							toastt('Greska prilikom dodele slike!');
+						} else {
+							toastt('Uspesno dodata slika..');
+							
+							axios.post('rest/data/addImageItem2', formData)
+							.then(response => {
+								if (response.data === '') {
+									toastt('Greska prilikom dodele slike2!');
+								} else {
+									toastt('Uspesno dodata slika2..');
+									this.selectedImage = null;
+									itemToEdit.image = response.data.image;
+								}
+							});
+						}
+					});
+                }
+            });
+			this.cancelEdit();
+			
+		},
+		
+		copyDataIntoObject : function(toObj, fromObj) {
+            toObj.price = fromObj.price;
+            toObj.type = fromObj.type;
+            toObj.description = fromObj.description;
+            toObj.quantity = fromObj.quantity;
+        },
+
+        cancelEdit() {
+        	this.editing = false;
+        },
+        
 		checkIfInputsAreFilled: function() {
 			if (this.item.name === null || this.item.name.trim() === '') {
 				toastt('Niste uneli naziv artikla!!')
@@ -170,7 +288,27 @@ Vue.component('manager-items', {
 				return false
 			}
 			return true			
-		}
+		},
+		
+		checkIfInputsAreFilled2: function() {
+			if (this.backupItem.name === null || this.backupItem.name.trim() === '') {
+				toastt('Niste uneli naziv artikla!!')
+				return false
+			}
+			if (this.backupItem.price === null) {
+				toastt('Niste uneli cenu artikla!!')
+				return false
+			}
+			if (this.backupItem.type === null || this.backupItem.type.trim() === '') {
+				toastt('Niste uneli tip artikla!!')
+				return false
+			}
+//			if (this.selectedImage === null) {
+//				toastt('Niste odabrali sliku artikla!')
+//				return false
+//			}
+			return true			
+		},
     },
 
     mounted() {
