@@ -57,7 +57,7 @@ Vue.component('manager-items', {
 	                    </tr>
 	                </thead>
 	                <tbody>
-	                    <tr v-for="i in items">
+	                    <tr v-for="i in items" v-if="!i.deleted">
 	                    	<td>{{i.name}}</td>
 	                        <td><img style="width: 200px; cursor: pointer;" :src="i.image" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
 	                		<td>{{i.price}}</td>
@@ -65,7 +65,8 @@ Vue.component('manager-items', {
                             <td>{{i.quantity}}</td>
                             <td>{{i.description}}</td>
                             <td>
-                    			<input type="button" value="Izmeni" v-on:click="onClickEdit(i)" />
+                    			<button class="btn btn-primary" v-on:click="onClickEdit(i)" >Izmeni</button>
+                            	<button class="btn btn-danger" v-on:click="deleteItem(i)" >Obriši</button>
                 			</td>
 	                    </tr>
 	                </tbody>
@@ -257,6 +258,21 @@ Vue.component('manager-items', {
             });
 			this.cancelEdit();
 			
+		},
+		
+		deleteItem: function(itemToDelete) {
+			axios.get('rest/data/deleteItem/' + itemToDelete.restaurantName + '/' + itemToDelete.name)
+			.then (response => {
+				if (response.data == '') {
+					toastt('Greška prilikom brisanja artikla!')
+					return
+				}
+				let itemToEdit = this.restaurant.items.find(obj => obj.name === itemToDelete.name);
+				itemToEdit.deleted = true;
+				toastt('asdasda', itemToEdit)
+				console.log(itemToEdit);
+				//this.backupItem = Object.assign({}, itemToEdit);
+			});
 		},
 		
 		copyDataIntoObject : function(toObj, fromObj) {

@@ -52,7 +52,7 @@
       "quantity" : "sfd",
       "description" : "tttretrttrte",
       "image" : "res/images/restaurants/B/vv/appIcon.png",
-      "deleted" : false
+      "deleted" : true
     } ],
     "comments" : [ ],
     "location" : {

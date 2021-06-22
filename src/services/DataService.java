@@ -13,6 +13,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -508,7 +509,30 @@ public class DataService {
 				return itemToEdit;
 			}
 		}
-		
+	}
+	
+	@GET
+	@Path("/deleteItem/{restaurantName}/{itemName}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cancelReservation(@PathParam("restaurantName") String restaurantName, @PathParam("itemName") String itemName) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+
+		if (restaurant == null) {
+			return null;
+		} else {
+			Item itemToDelete = restaurant.containsItem(itemName);
+			if (itemToDelete == null) {
+				return null;
+			} else {
+				
+				itemToDelete.setDeleted(true);
+				restaurants.saveRestaurants();
+				
+				return Response.ok("OK").build();
+			}
+		}
 	}
 	
 	
