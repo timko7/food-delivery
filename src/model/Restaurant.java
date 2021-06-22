@@ -19,8 +19,6 @@ public class Restaurant {
 	public Restaurant() {
 	}
 
-	
-
 	public Restaurant(String name, String type, boolean open, String logo, double averageRating, String managerUsername,
 			ArrayList<Item> items, ArrayList<Comment> comments, Location location, boolean deleted) {
 		super();
@@ -35,8 +33,6 @@ public class Restaurant {
 		this.location = location;
 		this.deleted = deleted;
 	}
-
-
 
 	public Restaurant(String name, String type, String logo, Location location, String managerUsername) {
 		super();
@@ -132,6 +128,15 @@ public class Restaurant {
 
 	public void setManagerUsername(String managerUsername) {
 		this.managerUsername = managerUsername;
+	}
+
+	public Item containsItem(String itemName) {
+		for (Item item : items) {
+			if (item.getName().equals(itemName)) {
+				return item;
+			}
+		}
+		return null;
 	}
 
 }

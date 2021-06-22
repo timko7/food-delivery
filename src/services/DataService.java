@@ -20,6 +20,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import common.Consts;
 import model.Buyer;
 import model.DeliveryMan;
+import model.Item;
 import model.Manager;
 import model.Restaurant;
 import model.User;
@@ -395,6 +396,93 @@ public class DataService {
 		Managers managers = Data.getManagers(servletContext);
 		return managers.containsUsername(username);
 	}
+	
+	// items
+	
+	@POST
+	@Path("/addItem")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item addItem(Item item) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(item.getRestaurantName());
+		
+		if (restaurant == null) {
+			return null;
+		}
+		
+		if (restaurant.containsItem(item.getName()) == null) {
+			item.setDeleted(false);
+			item.setImage("imagePath");
+			restaurant.getItems().add(item);
+			
+			restaurants.saveRestaurants();
+			return item;
+		}
+		
+		return null;
+	}
+	
+	@POST
+	@Path("/addImageItem")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item addImageItem(@FormDataParam("restaurantName") String restaurantName,
+			@FormDataParam("itemName") String itemName,
+			@FormDataParam("file") InputStream inputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+
+		if (restaurant == null) {
+			return null;
+		} else {			
+			Item item = restaurant.containsItem(itemName);
+			if (item == null) {
+				return null;
+			} else {
+				String imageLocation = servletContext.getRealPath("") + Consts.restaurantsLogoLocation + "/" + restaurantName + "/" + itemName;
+				System.out.println("TEST(addLogoRest..) -> string logoLocation: " + imageLocation);
+				ImageWriter.saveImage(imageLocation, inputStream, fileDetail);
+				item.setImage(
+						Consts.restaurantsLogoLocation + "/" + restaurant.getName() + "/" + itemName + "/" + fileDetail.getFileName());
+				restaurants.saveRestaurants();
+				
+				return item;
+			}
+		}
+	}
+	
+	@POST
+	@Path("/addImageItem2")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Item addImageItem2(@FormDataParam("restaurantName") String restaurantName,
+			@FormDataParam("itemName") String itemName,
+			@FormDataParam("file") InputStream inputStream,
+			@FormDataParam("file") FormDataContentDisposition fileDetail) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+
+		if (restaurant == null) {
+			return null;
+		} else {
+			Item item = restaurant.containsItem(itemName);
+			if (item == null) {
+				return null;
+			} else {
+				String imageLocation2 = Consts.restaurantsLogoLocation2 + "/" + restaurantName + "/" + itemName;
+				System.out.println("TEST(addLogoRest..) -> string logoLocation: " + imageLocation2);
+				ImageWriter.saveImage(imageLocation2, inputStream, fileDetail);
+				item.setImage(
+						Consts.restaurantsLogoLocation + "/" + restaurant.getName() + "/" + itemName + "/" + fileDetail.getFileName());
+				restaurants.saveRestaurants();
+				
+				return item;
+			}
+		}
+	}
+	
 	
 	
 }

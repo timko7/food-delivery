@@ -22,11 +22,29 @@
   "B" : {
     "name" : "B",
     "type" : "b",
-    "open" : false,
+    "open" : true,
     "logo" : "res/images/restaurants/B/IMG_20200215_124640-EFFECTS.jpg",
     "averageRating" : 0.0,
     "managerUsername" : "man",
-    "items" : [ ],
+    "items" : [ {
+      "name" : "Art1",
+      "price" : 133,
+      "type" : "Pice",
+      "restaurantName" : "B",
+      "quantity" : "",
+      "description" : "Ovo je artikal prvi..",
+      "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+      "deleted" : false
+    }, {
+      "name" : "a",
+      "price" : 12,
+      "type" : "ds",
+      "restaurantName" : "B",
+      "quantity" : "fjj",
+      "description" : "fg",
+      "image" : "res/images/restaurants/B/a/appIcon3.png",
+      "deleted" : false
+    } ],
     "comments" : [ ],
     "location" : {
       "longitude" : "1",
