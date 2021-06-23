@@ -29,6 +29,16 @@
     "dateOfBirth" : "2021-06-02",
     "blocked" : false
   },
+  "peca" : {
+    "username" : "peca",
+    "password" : "peca",
+    "name" : "Peca",
+    "surname" : "Pecic",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "2021-06-15",
+    "blocked" : false
+  },
   "admin" : {
     "username" : "admin",
     "password" : "admin",

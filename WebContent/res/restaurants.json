@@ -65,5 +65,25 @@
       "address" : null
     },
     "deleted" : false
+  },
+  "C" : {
+    "name" : "C",
+    "type" : "c",
+    "open" : true,
+    "logo" : "res/images/restaurants/C/appIcon.png",
+    "averageRating" : 0.0,
+    "managerUsername" : "peca",
+    "items" : [ ],
+    "comments" : [ ],
+    "location" : {
+      "longitude" : "1",
+      "latitude" : "2",
+      "street" : "3",
+      "number" : "313",
+      "place" : "Trea",
+      "postalCode" : "142142",
+      "address" : null
+    },
+    "deleted" : false
   }
 }

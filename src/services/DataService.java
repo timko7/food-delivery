@@ -335,6 +335,15 @@ public class DataService {
 	}
 	
 	@GET
+	@Path("/getRestaurantsOpenFirst")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Restaurant> getRestaurantsOpenFirst() {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		ArrayList<Restaurant> ret = restaurants.sortOpenFirst();
+		return ret;
+	}
+	
+	@GET
 	@Path("/getRestaurant/{restaurantName}")
 	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)

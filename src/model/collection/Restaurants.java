@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -137,6 +140,17 @@ public class Restaurants {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<Restaurant> sortOpenFirst() {
+		ArrayList<Restaurant> ret = new ArrayList<>();
+		for (Restaurant restaurant : restaurants.values()) {
+			ret.add(restaurant);
+		}
+		ret.sort(Comparator.comparing(Restaurant::isOpen));
+		Collections.reverse(ret);
+		
+		return ret;
 	}
 
 }
