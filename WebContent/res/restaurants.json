@@ -22,7 +22,7 @@
   "B" : {
     "name" : "B",
     "type" : "b",
-    "open" : false,
+    "open" : true,
     "logo" : "res/images/restaurants/B/IMG_20200215_124640-EFFECTS.jpg",
     "averageRating" : 0.0,
     "managerUsername" : "man",

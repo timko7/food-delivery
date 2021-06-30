@@ -2,13 +2,14 @@ Vue.component('home-page-buyer', {
 	data: function() {
 		return {
 			currentComponent: 'profile-settings',
+			buyer: null,
 		}
 	},
 	
 	props: [
-		'user',
-	],
-	
+        'user',
+    ],
+    
 	template:
 	`
 	<div>
@@ -17,13 +18,14 @@ Vue.component('home-page-buyer', {
     		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
             
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>    		
-    		<li><a href="#" v-on:click="showComponent('buyer-restaurants')">Restorani</a></li>    		
+    		<li><a href="#" v-on:click="showComponent('buyer-restaurants')">Restorani</a></li>
+    		<li><a href="#" v-on:click="showComponent('buyer-cart')">Korpa</a></li> 
     		
     		
     		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
     	</ul>
     	
-    	<component :is="currentComponent" :user="user"></component>
+    	<component :is="currentComponent" :user="user" :buyer="buyer"></component>
     </div>
 	`,
 	
@@ -41,7 +43,7 @@ Vue.component('home-page-buyer', {
     },
 
     mounted() {
-
+    	axios.get('rest/data/getBuyer').then(response => this.buyer = response.data);
     }
 	
 });

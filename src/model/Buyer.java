@@ -19,13 +19,14 @@ public class Buyer {
 	private int points;
 	private TypeBuyer typeBuyer;
 	private ArrayList<Order> orders = new ArrayList<>();
+	private Cart cart;
 
 	public Buyer() {
 
 	}
 
 	public Buyer(String username, String password, String name, String surname, Gender gender, UserType userType,
-			String dateOfBirth, boolean blocked, int points, TypeBuyer typeBuyer, ArrayList<Order> orders) {
+			String dateOfBirth, boolean blocked, int points, TypeBuyer typeBuyer, ArrayList<Order> orders, Cart cart) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -38,6 +39,7 @@ public class Buyer {
 		this.points = points;
 		this.typeBuyer = typeBuyer;
 		this.orders = orders;
+		this.cart = cart;
 	}
 
 	public Buyer makeFromUser(User user) {
@@ -146,13 +148,20 @@ public class Buyer {
 		this.orders = orders;
 	}
 
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	@Override
 	public String toString() {
 		return "Buyer [username=" + username + ", password=" + password + ", name=" + name + ", surname=" + surname
 				+ ", gender=" + gender + ", userType=" + userType + ", dateOfBirth=" + dateOfBirth + ", blocked="
-				+ blocked + ", points=" + points + ", typeBuyer=" + typeBuyer + ", orders=" + orders + "]";
+				+ blocked + ", points=" + points + ", typeBuyer=" + typeBuyer + ", orders=" + orders + ", cart=" + cart
+				+ "]";
 	}
-	
-	
 
 }

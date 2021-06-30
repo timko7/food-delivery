@@ -4,8 +4,16 @@ Vue.component('buyer-restaurants', {
         	restaurants: [],
         	restaurantBackup: null,
         	showingOne: false,
+        	itemInChartToAdd: {
+        		item: null,
+        		quantity: null,
+        	}
         }
     },
+    
+    props: [
+        'buyer',
+    ],
     
     template:
     `
@@ -102,6 +110,10 @@ Vue.component('buyer-restaurants', {
 	                        <td><img style="width: 200px; cursor: pointer;" :src="i.image" alt="Slika ne postoji" /></td>
                             <td>{{i.description}}</td>
 	                		<td>{{i.price}}</td>
+	                		<td v-if="restaurantBackup.open">
+                                <input type="number" min="1" style="width: 50px;" value="1" v-model="itemInChartToAdd.quantity"/>
+                                <button class="btn btn-primary" v-on:click="addInCart(i)">Dodaj u korpu</button>
+	                		</td>
 	                    </tr>
 	                </tbody>
 	            </table>
@@ -114,6 +126,8 @@ Vue.component('buyer-restaurants', {
             <div class='card-body'>
                 
                 Komentari...
+                buyer::
+                {{buyer}}
 
             </div>
 
@@ -131,9 +145,33 @@ Vue.component('buyer-restaurants', {
     		this.showingOne = false;
     		this.restaurantBackup = Object.assign({}, {});
     	},
+    	
+    	addInCart: function(itemToAdd) {
+    		if (this.itemInChartToAdd.quantity == null || this.itemInChartToAdd.quantity < 1) {
+    			toastt('Količina ne može biti manja od 1!')
+    			return
+    		}
+    		this.itemInChartToAdd.item = Object.assign({}, itemToAdd);
+    		
+    		//check if an item is from same restaurant as other items in cart
+    		axios.post('rest/data/addItemInChartToAdd', this.itemInChartToAdd)
+    		.then(response => {
+    			if (response.data === '') {
+					toastt('Greska prilikom dodavanja u korpu! \n Može se dodati samo iz istog restorana!');
+				} else {
+					toastt('Uspešno dodato u korpu..');
+					this.buyer.cart.itemsInCart.push(response.data);
+				}
+    		})
+    		.catch(error => {
+				toastt('Greska prilikom dodavanja u korpu! \n Može se dodati samo iz istog restorana!');
+				console.log('Greska prilikom dodavanja u korpu! \n Može se dodati samo iz istog restorana!');
+    		})
+    	}
     },
 
     mounted() {
     	axios.get('rest/data/getRestaurantsOpenFirst').then(response => this.restaurants = response.data);
+
     }
 });

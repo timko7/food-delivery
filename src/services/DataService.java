@@ -8,12 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -22,6 +24,7 @@ import common.Consts;
 import model.Buyer;
 import model.DeliveryMan;
 import model.Item;
+import model.ItemInCart;
 import model.Manager;
 import model.Restaurant;
 import model.User;
@@ -221,6 +224,19 @@ public class DataService {
 
 			return userM;
 		}
+	}
+	
+	@GET
+	@Path("/getBuyer")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Buyer getBuyer() {
+		User user = (User) request.getSession().getAttribute("user-info");
+		
+		if (user != null) {
+			Buyers buyers = Data.getBuyers(servletContext);
+			return buyers.containsUsername(user.getUsername());		
+		}
+		return null;
 	}
 
 	@POST
@@ -544,6 +560,67 @@ public class DataService {
 		}
 	}
 	
+	
+	@POST
+	@Path("/addItemInChartToAdd")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addItemInChartToAdd(ItemInCart itemInCartToAdd) {
+		User user = (User) request.getSession().getAttribute("user-info");
+		if (user == null) {
+			return Response.status(400).entity("Buyer not logged in!!").build();
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsUsername(user.getUsername());	
+		if (buyer == null) {
+			return Response.status(400).entity("Buyer not found!!").build();
+		}
+		
+		if (buyer.getCart().getItemsInCart().isEmpty()) {
+			buyer.getCart().getItemsInCart().add(itemInCartToAdd);
+			buyers.saveBuyers();
+			return Response.ok(itemInCartToAdd).build();
+		} else {
+			String restaurantName = buyer.getCart().getItemsInCart().get(0).getItem().getRestaurantName();
+			if (restaurantName.equals(itemInCartToAdd.getItem().getRestaurantName())) {
+				if (buyer.getCart().containsItemInCart(itemInCartToAdd.getItem().getName()) != null) {
+					return Response.status(Status.BAD_REQUEST).entity("Item is already in cart!").build();
+				}
+				buyer.getCart().getItemsInCart().add(itemInCartToAdd);
+				buyers.saveBuyers();
+				return Response.ok(itemInCartToAdd).build();
+			}
+			else {
+				return Response.status(400).entity("Cannot order from different restaurant!!").build();
+			}
+		}
+	}
+	
+	@PUT
+	@Path("/changeItemInCart")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ItemInCart changeItemInCart(ItemInCart itemInCart) {
+		User user = (User) request.getSession().getAttribute("user-info");
+		if (user == null) {
+			return null;
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsUsername(user.getUsername());	
+		if (buyer == null) {
+			return null;
+		}
+		
+		ItemInCart ret = buyer.getCart().containsItemInCart(itemInCart.getItem().getName());
+
+		if (ret != null) {
+			ret.setQuantity(itemInCart.getQuantity());
+			buyers.saveBuyers();
+		}
+		return ret;		
+	}
 	
 	
 }

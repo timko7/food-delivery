@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import model.Buyer;
+import model.Cart;
 import model.TypeBuyer;
 import model.User;
 import model.collection.Buyers;
@@ -105,6 +106,7 @@ public class LoginService {
 			buyer = buyer.makeFromUser(user);
 
 			buyer.setTypeBuyer(new TypeBuyer("OBICAN", 0, 100));
+			buyer.setCart(new Cart(user.getUsername(), 0));
 
 			System.out.println("U registration:: " + buyer);
 			buyers.getBuyers().put(buyer.getUsername(), buyer);

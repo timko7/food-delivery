@@ -6,7 +6,7 @@
     "surname" : "Dic",
     "gender" : "MALE",
     "userType" : "BUYER",
-    "dateOfBirth" : "2021-05-20",
+    "dateOfBirth" : "2021-06-11",
     "blocked" : false,
     "points" : 0,
     "typeBuyer" : {
@@ -14,6 +14,35 @@
       "discount" : 0,
       "requiredPointsForNext" : 100
     },
-    "orders" : [ ]
+    "orders" : [ ],
+    "cart" : {
+      "username" : "da",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "v",
+          "price" : 32,
+          "type" : "vdsg",
+          "restaurantName" : "B",
+          "quantity" : "fdssdf",
+          "description" : "sddsf",
+          "image" : "res/images/restaurants/B/v/appIcon2.png",
+          "deleted" : false
+        },
+        "quantity" : 1
+      }, {
+        "item" : {
+          "name" : "Art1",
+          "price" : 133,
+          "type" : "Pice",
+          "restaurantName" : "B",
+          "quantity" : "",
+          "description" : "Ovo je artikal prvi..",
+          "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+          "deleted" : false
+        },
+        "quantity" : 5
+      } ],
+      "price" : 0
+    }
   }
 }
