@@ -17,7 +17,7 @@ Vue.component('buyer-cart', {
             <div class='card-header'>
                 <h2>Sadržaj moje korpe</h2>
             </div>
-
+            
             <div class='card-body'>
                 
                 <table class="table table-hover table-dark">
@@ -48,6 +48,15 @@ Vue.component('buyer-cart', {
 	            </table>
 
             </div>
+            
+            <div class='card-body'>
+	            
+	    		<div class="d-inline m-1">Ukupna cena porudžbine(u dinarima):</div>
+				<div class="d-inline"><u>{{buyer.cart.price}}..</u></div>
+				<div class="d-inline m-3">
+	            	<button class="btn btn-primary" @click="makeOrder()">Poruči</button>
+    			</div>
+    		</div>
 
 
         </div>
@@ -68,6 +77,13 @@ Vue.component('buyer-cart', {
 					const index = this.buyer.cart.itemsInCart.indexOf(itemInCart);
 					if (index > -1) {
 						this.buyer.cart.itemsInCart.splice(index, 1);
+						
+						let priceCartNew = 0;
+    					
+    					this.buyer.cart.itemsInCart.forEach(i => {
+    						priceCartNew = priceCartNew + i.item.price * i.quantity;
+    					})
+    					this.buyer.cart.price = priceCartNew;
 					}
 				}
     		})
@@ -87,6 +103,12 @@ Vue.component('buyer-cart', {
     				} else {
     					toastt('Uspešno promenjena količina u korpi!');
     					itemInCart = response.data;
+    					let priceCartNew = 0;
+    					
+    					this.buyer.cart.itemsInCart.forEach(i => {
+    						priceCartNew = priceCartNew + i.item.price * i.quantity;
+    					})
+    					this.buyer.cart.price = priceCartNew;
     				}
     			});
     		} else {
@@ -97,6 +119,12 @@ Vue.component('buyer-cart', {
     				} else {
     					toastt('Uspešno promenjena količina u korpi!');
     					itemInCart = response.data;
+    					let priceCartNew = 0;
+    					
+    					this.buyer.cart.itemsInCart.forEach(i => {
+    						priceCartNew = priceCartNew + i.item.price * i.quantity;
+    					})
+    					this.buyer.cart.price = priceCartNew;
     				}
     			});
     		}

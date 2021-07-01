@@ -161,6 +161,7 @@ Vue.component('buyer-restaurants', {
 				} else {
 					toastt('Uspešno dodato u korpu..');
 					this.buyer.cart.itemsInCart.push(response.data);
+					this.buyer.cart.price = this.buyer.cart.price + response.data.item.price * response.data.quantity;
 				}
     		})
     		.catch(error => {

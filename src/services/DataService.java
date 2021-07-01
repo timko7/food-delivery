@@ -579,6 +579,7 @@ public class DataService {
 		
 		if (buyer.getCart().getItemsInCart().isEmpty()) {
 			buyer.getCart().getItemsInCart().add(itemInCartToAdd);
+			buyer.getCart().setPrice(itemInCartToAdd.getQuantity() * itemInCartToAdd.getItem().getPrice());
 			buyers.saveBuyers();
 			return Response.ok(itemInCartToAdd).build();
 		} else {
@@ -588,6 +589,9 @@ public class DataService {
 					return Response.status(Status.BAD_REQUEST).entity("Item is already in cart!").build();
 				}
 				buyer.getCart().getItemsInCart().add(itemInCartToAdd);
+				int priceToAdd = itemInCartToAdd.getQuantity() * itemInCartToAdd.getItem().getPrice();
+				int oldPrice = buyer.getCart().getPrice();
+				buyer.getCart().setPrice(oldPrice + priceToAdd);
 				buyers.saveBuyers();
 				return Response.ok(itemInCartToAdd).build();
 			}
@@ -616,7 +620,9 @@ public class DataService {
 		ItemInCart ret = buyer.getCart().containsItemInCart(itemInCart.getItem().getName());
 
 		if (ret != null) {
+			int priceWithoutItem = buyer.getCart().getPrice() - ret.getQuantity() * ret.getItem().getPrice();
 			ret.setQuantity(itemInCart.getQuantity());
+			buyer.getCart().setPrice(priceWithoutItem + itemInCart.getQuantity() * itemInCart.getItem().getPrice());
 			buyers.saveBuyers();
 		}
 		return ret;		
@@ -642,6 +648,8 @@ public class DataService {
 		
 		if (toDelete != null) {
 			buyer.getCart().getItemsInCart().remove(toDelete);
+			int priceToSet = buyer.getCart().getPrice() - itemInCart.getItem().getPrice() * itemInCart.getQuantity();
+			buyer.getCart().setPrice(priceToSet);
 			buyers.saveBuyers();
 			return Response.ok("Successfully removed from cart!").build();
 		} else {
