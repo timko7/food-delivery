@@ -58,8 +58,22 @@ Vue.component('buyer-cart', {
     `,
         
     methods: {
-    	changeQuantity: function(itemInCart) {
-    		console.log(itemInCart);
+    	removeFromCart: function(itemInCart) {
+    		axios.put('rest/data/deleteItemInCart', itemInCart)
+    		.then(response => {
+    			if (response.data === '') {
+					toastt('Greška prilikom izbacivanja iz korpe!');
+				} else {
+					toastt('Uspešno izbacivanje iz korpe!');
+					const index = this.buyer.cart.itemsInCart.indexOf(itemInCart);
+					if (index > -1) {
+						this.buyer.cart.itemsInCart.splice(index, 1);
+					}
+				}
+    		})
+    		.catch(error => {
+				toastt('Greška prilikom izbacivanja iz korpe!');
+    		})
     	},
     	
     	onChange: function(itemInCart) {

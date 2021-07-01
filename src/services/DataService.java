@@ -622,5 +622,33 @@ public class DataService {
 		return ret;		
 	}
 	
+	@PUT
+	@Path("/deleteItemInCart")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response deleteItemInCart(ItemInCart itemInCart) {
+		User user = (User) request.getSession().getAttribute("user-info");
+		if (user == null) {
+			return Response.status(400).entity("Cannot remove item from cart! \nUser not logged in!").build();
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsUsername(user.getUsername());	
+		if (buyer == null) {
+			return Response.status(400).entity("Cannot remove item from cart! \nCannot find buyer!").build();
+		}
+		
+		ItemInCart toDelete = buyer.getCart().containsItemInCart(itemInCart.getItem().getName());
+		
+		if (toDelete != null) {
+			buyer.getCart().getItemsInCart().remove(toDelete);
+			buyers.saveBuyers();
+			return Response.ok("Successfully removed from cart!").build();
+		} else {
+			return Response.status(400).entity("Cannot remove item from cart! \nItem not found!").build();
+		}
+		
+	}
+	
 	
 }
