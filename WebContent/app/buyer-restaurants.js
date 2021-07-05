@@ -7,7 +7,8 @@ Vue.component('buyer-restaurants', {
         	itemInChartToAdd: {
         		item: null,
         		quantity: null,
-        	}
+        	},
+        	quantitiesTemp: [],
         }
     },
     
@@ -105,14 +106,14 @@ Vue.component('buyer-restaurants', {
                         </tr>
 	                </thead>
 	                <tbody v-if="restaurantBackup.items">
-	                    <tr v-for="i in restaurantBackup.items" v-if="!i.deleted">
+	                    <tr v-for="(i, index) in restaurantBackup.items" v-if="!i.deleted">
 	                    	<td>{{i.name}}</td>
 	                        <td><img style="width: 200px; cursor: pointer;" :src="i.image" alt="Slika ne postoji" /></td>
                             <td>{{i.description}}</td>
 	                		<td>{{i.price}}</td>
 	                		<td v-if="restaurantBackup.open">
-                                <input type="number" min="1" style="width: 50px;" value="1" v-model="itemInChartToAdd.quantity"/>
-                                <button class="btn btn-primary" v-on:click="addInCart(i)">Dodaj u korpu</button>
+                                <input type="number" min="1" style="width: 50px;" value="1" v-model="quantitiesTemp[index]"/>
+                                <button class="btn btn-primary" v-on:click="addInCart(i, quantitiesTemp[index])">Dodaj u korpu</button>
 	                		</td>
 	                    </tr>
 	                </tbody>
@@ -139,19 +140,25 @@ Vue.component('buyer-restaurants', {
     methods: {
     	showRestaurant: function(rest) {
     		this.restaurantBackup = Object.assign({}, rest);
+    		this.restaurantBackup.items.forEach(i => {
+    			this.quantitiesTemp.push(1);
+			})
     		this.showingOne = true;
     	},
     	showAll: function() {
     		this.showingOne = false;
     		this.restaurantBackup = Object.assign({}, {});
+    		this.quantitiesTemp = [];
     	},
     	
-    	addInCart: function(itemToAdd) {
-    		if (this.itemInChartToAdd.quantity == null || this.itemInChartToAdd.quantity < 1) {
+    	addInCart: function(itemToAdd, q) {
+    		if (q == null || q < 1) {
     			toastt('Količina ne može biti manja od 1!')
     			return
     		}
+    		console.log(q, 'dfsg')
     		this.itemInChartToAdd.item = Object.assign({}, itemToAdd);
+    		this.itemInChartToAdd.quantity = q;
     		
     		//check if an item is from same restaurant as other items in cart
     		axios.post('rest/data/addItemInChartToAdd', this.itemInChartToAdd)
@@ -172,7 +179,9 @@ Vue.component('buyer-restaurants', {
     },
 
     mounted() {
-    	axios.get('rest/data/getRestaurantsOpenFirst').then(response => this.restaurants = response.data);
-
+    	axios.get('rest/data/getRestaurantsOpenFirst')
+    	.then(response => {
+    		this.restaurants = response.data
+    	})
     }
 });
