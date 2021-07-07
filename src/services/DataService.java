@@ -1,6 +1,7 @@
 package services;
 
 import java.io.InputStream;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.ServletContext;
@@ -22,17 +23,21 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 
 import common.Consts;
 import model.Buyer;
+import model.Cart;
 import model.DeliveryMan;
 import model.Item;
 import model.ItemInCart;
 import model.Manager;
+import model.Order;
 import model.Restaurant;
 import model.User;
 import model.collection.Buyers;
 import model.collection.DeliveryMans;
 import model.collection.Managers;
+import model.collection.Orders;
 import model.collection.Restaurants;
 import model.collection.Users;
+import model.types.OrderStatus;
 import model.types.UserType;
 import utils.ImageWriter;
 
@@ -658,5 +663,39 @@ public class DataService {
 		
 	}
 	
+	@POST
+	@Path("/makeOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response makeOrder(Order orderToAdd) {
+		User user = (User) request.getSession().getAttribute("user-info");
+		if (user == null) {
+			return Response.status(400).entity("Cannot make order! \nUser not logged in!").build();
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsUsername(user.getUsername());	
+		if (buyer == null) {
+			return Response.status(400).entity("Cannot make order! \nCannot find buyer!").build();
+		}
+		
+		System.out.println("USAO u MAKEoRDER..:: " + orderToAdd);
+		Orders orders = Data.getOrders(servletContext);
+		String idOrder = orders.getUniqueIdOrder();
+		System.out.println(":::ID_ORDER: " + idOrder);
+		orderToAdd.setId(idOrder);
+		orderToAdd.setDateTime(LocalDateTime.now());
+		orderToAdd.setOrderStatus(OrderStatus.PROCESSING);
+		orderToAdd.setUsernameDeliveryMan("");
+		orders.getOrders().put(orderToAdd.getId(), orderToAdd);
+		orders.saveOrders();
+		
+		buyer.getOrders().add(orderToAdd);
+		buyer.setCart(new Cart(buyer.getUsername(), 0));
+		buyers.saveBuyers();
+		
+		return Response.ok(orderToAdd).build();		
+		
+	}
 	
 }

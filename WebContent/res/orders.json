@@ -1,0 +1,60 @@
+{
+  "PJm9VGNxLf" : {
+    "id" : "PJm9VGNxLf",
+    "itemsInCart" : [ {
+      "item" : {
+        "name" : "Art1",
+        "price" : 133,
+        "type" : "Pice",
+        "restaurantName" : "B",
+        "quantity" : "",
+        "description" : "Ovo je artikal prvi..",
+        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+        "deleted" : false
+      },
+      "quantity" : 2
+    }, {
+      "item" : {
+        "name" : "v",
+        "price" : 32,
+        "type" : "vdsg",
+        "restaurantName" : "B",
+        "quantity" : "fdssdf",
+        "description" : "sddsf",
+        "image" : "res/images/restaurants/B/v/appIcon2.png",
+        "deleted" : false
+      },
+      "quantity" : 5
+    } ],
+    "restaurantName" : "B",
+    "dateTime" : {
+      "dayOfMonth" : 7,
+      "dayOfWeek" : "WEDNESDAY",
+      "month" : "JULY",
+      "year" : 2021,
+      "dayOfYear" : 188,
+      "monthValue" : 7,
+      "hour" : 16,
+      "minute" : 20,
+      "nano" : 770000000,
+      "second" : 33,
+      "chronology" : {
+        "id" : "ISO",
+        "calendarType" : "iso8601"
+      }
+    },
+    "price" : 426,
+    "nameSurname" : "Dada Dic",
+    "location" : {
+      "longitude" : null,
+      "latitude" : null,
+      "street" : "A",
+      "number" : "1",
+      "place" : "SADd",
+      "postalCode" : "12313",
+      "address" : null
+    },
+    "orderStatus" : "PROCESSING",
+    "usernameDeliveryMan" : ""
+  }
+}

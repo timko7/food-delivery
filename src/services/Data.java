@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 import model.collection.Buyers;
 import model.collection.DeliveryMans;
 import model.collection.Managers;
+import model.collection.Orders;
 import model.collection.Restaurants;
 import model.collection.Users;
 
@@ -62,5 +63,15 @@ public class Data {
 			sCtx.setAttribute("restaurants", restaurants);
 		}
 		return restaurants;
+	}
+	
+	public static Orders getOrders(ServletContext sCtx) {
+		Orders orders = (Orders) sCtx.getAttribute("orders");
+
+		if (orders == null) {
+			orders = new Orders();
+			sCtx.setAttribute("orders", orders);
+		}
+		return orders;
 	}
 }

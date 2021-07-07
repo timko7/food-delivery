@@ -72,11 +72,11 @@
   "da" : {
     "username" : "da",
     "password" : "da",
-    "name" : "Da",
+    "name" : "Dada",
     "surname" : "Dic",
     "gender" : "MALE",
     "userType" : "BUYER",
-    "dateOfBirth" : "2021-06-11",
+    "dateOfBirth" : "2012-03-25",
     "blocked" : false
   }
 }
