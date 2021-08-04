@@ -16,7 +16,7 @@ public class Buyer {
 	private String dateOfBirth; // yyyy-mm-dd
 	private boolean blocked; // true-blocked
 
-	private int points;
+	private double points;
 	private TypeBuyer typeBuyer;
 	private ArrayList<Order> orders = new ArrayList<>();
 	private Cart cart;
@@ -26,7 +26,7 @@ public class Buyer {
 	}
 
 	public Buyer(String username, String password, String name, String surname, Gender gender, UserType userType,
-			String dateOfBirth, boolean blocked, int points, TypeBuyer typeBuyer, ArrayList<Order> orders, Cart cart) {
+			String dateOfBirth, boolean blocked, double points, TypeBuyer typeBuyer, ArrayList<Order> orders, Cart cart) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -124,11 +124,11 @@ public class Buyer {
 		this.blocked = blocked;
 	}
 
-	public int getPoints() {
+	public double getPoints() {
 		return points;
 	}
 
-	public void setPoints(int points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 
@@ -163,5 +163,15 @@ public class Buyer {
 				+ blocked + ", points=" + points + ", typeBuyer=" + typeBuyer + ", orders=" + orders + ", cart=" + cart
 				+ "]";
 	}
+	
+	public Order containsOrder(String orderId) {
+		for (Order order : orders) {
+			if (order.getId().equals(orderId)) {
+				return order;
+			}
+		}
+		return null;
+	}
+	
 
 }

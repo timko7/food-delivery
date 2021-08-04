@@ -156,5 +156,14 @@ public class Orders {
 
 		return sb.toString();
 	}
+	
+	public Order containsById(String id) {
+		for (Order order : orders.values()) {
+			if (order.getId().equals(id)) {
+				return order;
+			}
+		}
+		return null;
+	}
 
 }

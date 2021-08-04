@@ -2,8 +2,10 @@ package services;
 
 import java.io.InputStream;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -30,6 +32,7 @@ import model.ItemInCart;
 import model.Manager;
 import model.Order;
 import model.Restaurant;
+import model.TypeBuyer;
 import model.User;
 import model.collection.Buyers;
 import model.collection.DeliveryMans;
@@ -594,8 +597,8 @@ public class DataService {
 					return Response.status(Status.BAD_REQUEST).entity("Item is already in cart!").build();
 				}
 				buyer.getCart().getItemsInCart().add(itemInCartToAdd);
-				int priceToAdd = itemInCartToAdd.getQuantity() * itemInCartToAdd.getItem().getPrice();
-				int oldPrice = buyer.getCart().getPrice();
+				double priceToAdd = itemInCartToAdd.getQuantity() * itemInCartToAdd.getItem().getPrice();
+				double oldPrice = buyer.getCart().getPrice();
 				buyer.getCart().setPrice(oldPrice + priceToAdd);
 				buyers.saveBuyers();
 				return Response.ok(itemInCartToAdd).build();
@@ -625,7 +628,7 @@ public class DataService {
 		ItemInCart ret = buyer.getCart().containsItemInCart(itemInCart.getItem().getName());
 
 		if (ret != null) {
-			int priceWithoutItem = buyer.getCart().getPrice() - ret.getQuantity() * ret.getItem().getPrice();
+			double priceWithoutItem = buyer.getCart().getPrice() - ret.getQuantity() * ret.getItem().getPrice();
 			ret.setQuantity(itemInCart.getQuantity());
 			buyer.getCart().setPrice(priceWithoutItem + itemInCart.getQuantity() * itemInCart.getItem().getPrice());
 			buyers.saveBuyers();
@@ -653,7 +656,7 @@ public class DataService {
 		
 		if (toDelete != null) {
 			buyer.getCart().getItemsInCart().remove(toDelete);
-			int priceToSet = buyer.getCart().getPrice() - itemInCart.getItem().getPrice() * itemInCart.getQuantity();
+			double priceToSet = buyer.getCart().getPrice() - itemInCart.getItem().getPrice() * itemInCart.getQuantity();
 			buyer.getCart().setPrice(priceToSet);
 			buyers.saveBuyers();
 			return Response.ok("Successfully removed from cart!").build();
@@ -667,7 +670,7 @@ public class DataService {
 	@Path("/makeOrder")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response makeOrder(Order orderToAdd) {
+	public Response makeOrder(Order orderToAdd) {	//TODO: uradi za popust
 		User user = (User) request.getSession().getAttribute("user-info");
 		if (user == null) {
 			return Response.status(400).entity("Cannot make order! \nUser not logged in!").build();
@@ -679,12 +682,16 @@ public class DataService {
 			return Response.status(400).entity("Cannot make order! \nCannot find buyer!").build();
 		}
 		
-		System.out.println("USAO u MAKEoRDER..:: " + orderToAdd);
 		Orders orders = Data.getOrders(servletContext);
 		String idOrder = orders.getUniqueIdOrder();
 		System.out.println(":::ID_ORDER: " + idOrder);
 		orderToAdd.setId(idOrder);
-		orderToAdd.setDateTime(LocalDateTime.now());
+		
+		LocalDateTime time = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss");
+        String timeStr = time.format(formatter);
+        
+		orderToAdd.setDateTime(timeStr);
 		orderToAdd.setOrderStatus(OrderStatus.PROCESSING);
 		orderToAdd.setUsernameDeliveryMan("");
 		orders.getOrders().put(orderToAdd.getId(), orderToAdd);
@@ -692,10 +699,78 @@ public class DataService {
 		
 		buyer.getOrders().add(orderToAdd);
 		buyer.setCart(new Cart(buyer.getUsername(), 0));
+		
+		double newPoints = orderToAdd.getPrice() / 1000 * 133;
+		double oldPoints = buyer.getPoints();
+		buyer.setPoints(newPoints + oldPoints);
+		
+		if (buyer.getPoints() < 100) {
+			buyer.setTypeBuyer(new TypeBuyer("Obican", 0, 100));
+		} else if (buyer.getPoints() >= 100 && buyer.getPoints() < 300) {
+			buyer.setTypeBuyer(new TypeBuyer("Bronzani", 10, 300));
+		} else if (buyer.getPoints() >= 300 && buyer.getPoints() < 500) {
+			buyer.setTypeBuyer(new TypeBuyer("Srebrni", 20, 500));
+		} else if (buyer.getPoints() >= 500) {
+			buyer.setTypeBuyer(new TypeBuyer("Zlatni", 30, 1000));
+		}
+		
 		buyers.saveBuyers();
 		
 		return Response.ok(orderToAdd).build();		
 		
+	}
+	
+	@PUT
+	@Path("/cancelOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response cancelOrder(Order order) {
+		
+		User user = (User) request.getSession().getAttribute("user-info");
+		if (user == null) {
+			return Response.status(400).entity("Cannot cancel order! \nUser not logged in!").build();
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsUsername(user.getUsername());	
+		if (buyer == null) {
+			return Response.status(400).entity("Cannot cancel order! \nCannot find buyer!").build();
+		}
+		
+		Order ret = buyer.containsOrder(order.getId());
+		if (ret == null) {
+			return Response.status(400).entity("Cannot cancel order! \nCannot find order at the buyer!").build();
+		}
+		
+		if (ret != null) {
+			Orders orders = Data.getOrders(servletContext);
+			Order order2 = orders.containsById(order.getId());
+			if (order2 == null) {
+				return Response.status(400).entity("Cannot cancel order! \nCannot find order in orders data!").build();
+			}
+			
+			ret.setOrderStatus(OrderStatus.CANCELED);
+			double lostPoints = ret.getPrice() / 1000 * 133 * 4;
+			double oldPoints = buyer.getPoints();
+			buyer.setPoints(oldPoints - lostPoints);
+			if (buyer.getPoints() < 100) {
+				buyer.setTypeBuyer(new TypeBuyer("Obican", 0, 100));
+			} else if (buyer.getPoints() >= 100 && buyer.getPoints() < 300) {
+				buyer.setTypeBuyer(new TypeBuyer("Bronzani", 10, 300));
+			} else if (buyer.getPoints() >= 300 && buyer.getPoints() < 500) {
+				buyer.setTypeBuyer(new TypeBuyer("Srebrni", 20, 500));
+			} else if (buyer.getPoints() >= 500) {
+				buyer.setTypeBuyer(new TypeBuyer("Zlatni", 30, 1000));
+			}
+			
+			buyers.saveBuyers();
+			
+			order2.setOrderStatus(OrderStatus.CANCELED);
+			orders.saveOrders();
+			
+		}
+		
+		return Response.ok("Successfully canceled order").build();		
 	}
 	
 }

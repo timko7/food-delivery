@@ -3,7 +3,7 @@ package model;
 public class Item {
 
 	private String name;
-	private int price;
+	private double price;
 	private String type;
 	private String restaurantName;
 	private String quantity;
@@ -15,7 +15,7 @@ public class Item {
 	public Item() {
 	}
 
-	public Item(String name, int price, String type, String restaurantName, String quantity, String description,
+	public Item(String name, double price, String type, String restaurantName, String quantity, String description,
 			String image, boolean deleted) {
 		super();
 		this.name = name;
@@ -28,7 +28,7 @@ public class Item {
 		this.deleted = deleted;
 	}
 
-	public Item(String name, int price, String type, String restaurantName, String quantity, String description) {
+	public Item(String name, double price, String type, String restaurantName, String quantity, String description) {
 		super();
 		this.name = name;
 		this.price = price;
@@ -46,11 +46,11 @@ public class Item {
 		this.name = name;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

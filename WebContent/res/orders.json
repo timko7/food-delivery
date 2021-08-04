@@ -1,10 +1,10 @@
 {
-  "PJm9VGNxLf" : {
-    "id" : "PJm9VGNxLf",
+  "PaDSW6j4yC" : {
+    "id" : "PaDSW6j4yC",
     "itemsInCart" : [ {
       "item" : {
         "name" : "Art1",
-        "price" : 133,
+        "price" : 133.0,
         "type" : "Pice",
         "restaurantName" : "B",
         "quantity" : "",
@@ -13,48 +13,21 @@
         "deleted" : false
       },
       "quantity" : 2
-    }, {
-      "item" : {
-        "name" : "v",
-        "price" : 32,
-        "type" : "vdsg",
-        "restaurantName" : "B",
-        "quantity" : "fdssdf",
-        "description" : "sddsf",
-        "image" : "res/images/restaurants/B/v/appIcon2.png",
-        "deleted" : false
-      },
-      "quantity" : 5
     } ],
     "restaurantName" : "B",
-    "dateTime" : {
-      "dayOfMonth" : 7,
-      "dayOfWeek" : "WEDNESDAY",
-      "month" : "JULY",
-      "year" : 2021,
-      "dayOfYear" : 188,
-      "monthValue" : 7,
-      "hour" : 16,
-      "minute" : 20,
-      "nano" : 770000000,
-      "second" : 33,
-      "chronology" : {
-        "id" : "ISO",
-        "calendarType" : "iso8601"
-      }
-    },
-    "price" : 426,
+    "dateTime" : "04.08.2021. 21:57:43",
+    "price" : 266.0,
     "nameSurname" : "Dada Dic",
     "location" : {
       "longitude" : null,
       "latitude" : null,
-      "street" : "A",
-      "number" : "1",
-      "place" : "SADd",
-      "postalCode" : "12313",
+      "street" : "ASD",
+      "number" : "13",
+      "place" : "DS",
+      "postalCode" : "213",
       "address" : null
     },
-    "orderStatus" : "PROCESSING",
+    "orderStatus" : "CANCELED",
     "usernameDeliveryMan" : ""
   }
 }

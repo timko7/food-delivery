@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Cart {
 	private String username;
 	private ArrayList<ItemInCart> itemsInCart = new ArrayList<>();
-	private int price;
+	private double price;
 
 	public Cart() {
 	}
@@ -33,11 +33,11 @@ public class Cart {
 		this.itemsInCart = itemsInCart;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

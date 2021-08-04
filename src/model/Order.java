@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import model.types.OrderStatus;
@@ -9,8 +8,8 @@ public class Order {
 	private String id;
 	private ArrayList<ItemInCart> itemsInCart = new ArrayList<>();
 	private String restaurantName;
-	private LocalDateTime dateTime;
-	private int price;
+	private String dateTime; // format: dd.MM.yyyy. HH:mm:ss
+	private double price;
 	private String nameSurname;
 	private Location location = new Location();
 	private OrderStatus orderStatus;
@@ -19,7 +18,7 @@ public class Order {
 	public Order() {
 	}
 
-	public Order(String id, ArrayList<ItemInCart> itemsInCart, String restaurantName, LocalDateTime dateTime, int price,
+	public Order(String id, ArrayList<ItemInCart> itemsInCart, String restaurantName, String dateTime, int price,
 			String nameSurname, Location location, OrderStatus orderStatus, String usernameDeliveryMan) {
 		super();
 		this.id = id;
@@ -57,19 +56,19 @@ public class Order {
 		this.restaurantName = restaurantName;
 	}
 
-	public LocalDateTime getDateTime() {
+	public String getDateTime() {
 		return dateTime;
 	}
 
-	public void setDateTime(LocalDateTime dateTime) {
+	public void setDateTime(String dateTime) {
 		this.dateTime = dateTime;
 	}
 
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

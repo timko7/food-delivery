@@ -19,6 +19,7 @@ Vue.component('home-page-buyer', {
             
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>    		
     		<li><a href="#" v-on:click="showComponent('buyer-restaurants')">Restorani</a></li>
+    		<li><a href="#" v-on:click="showComponent('buyer-orders')">Moje porudžbine</a></li>
     		<li><a href="#" v-on:click="showComponent('buyer-cart')">Korpa</a></li> 
     		
     		
