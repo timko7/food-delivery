@@ -8,7 +8,7 @@
     "userType" : "BUYER",
     "dateOfBirth" : "2012-03-25",
     "blocked" : false,
-    "points" : -106.134,
+    "points" : -35.378,
     "typeBuyer" : {
       "name" : "Obican",
       "discount" : 0,
@@ -43,6 +43,36 @@
         "address" : null
       },
       "orderStatus" : "CANCELED",
+      "usernameDeliveryMan" : ""
+    }, {
+      "id" : "PUKua6sPev",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Art1",
+          "price" : 133.0,
+          "type" : "Pice",
+          "restaurantName" : "B",
+          "quantity" : "",
+          "description" : "Ovo je artikal prvi..",
+          "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+          "deleted" : false
+        },
+        "quantity" : 4
+      } ],
+      "restaurantName" : "B",
+      "dateTime" : "05.08.2021. 16:23:51",
+      "price" : 532.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "As",
+        "number" : "12",
+        "place" : "dsad",
+        "postalCode" : "321",
+        "address" : null
+      },
+      "orderStatus" : "PROCESSING",
       "usernameDeliveryMan" : ""
     } ],
     "cart" : {
