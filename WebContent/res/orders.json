@@ -1,0 +1,64 @@
+{
+  "PUKua6sPev" : {
+    "id" : "PUKua6sPev",
+    "itemsInCart" : [ {
+      "item" : {
+        "name" : "Art1",
+        "price" : 133.0,
+        "type" : "Pice",
+        "restaurantName" : "B",
+        "quantity" : "",
+        "description" : "Ovo je artikal prvi..",
+        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+        "deleted" : false
+      },
+      "quantity" : 4
+    } ],
+    "restaurantName" : "B",
+    "dateTime" : "05.08.2021. 16:23:51",
+    "price" : 532.0,
+    "nameSurname" : "Dada Dic",
+    "location" : {
+      "longitude" : null,
+      "latitude" : null,
+      "street" : "As",
+      "number" : "12",
+      "place" : "dsad",
+      "postalCode" : "321",
+      "address" : null
+    },
+    "orderStatus" : "PROCESSING",
+    "usernameDeliveryMan" : ""
+  },
+  "PaDSW6j4yC" : {
+    "id" : "PaDSW6j4yC",
+    "itemsInCart" : [ {
+      "item" : {
+        "name" : "Art1",
+        "price" : 133.0,
+        "type" : "Pice",
+        "restaurantName" : "B",
+        "quantity" : "",
+        "description" : "Ovo je artikal prvi..",
+        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+        "deleted" : false
+      },
+      "quantity" : 2
+    } ],
+    "restaurantName" : "B",
+    "dateTime" : "04.08.2021. 21:57:43",
+    "price" : 266.0,
+    "nameSurname" : "Dada Dic",
+    "location" : {
+      "longitude" : null,
+      "latitude" : null,
+      "street" : "ASD",
+      "number" : "13",
+      "place" : "DS",
+      "postalCode" : "213",
+      "address" : null
+    },
+    "orderStatus" : "CANCELED",
+    "usernameDeliveryMan" : ""
+  }
+}

@@ -43,4 +43,12 @@ public class TypeBuyer {
 		this.requiredPointsForNext = requiredPointsForNext;
 	}
 
+	@Override
+	public String toString() {
+		return "TypeBuyer [name=" + name + ", discount=" + discount + ", requiredPointsForNext=" + requiredPointsForNext
+				+ "]";
+	}
+	
+	
+
 }

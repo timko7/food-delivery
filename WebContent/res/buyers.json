@@ -2,35 +2,83 @@
   "da" : {
     "username" : "da",
     "password" : "da",
-    "name" : "Da",
+    "name" : "Dada",
     "surname" : "Dic",
     "gender" : "MALE",
     "userType" : "BUYER",
-    "dateOfBirth" : "2021-06-11",
+    "dateOfBirth" : "2012-03-25",
     "blocked" : false,
-    "points" : 0,
+    "points" : -35.378,
     "typeBuyer" : {
-      "name" : "OBICAN",
+      "name" : "Obican",
       "discount" : 0,
       "requiredPointsForNext" : 100
     },
-    "orders" : [ ],
-    "cart" : {
-      "username" : "da",
+    "orders" : [ {
+      "id" : "PaDSW6j4yC",
       "itemsInCart" : [ {
         "item" : {
-          "name" : "v",
-          "price" : 32,
-          "type" : "vdsg",
+          "name" : "Art1",
+          "price" : 133.0,
+          "type" : "Pice",
           "restaurantName" : "B",
-          "quantity" : "fdssdf",
-          "description" : "sddsf",
-          "image" : "res/images/restaurants/B/v/appIcon2.png",
+          "quantity" : "",
+          "description" : "Ovo je artikal prvi..",
+          "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
           "deleted" : false
         },
-        "quantity" : 5
+        "quantity" : 2
       } ],
-      "price" : 160
+      "restaurantName" : "B",
+      "dateTime" : "04.08.2021. 21:57:43",
+      "price" : 266.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "ASD",
+        "number" : "13",
+        "place" : "DS",
+        "postalCode" : "213",
+        "address" : null
+      },
+      "orderStatus" : "CANCELED",
+      "usernameDeliveryMan" : ""
+    }, {
+      "id" : "PUKua6sPev",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Art1",
+          "price" : 133.0,
+          "type" : "Pice",
+          "restaurantName" : "B",
+          "quantity" : "",
+          "description" : "Ovo je artikal prvi..",
+          "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+          "deleted" : false
+        },
+        "quantity" : 4
+      } ],
+      "restaurantName" : "B",
+      "dateTime" : "05.08.2021. 16:23:51",
+      "price" : 532.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "As",
+        "number" : "12",
+        "place" : "dsad",
+        "postalCode" : "321",
+        "address" : null
+      },
+      "orderStatus" : "PROCESSING",
+      "usernameDeliveryMan" : ""
+    } ],
+    "cart" : {
+      "username" : "da",
+      "itemsInCart" : [ ],
+      "price" : 0.0
     }
   }
 }
