@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -164,6 +165,16 @@ public class Orders {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<Order> getOrdersByRestaurantName(String restaurantName) {
+		ArrayList<Order> ret = new ArrayList<>();
+		for (Order order : orders.values()) {
+			if(order.getRestaurantName().equals(restaurantName)) {
+				ret.add(order);
+			}
+		}
+		return ret;
 	}
 
 }

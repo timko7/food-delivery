@@ -130,7 +130,7 @@ Vue.component('buyer-orders', {
 				}
     		})
     		.catch(error => {
-				toastt('Greška prilikom izbacivanja iz korpe!');
+				toastt('Greška prilikom otkazivanja porudžbine!');
     		})
     	},
     	

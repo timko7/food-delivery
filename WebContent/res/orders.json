@@ -27,7 +27,7 @@
       "postalCode" : "321",
       "address" : null
     },
-    "orderStatus" : "PROCESSING",
+    "orderStatus" : "WAITING_DELIVERY",
     "usernameDeliveryMan" : ""
   },
   "PaDSW6j4yC" : {

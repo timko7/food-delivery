@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import model.Buyer;
+import model.Order;
 
 public class Buyers {
 
@@ -135,6 +136,17 @@ public class Buyers {
 		for (Buyer buyer : buyers.values()) {
 			if (buyer.getUsername().equals(username)) {
 				return buyer;
+			}
+		}
+		return null;
+	}
+
+	public Buyer containsIdOrder(String id) {
+		for (Buyer buyer : buyers.values()) {
+			for (Order order : buyer.getOrders()) {
+				if (order.getId().equals(id)) {
+					return buyer;
+				}
 			}
 		}
 		return null;

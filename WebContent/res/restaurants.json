@@ -28,7 +28,7 @@
     "managerUsername" : "man",
     "items" : [ {
       "name" : "Art1",
-      "price" : 133,
+      "price" : 133.0,
       "type" : "Pice",
       "restaurantName" : "B",
       "quantity" : "",
@@ -37,7 +37,7 @@
       "deleted" : false
     }, {
       "name" : "v",
-      "price" : 32,
+      "price" : 32.0,
       "type" : "vdsg",
       "restaurantName" : "B",
       "quantity" : "fdssdf",
@@ -46,7 +46,7 @@
       "deleted" : false
     }, {
       "name" : "vv",
-      "price" : 111111,
+      "price" : 111111.0,
       "type" : "sad",
       "restaurantName" : "B",
       "quantity" : "sfd",

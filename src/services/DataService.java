@@ -773,4 +773,78 @@ public class DataService {
 		return Response.ok("Successfully canceled order").build();		
 	}
 	
+	@GET
+	@Path("/getOrdersByRestaurantName/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Order> getOrdersByRestaurantName(@PathParam("restaurantName") String restaurantName) {
+		Orders orders = Data.getOrders(servletContext);
+		return orders.getOrdersByRestaurantName(restaurantName);
+	}
+	
+	@GET
+	@Path("/prepareOrder/{id}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response prepareOrder(@PathParam("id") String id) {
+		Orders orders = Data.getOrders(servletContext);
+		Order order = orders.containsById(id);
+		if (order == null) {
+			return Response.status(400).entity("Cannot prepare order! \nCannot find order in orders data!").build();
+		} else {
+			Buyers buyers = Data.getBuyers(servletContext);
+			Buyer buyer = buyers.containsIdOrder(id);
+			if (buyer == null) {
+				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+			}
+			
+			Order orderB = buyer.containsOrder(id);
+			if (orderB == null) {
+				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+			}
+			
+			order.setOrderStatus(OrderStatus.IN_PREPARATION);
+			orderB.setOrderStatus(OrderStatus.IN_PREPARATION);
+			
+			orders.saveOrders();
+			buyers.saveBuyers();
+			
+			return Response.ok("Successfully prepared order").build();		
+		}
+		
+	}
+	
+	@GET
+	@Path("/waitingDelivery/{id}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response waitingDelivery(@PathParam("id") String id) {
+		Orders orders = Data.getOrders(servletContext);
+		Order order = orders.containsById(id);
+		if (order == null) {
+			return Response.status(400).entity("Cannot prepare order! \nCannot find order in orders data!").build();
+		} else {
+			Buyers buyers = Data.getBuyers(servletContext);
+			Buyer buyer = buyers.containsIdOrder(id);
+			if (buyer == null) {
+				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+			}
+			
+			Order orderB = buyer.containsOrder(id);
+			if (orderB == null) {
+				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+			}
+			
+			order.setOrderStatus(OrderStatus.WAITING_DELIVERY);
+			orderB.setOrderStatus(OrderStatus.WAITING_DELIVERY);
+			
+			orders.saveOrders();
+			buyers.saveBuyers();
+			
+			return Response.ok("Successfully prepared order").build();		
+		}
+		
+	}
+	
+	
 }
