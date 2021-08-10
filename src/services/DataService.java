@@ -31,6 +31,7 @@ import model.Item;
 import model.ItemInCart;
 import model.Manager;
 import model.Order;
+import model.Request;
 import model.Restaurant;
 import model.TypeBuyer;
 import model.User;
@@ -41,6 +42,7 @@ import model.collection.Orders;
 import model.collection.Restaurants;
 import model.collection.Users;
 import model.types.OrderStatus;
+import model.types.RequestStatus;
 import model.types.UserType;
 import utils.ImageWriter;
 
@@ -846,5 +848,39 @@ public class DataService {
 		
 	}
 	
+	// delivery-man
+	@GET
+	@Path("/getDeliveryMan/{username}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public DeliveryMan getDeliveryMan(@PathParam("username") String username) {
+		DeliveryMans deliveryMans = Data.getDeliveryMans(servletContext);
+		return deliveryMans.containsUsername(username);
+	}
 	
+	
+	@POST
+	@Path("/sendRequest")
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response sendRequest(@FormDataParam("idOrder") String idOrder, @FormDataParam("username") String username) {
+		Orders orders = Data.getOrders(servletContext);
+		Order order = orders.containsById(idOrder);
+		if (order == null) {
+			return Response.status(400).entity("Cannot send request! \nCannot find order in data!").build();
+		}
+ 		
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(order.getRestaurantName());
+		if (restaurant == null) {
+			return Response.status(400).entity("Cannot send request! \nCannot find restaurant!").build();
+		}
+		
+		Request newRequest = new Request(idOrder, username, RequestStatus.SENT);
+		restaurant.getRequests().add(newRequest);
+		
+		restaurants.saveRestaurants();
+		
+		return Response.ok("Successfully sent request!").build();
+	}
 }

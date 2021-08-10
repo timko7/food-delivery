@@ -14,13 +14,15 @@ public class Restaurant {
 	private ArrayList<Item> items = new ArrayList<>();
 	private ArrayList<Comment> comments = new ArrayList<>();
 	private Location location = new Location();
+	private ArrayList<Request> requests = new ArrayList<>();
 	private boolean deleted;
 
 	public Restaurant() {
 	}
 
 	public Restaurant(String name, String type, boolean open, String logo, double averageRating, String managerUsername,
-			ArrayList<Item> items, ArrayList<Comment> comments, Location location, boolean deleted) {
+			ArrayList<Item> items, ArrayList<Comment> comments, Location location, ArrayList<Request> requests,
+			boolean deleted) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -31,6 +33,7 @@ public class Restaurant {
 		this.items = items;
 		this.comments = comments;
 		this.location = location;
+		this.requests = requests;
 		this.deleted = deleted;
 	}
 
@@ -105,6 +108,14 @@ public class Restaurant {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public ArrayList<Request> getRequests() {
+		return requests;
+	}
+
+	public void setRequests(ArrayList<Request> requests) {
+		this.requests = requests;
 	}
 
 	public boolean isDeleted() {
