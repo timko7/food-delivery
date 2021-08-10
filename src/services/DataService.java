@@ -883,4 +883,21 @@ public class DataService {
 		
 		return Response.ok("Successfully sent request!").build();
 	}
+	
+	@GET
+	@Path("/getOrdersForDelivery")
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Order> getOrdersForDelivery(@PathParam("username") String username) {
+		Orders orders = Data.getOrders(servletContext);
+		return orders.getOrdersForDelivery();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import model.Order;
+import model.types.OrderStatus;
 
 public class Orders {
 
@@ -171,6 +172,16 @@ public class Orders {
 		ArrayList<Order> ret = new ArrayList<>();
 		for (Order order : orders.values()) {
 			if(order.getRestaurantName().equals(restaurantName)) {
+				ret.add(order);
+			}
+		}
+		return ret;
+	}
+
+	public ArrayList<Order> getOrdersForDelivery() {
+		ArrayList<Order> ret = new ArrayList<>();
+		for (Order order : orders.values()) {
+			if(order.getOrderStatus().equals(OrderStatus.WAITING_DELIVERY)) {
 				ret.add(order);
 			}
 		}

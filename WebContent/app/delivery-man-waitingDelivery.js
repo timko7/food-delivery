@@ -33,7 +33,7 @@ Vue.component('delivery-man-waitingDelivery', {
                         </tr>
 	                </thead>
 	                <tbody>
-	                    <tr v-for="o in orders" v-if="o.orderStatus === 'WAITING_DELIVERY'">
+	                    <tr v-for="o in ordersForDelivery" v-if="o.orderStatus === 'WAITING_DELIVERY'">
 	                    
                             <td>{{o.id}}</td>
                             <td>{{o.restaurantName}}</td>

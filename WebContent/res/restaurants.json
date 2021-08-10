@@ -17,6 +17,7 @@
       "postalCode" : "321",
       "address" : null
     },
+    "requests" : [ ],
     "deleted" : false
   },
   "B" : {
@@ -64,6 +65,11 @@
       "postalCode" : "321",
       "address" : null
     },
+    "requests" : [ {
+      "idOrder" : "PUKua6sPev",
+      "deliveryUsername" : "dos",
+      "requestStatus" : "SENT"
+    } ],
     "deleted" : false
   },
   "C" : {
@@ -84,6 +90,7 @@
       "postalCode" : "142142",
       "address" : null
     },
+    "requests" : [ ],
     "deleted" : false
   }
 }
