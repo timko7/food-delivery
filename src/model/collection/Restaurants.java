@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.introspect.VisibilityChecker;
 import com.fasterxml.jackson.databind.type.MapType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
+import model.Request;
 import model.Restaurant;
 
 public class Restaurants {
@@ -150,6 +151,18 @@ public class Restaurants {
 		ret.sort(Comparator.comparing(Restaurant::isOpen));
 		Collections.reverse(ret);
 		
+		return ret;
+	}
+
+	public ArrayList<Request> getRequestsByUsername(String username) {
+		ArrayList<Request> ret = new ArrayList<>();
+		for (Restaurant restaurant : restaurants.values()) {
+			for (Request request : restaurant.getRequests()) {
+				if (username.equals(request.getDeliveryUsername())) {
+					ret.add(request);
+				}
+			}
+		}
 		return ret;
 	}
 

@@ -19,7 +19,7 @@ Vue.component('delivery-man-page', {
     		
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>    		
     		<li><a href="#" v-on:click="showComponent('delivery-man-waitingDelivery')">Porudžbine za dostavu</a></li>    		
-    		<li><a href="#" v-on:click="showComponent('')">Moje dostave i zahtevi</a></li>    		
+    		<li><a href="#" v-on:click="showComponent('delivery-man-myDeliveries')">Moje dostave i zahtevi</a></li>    		
     		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
             
     	</ul>

@@ -188,4 +188,16 @@ public class Orders {
 		return ret;
 	}
 
+	public ArrayList<Order> getOrdersByArrayIDs(ArrayList<String> ordersIDs) {
+		ArrayList<Order> ret = new ArrayList<>();
+		for (String orderID : ordersIDs) {
+			for (Order order : orders.values()) {
+				if (orderID.equals(order.getId())) {
+					ret.add(order);
+				}
+			}
+		}
+		return ret;
+	}
+
 }

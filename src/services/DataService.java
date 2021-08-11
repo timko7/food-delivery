@@ -824,17 +824,17 @@ public class DataService {
 		Orders orders = Data.getOrders(servletContext);
 		Order order = orders.containsById(id);
 		if (order == null) {
-			return Response.status(400).entity("Cannot prepare order! \nCannot find order in orders data!").build();
+			return Response.status(400).entity("Cannot change order to wait! \nCannot find order in orders data!").build();
 		} else {
 			Buyers buyers = Data.getBuyers(servletContext);
 			Buyer buyer = buyers.containsIdOrder(id);
 			if (buyer == null) {
-				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+				return Response.status(400).entity("Cannot change order to wait! \nCannot find order in buyers!").build();
 			}
 			
 			Order orderB = buyer.containsOrder(id);
 			if (orderB == null) {
-				return Response.status(400).entity("Cannot prepare order! \nCannot find order in buyers!").build();
+				return Response.status(400).entity("Cannot change order to wait! \nCannot find order in buyers!").build();
 			}
 			
 			order.setOrderStatus(OrderStatus.WAITING_DELIVERY);
@@ -968,8 +968,54 @@ public class DataService {
 		return ret;
 	}
 	
+	@POST
+	@Path("/getByArrayIds")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Order> getByArrayIds(ArrayList<String> ordersIDs) {
+		Orders orders = Data.getOrders(servletContext);
+		ArrayList<Order> ret = orders.getOrdersByArrayIDs(ordersIDs);
+		return ret;
+	}
 	
+	@PUT
+	@Path("/arrivedOrder")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Order arrivedOrder(Order order) {
+		Orders orders = Data.getOrders(servletContext);
+		Order ret = orders.containsById(order.getId());
+		if (ret == null) {
+			return null;
+		}
+				
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsIdOrder(order.getId());
+		if (buyer == null) {
+			return null;
+		}
+		Order orderB = buyer.containsOrder(order.getId());
+		if (orderB == null) {
+			return null;
+		}
+		
+		ret.setOrderStatus(OrderStatus.DELIVERED);
+		orderB.setOrderStatus(OrderStatus.DELIVERED);
+		
+		orders.saveOrders();
+		buyers.saveBuyers();
+		
+		return ret;
+	}
 	
-	
+	@GET
+	@Path("/getRequestsByUsername/{username}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Request> getRequestsByUsername(@PathParam("username") String username) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		ArrayList<Request> ret = restaurants.getRequestsByUsername(username);
+		return ret;
+	}
 	
 }
