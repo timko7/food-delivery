@@ -892,9 +892,81 @@ public class DataService {
 		return orders.getOrdersForDelivery();
 	}
 	
+	@PUT
+	@Path("/rejectRequest/{restaurantName}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Request rejectRequest(@PathParam("restaurantName") String restaurantName, Request request) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return null;
+		}
+		
+		Request ret = restaurant.containsRequestByIdOrder(request.getIdOrder());
+		if (ret == null) {
+			return null;
+		}
+		
+		ret.setRequestStatus(RequestStatus.REJECTED);
+		restaurants.saveRestaurants();
+		return ret;
+	}
 	
-	
-	
+	@PUT
+	@Path("/acceptRequest/{restaurantName}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Request acceptRequest(@PathParam("restaurantName") String restaurantName, Request request) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return null;
+		}
+		
+		Request ret = restaurant.containsRequestByIdOrder(request.getIdOrder());
+		if (ret == null) {
+			return null;
+		}
+		
+		Orders orders = Data.getOrders(servletContext);
+		Order order = orders.containsById(request.getIdOrder());
+		if (order == null) {
+			return null;
+		}
+		
+		Buyers buyers = Data.getBuyers(servletContext);
+		Buyer buyer = buyers.containsIdOrder(request.getIdOrder());
+		if (buyer == null) {
+			return null;
+		}
+		Order orderB = buyer.containsOrder(request.getIdOrder());
+		if (orderB == null) {
+			return null;
+		}
+		
+		DeliveryMans deliveryMans = Data.getDeliveryMans(servletContext);
+		DeliveryMan deliveryMan = deliveryMans.containsUsername(request.getDeliveryUsername());
+		if (deliveryMan == null) {
+			return null;
+		}
+		
+		deliveryMan.getOrdersToDeliver().add(request.getIdOrder());
+		
+		orderB.setOrderStatus(OrderStatus.IN_TRANSPORT);
+		orderB.setUsernameDeliveryMan(request.getDeliveryUsername());
+		
+		order.setOrderStatus(OrderStatus.IN_TRANSPORT);
+		order.setUsernameDeliveryMan(request.getDeliveryUsername());
+		
+		ret.setRequestStatus(RequestStatus.ACCEPTED);
+		
+		restaurants.saveRestaurants();
+		orders.saveOrders();
+		buyers.saveBuyers();
+		deliveryMans.saveDeliveryMans();
+		return ret;
+	}
 	
 	
 	

@@ -54,6 +54,15 @@
       "description" : "tttretrttrte",
       "image" : "res/images/restaurants/B/vv/appIcon.png",
       "deleted" : true
+    }, {
+      "name" : "Artk2",
+      "price" : 200.0,
+      "type" : "cas",
+      "restaurantName" : "B",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/B/Artk2/appIcon4.png",
+      "deleted" : true
     } ],
     "comments" : [ ],
     "location" : {
@@ -68,7 +77,7 @@
     "requests" : [ {
       "idOrder" : "PUKua6sPev",
       "deliveryUsername" : "dos",
-      "requestStatus" : "SENT"
+      "requestStatus" : "ACCEPTED"
     } ],
     "deleted" : false
   },

@@ -18,7 +18,8 @@ Vue.component('manager-page', {
     		<li><a>Dobrodošli, {{ user.name }} {{ user.surname }}</a></li>
     		
             <li><a href="#" v-on:click="showComponent('profile-settings')">Podešavanja profila</a></li>    		
-    		<li><a href="#" v-on:click="showComponent('manager-restaurant')">Restoran</a></li>    		
+    		<li><a href="#" v-on:click="showComponent('manager-restaurant')">Restoran</a></li>    	
+    		<li><a href="#" v-on:click="showComponent('manager-requests')">Zahtevi za dostavu</a></li>	
     		<li><a href="#" v-on:click="showComponent('manager-items')">Artikli</a></li>    		
     		<li><a href="#" v-on:click="logout()">Odjavi se</a></li>
             

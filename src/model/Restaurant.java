@@ -150,4 +150,13 @@ public class Restaurant {
 		return null;
 	}
 
+	public Request containsRequestByIdOrder(String idOrder) {
+		for (Request request : requests) {
+			if (request.getIdOrder().equals(idOrder)) {
+				return request;
+			}
+		}
+		return null;
+	}
+
 }

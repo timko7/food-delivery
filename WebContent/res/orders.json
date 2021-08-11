@@ -27,8 +27,8 @@
       "postalCode" : "321",
       "address" : null
     },
-    "orderStatus" : "WAITING_DELIVERY",
-    "usernameDeliveryMan" : ""
+    "orderStatus" : "IN_TRANSPORT",
+    "usernameDeliveryMan" : "dos"
   },
   "PaDSW6j4yC" : {
     "id" : "PaDSW6j4yC",
