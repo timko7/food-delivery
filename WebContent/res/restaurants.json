@@ -17,6 +17,7 @@
       "postalCode" : "321",
       "address" : null
     },
+    "requests" : [ ],
     "deleted" : false
   },
   "B" : {
@@ -53,6 +54,15 @@
       "description" : "tttretrttrte",
       "image" : "res/images/restaurants/B/vv/appIcon.png",
       "deleted" : true
+    }, {
+      "name" : "Artk2",
+      "price" : 200.0,
+      "type" : "cas",
+      "restaurantName" : "B",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/B/Artk2/appIcon4.png",
+      "deleted" : true
     } ],
     "comments" : [ ],
     "location" : {
@@ -64,6 +74,15 @@
       "postalCode" : "321",
       "address" : null
     },
+    "requests" : [ {
+      "idOrder" : "PUKua6sPev",
+      "deliveryUsername" : "dos",
+      "requestStatus" : "ACCEPTED"
+    }, {
+      "idOrder" : "PZKoH0ijY7",
+      "deliveryUsername" : "dos",
+      "requestStatus" : "ACCEPTED"
+    } ],
     "deleted" : false
   },
   "C" : {
@@ -84,6 +103,7 @@
       "postalCode" : "142142",
       "address" : null
     },
+    "requests" : [ ],
     "deleted" : false
   }
 }

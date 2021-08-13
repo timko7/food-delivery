@@ -30,6 +30,8 @@ Vue.component('login', {
 
     	<manager-page v-if="loggedUser.userType === 'MANAGER'" :user="loggedUser"></manager-page>
 
+    	<delivery-man-page v-if="loggedUser.userType === 'DELIVERY_MAN'" :user="loggedUser"></delivery-man-page>
+
     </div>
     `,
 

@@ -8,7 +8,7 @@
     "userType" : "BUYER",
     "dateOfBirth" : "2012-03-25",
     "blocked" : false,
-    "points" : -35.378,
+    "points" : 92.036,
     "typeBuyer" : {
       "name" : "Obican",
       "discount" : 0,
@@ -72,8 +72,50 @@
         "postalCode" : "321",
         "address" : null
       },
-      "orderStatus" : "WAITING_DELIVERY",
-      "usernameDeliveryMan" : ""
+      "orderStatus" : "DELIVERED",
+      "usernameDeliveryMan" : "dos"
+    }, {
+      "id" : "PZKoH0ijY7",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Art1",
+          "price" : 133.0,
+          "type" : "Pice",
+          "restaurantName" : "B",
+          "quantity" : "",
+          "description" : "Ovo je artikal prvi..",
+          "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+          "deleted" : false
+        },
+        "quantity" : 6
+      }, {
+        "item" : {
+          "name" : "v",
+          "price" : 32.0,
+          "type" : "vdsg",
+          "restaurantName" : "B",
+          "quantity" : "fdssdf",
+          "description" : "sddsf",
+          "image" : "res/images/restaurants/B/v/appIcon2.png",
+          "deleted" : false
+        },
+        "quantity" : 5
+      } ],
+      "restaurantName" : "B",
+      "dateTime" : "11.08.2021. 16:48:38",
+      "price" : 958.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "Da",
+        "number" : "132",
+        "place" : "DASDAS",
+        "postalCode" : "23132",
+        "address" : null
+      },
+      "orderStatus" : "DELIVERED",
+      "usernameDeliveryMan" : "dos"
     } ],
     "cart" : {
       "username" : "da",
