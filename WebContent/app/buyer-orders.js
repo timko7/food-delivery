@@ -1,7 +1,14 @@
 Vue.component('buyer-orders', {
 	data: function() {
         return {
-        	
+        	commenting: false,
+        	restaurantBackup: "",
+        	orderBackup:null,
+        	newComment: {
+        		buyerUsername: "",
+        		text: "",
+        		rating: null,
+        	},
         }
     },
     
@@ -28,7 +35,7 @@ Vue.component('buyer-orders', {
     	</div>
     	
 		
-    	<div class="card">
+    	<div class="card" v-if="!commenting">
     	
     		<div class='card-header'>
                 <h2>Nedostavljene porudžbine:</h2>
@@ -104,13 +111,64 @@ Vue.component('buyer-orders', {
                             <td>{{o.orderStatus}}</td>
                             
                             <td v-if="o.orderStatus === 'PROCESSING'"><button class="btn btn-primary" @click="cancelOrder(o)">OTKAŽI</button></td>
-                            
+                            <td v-if="o.orderStatus === 'DELIVERED'"><button class="btn btn-primary" @click="makeComment(o)">DODAJ KOMENTAR</button></td>
+
 	                    </tr>
 	                </tbody>
 	                
 	            </table>
             </div>
 
+        </div>
+        
+        
+        
+        <div class="card" v-if="commenting">
+    	
+    		<div class='card-header'>
+                <h2>Komentar za restoran: '{{restaurantBackup}}' (porudzbina: {{orderBackup.id}})</h2>
+            </div>
+            
+            <div class='card-body'>
+
+                    <table class="table-form">
+                        <tr>
+                            <td>Tekst komantara:</td>
+                            <td><input type="text" v-model="newComment.text" /></td>
+                        </tr>
+                        <tr>
+                            <td>Ocena:</td>
+                            <td>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="id1" value="1" name="rating" v-model="newComment.rating" checked>
+                                    <label class="custom-control-label" for="id1">1</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="id2" value="2" name="rating" v-model="newComment.rating">
+                                    <label class="custom-control-label" for="id2">2</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="id3" value="3" name="rating" v-model="newComment.rating">
+                                    <label class="custom-control-label" for="id3">3</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" class="custom-control-input" id="id4" value="4" name="rating" v-model="newComment.rating">
+                                    <label class="custom-control-label" for="id4">4</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">    
+                                    <input type="radio" class="custom-control-input" id="id5" value="5" name="rating" v-model="newComment.rating">
+                                    <label class="custom-control-label" for="id5">5</label> 
+                                </div>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <th><button type="button" class="btn btn-primary" v-on:click="addComment()" >Pošalji Komentar</button></th>
+                            <th><button type="button" class="btn btn-danger" v-on:click="cancel()" >Odustani</button></th>
+                        </tr>
+                    </table>
+
+            </div>
         </div>
         
         
@@ -133,6 +191,48 @@ Vue.component('buyer-orders', {
 				toastt('Greška prilikom otkazivanja porudžbine!');
     		})
     	},
+    	
+    	makeComment: function(order) {
+    		this.commenting = true;
+    		this.restaurantBackup = order.restaurantName;
+    		this.orderBackup = order;
+    		
+    	},
+    	
+    	cancel: function() {
+    		this.commenting = false;
+    		this.restaurantBackup = "";
+    		this.orderBackup = null;
+    		this.newComment.text = "";
+    		this.newComment.rating = null;
+    		
+    	},
+    	
+    	addComment: function() {
+    		if (!this.checkIfInputsAreFilled()) {
+				return;
+			}
+    		
+    		this.newComment.buyerUsername = this.buyer.username;
+    		console.log("KOMENTAR: ", this.newComment,  this.restaurantBackup)
+    		
+    	},
+    	
+    	checkIfInputsAreFilled: function() {
+    		if (this.restaurantBackup === "" || this.restaurantBackup == null) {
+    			toastt('Niste odabrali za koji restoran želite da ostavite komentar!')
+				return false
+    		}
+    		if (this.newComment.text == null || this.newComment.text.trim() === '') {
+				toastt('Niste uneli tekst komentara!')
+				return false
+			}
+    		if (this.newComment.rating == null) {
+				toastt('Niste odabrali ocenu!')
+				return false
+			}
+    		return true
+    	}
     	
     	
     },
