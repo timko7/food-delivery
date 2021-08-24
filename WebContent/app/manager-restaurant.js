@@ -143,8 +143,47 @@ Vue.component('manager-restaurant', {
 	            </table>
             </div>
                         
-
         </div>
+        
+        
+        
+        <div class="card">
+    	
+    		<div class='card-header'>
+                <h2>Komentari vezani za restoran:</h2>
+            </div>
+            
+            <div class='card-body'>
+            
+    			<table class="table table-hover table-dark" v-if="restaurant.comments">
+	                <thead>
+	                    <tr>
+                            <th scope="col">Korisničko ime kupca</th>
+                            <th scope="col">Tekst komentara</th>
+                            <th scope="col">Ocena</th>
+                            <th scope="col">Status komentara</th>
+                            
+                        </tr>
+	                </thead>
+	                <tbody>
+	                    <tr v-for="c in restaurant.comments">
+	                    
+                            <td>{{c.buyerUsername}}</td>
+                            <td>{{c.text}}</td>
+                            <td>{{c.rating}}</td>
+                            <td>{{c.commentStatus}}</td>
+                            <td v-if="c.commentStatus !== 'ACCEPTED'"><button class="btn btn-primary" @click="approveComment(c)">Odobri komentar</button></td>
+                            <td v-if="c.commentStatus !== 'REJECTED'"><button class="btn btn-primary" @click="rejectComment(c)">Odbaci komentar</button></td>
+                            
+	                    </tr>
+	                </tbody>
+	                
+	            </table>
+            </div>
+                        
+        </div>
+        
+        
     	
     	
     </div>
@@ -204,6 +243,39 @@ Vue.component('manager-restaurant', {
 				toastt('Greška prilikom promene porudžbine u \'čeka dostavljača\'!!');
     		})
     	},
+    	
+        approveComment: function(comment) {
+        	axios.get('rest/data/approveComment/' + this.restaurant.name + '/' + comment.time)
+        	.then(response => {
+    			if (response.data === '') {
+					toastt('Greška prilikom odobravanja komentara!!');
+				} else {
+					toastt('Uspešno odobren komentar!');
+					comment.commentStatus = "ACCEPTED";
+					this.restaurant.averageRating = response.data;
+				}
+    		})
+    		.catch(error => {
+				toastt('Greška prilikom odobravanja komentara!!');
+    		})
+        },
+        
+        rejectComment: function(comment) {
+        	axios.get('rest/data/rejectComment/' + this.restaurant.name + '/' + comment.time)
+        	.then(response => {
+    			if (response.data === '') {
+					toastt('Greška prilikom odbacivanja komentara!!');
+				} else {
+					toastt('Uspešno odbačen komentar!');
+					comment.commentStatus = "REJECTED";
+					this.restaurant.averageRating = response.data;
+				}
+    		})
+    		.catch(error => {
+				toastt('Greška prilikom odbacivanja komentara!!');
+    		})
+        },
+
     },
 
     mounted() {
