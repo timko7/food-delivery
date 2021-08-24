@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import common.Consts;
 import model.Buyer;
 import model.Cart;
+import model.Comment;
 import model.DeliveryMan;
 import model.Item;
 import model.ItemInCart;
@@ -41,6 +43,7 @@ import model.collection.Managers;
 import model.collection.Orders;
 import model.collection.Restaurants;
 import model.collection.Users;
+import model.types.CommentStatus;
 import model.types.OrderStatus;
 import model.types.RequestStatus;
 import model.types.UserType;
@@ -1017,5 +1020,33 @@ public class DataService {
 		ArrayList<Request> ret = restaurants.getRequestsByUsername(username);
 		return ret;
 	}
+	
+	
+	//comments..
+	
+	@POST
+	@Path("/addComment/{restaurantName}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response addComment(@PathParam("restaurantName") String restaurantName, Comment newComment) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return Response.status(400).entity("Cannot send comment! \nCannot find restaurant!").build();
+		}
+		
+		Date time = new Date();
+ 		
+		newComment.setCommentStatus(CommentStatus.SENT);
+		newComment.setTime(String.valueOf(time.getTime()));
+		restaurant.getComments().add(newComment);
+		
+		restaurants.saveRestaurants();
+		
+		return Response.ok("Successfully sent comment!").build();
+	}
+	
+	
+	
 	
 }

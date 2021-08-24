@@ -26,7 +26,7 @@ Vue.component('buyer-orders', {
     			<div>
 				  <ul class="list-group list-group-flush">
 				    <li class="list-group-item">Kategorija kupca: {{ buyer.typeBuyer.name }}</li>
-				    <li class="list-group-item">Popust pri porudžbini: {{ buyer.typeBuyer.discount }}</li>
+				    <li class="list-group-item">Popust pri porudžbini: {{ buyer.typeBuyer.discount }} %</li>
 				    <li class="list-group-item">Potreban broj bodova za sledeću kategoriju: {{ buyer.typeBuyer.requiredPointsForNext }} </li>
 				    <li class="list-group-item">Trenutni broj bodova: {{ buyer.points }}</li>
 				  </ul>
@@ -215,6 +215,21 @@ Vue.component('buyer-orders', {
     		
     		this.newComment.buyerUsername = this.buyer.username;
     		console.log("KOMENTAR: ", this.newComment,  this.restaurantBackup)
+    		
+    		axios.post('rest/data/addComment/' + this.restaurantBackup, this.newComment)
+    		.then(response => {
+    			if (response.data === '') {
+					toastt('Greska prilikom slanja komentara!');
+					this.cancel();
+				} else {
+					toastt('Uspešno poslat komentar..');
+					this.cancel();
+				}
+    		})
+    		.catch(error => {
+				toastt('Greska prilikom slanja komentara!');
+				this.cancel();
+    		})
     		
     	},
     	

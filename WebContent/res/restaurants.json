@@ -64,7 +64,19 @@
       "image" : "res/images/restaurants/B/Artk2/appIcon4.png",
       "deleted" : true
     } ],
-    "comments" : [ ],
+    "comments" : [ {
+      "time" : "1629807729435",
+      "buyerUsername" : "da",
+      "text" : "Strava",
+      "rating" : 5.0,
+      "commentStatus" : "SENT"
+    }, {
+      "time" : "1629807754790",
+      "buyerUsername" : "da",
+      "text" : "Da da daaa      ",
+      "rating" : 4.0,
+      "commentStatus" : "SENT"
+    } ],
     "location" : {
       "longitude" : "1",
       "latitude" : "2",
