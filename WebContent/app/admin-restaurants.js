@@ -17,6 +17,8 @@ Vue.component('admin-restaurants', {
 			},
 			selectedLogo: null,
 			restaurants: [],
+			restaurantBackup: null,
+        	showingOne: false,
 			freeManagers: [],
 			
 			userM: {	// restaurantManager
@@ -33,28 +35,32 @@ Vue.component('admin-restaurants', {
 	template:
 	`
 	<div>
-		<div class='card'>
+		<div class='card' v-if="!showingOne">
 	        <div class='card-header'>
 	            <h2>Restorani:</h2>
 	        </div>
 	
 	        <div class='card-body'>
-	            <h3>Izlistati restorane..</h3>
 	            <table class="table table-hover table-dark">
 	                <thead>
 	                    <tr>
 	                        <th scope="col">Naziv</th>
 	                        <th scope="col">Tip</th>
 	                        <th scope="col">Mesto</th>
+	                        <th scope="col">Prosečna ocena</th>
 	                        <th scope="col">Logo</th>
+	                        <th scope="col">Da li radi?</th>
 	                    </tr>
 	                </thead>
 	                <tbody>
 	                    <tr v-for="rest in restaurants">
-	                    	<td>{{rest.name}}</td>
+                            <td><a href="#" v-on:click="showRestaurant(rest)">{{rest.name}}</a></td>
 	                		<td>{{rest.type}}</td>
 	                		<td>{{rest.location.place}}</td>
+	                		<td>{{rest.averageRating}}</td>
 	                        <td><img style="width: 200px; cursor: pointer;" :src="rest.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
+                            <td v-if="rest.open">OTVOREN</td>
+                            <td v-if="!rest.open">ZATVOREN</td>
 	                    </tr>
 	                </tbody>
 	                
@@ -62,7 +68,7 @@ Vue.component('admin-restaurants', {
 	        </div>
 	    </div>
 	
-	    <div class='card'>
+	    <div class='card' v-if="!showingOne">
 	        <div class='card-header'>
 	            <h2>Dodavanje restorana:</h2>
 	        </div>
@@ -173,6 +179,95 @@ Vue.component('admin-restaurants', {
 	        
 	
 	    </div>
+	    
+	    <div class="card" v-if="showingOne">
+            <div class='card-header'>
+                <h2>Prikaz jednog restorana</h2>
+                <button class="btn btn-primary" v-on:click="showAll()">Prikaži sve restorane</button>
+            </div>
+
+            <div class='card-body'>
+                
+                <table class="table table-hover table-dark">
+	                <thead>
+	                    <tr>
+                            <th scope="col">Naziv</th>
+                            <th scope="col">Tip</th>
+                            <th scope="col">Lokacija</th>    			
+                            <th scope="col">Prosečna ocena</th>
+                            <th scope="col">Logo</th>
+                            <th scope="col">Da li radi?</th>
+                        </tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+                            <td>{{restaurantBackup.name}}</td>
+                            <td>{{restaurantBackup.type}}</td>
+                            <td>{{restaurantBackup.location.place}}</td>
+                            <td>{{restaurantBackup.averageRating}}</td>
+                            <td><img style="width: 100px; cursor: pointer;" :src="restaurantBackup.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
+                            <td v-if="restaurantBackup.open">OTVOREN</td>
+                            <td v-if="!restaurantBackup.open">ZATVOREN</td>
+	                    </tr>
+	                </tbody>
+	            </table>
+
+            </div>
+
+            <div class='card-header'>
+                <h2>Artikli restorana</h2>
+            </div>
+
+            <div class='card-body'>
+                <table class="table table-hover table-dark">
+	                <thead>
+	                    <tr>
+                            <th scope="col">Naziv</th>
+                            <th scope="col">Slika</th>
+                            <th scope="col">Opis</th>    			
+                            <th scope="col">Cena</th>
+                        </tr>
+	                </thead>
+	                <tbody v-if="restaurantBackup.items">
+	                    <tr v-for="(i) in restaurantBackup.items" v-if="!i.deleted">
+	                    	<td>{{i.name}}</td>
+	                        <td><img style="width: 200px; cursor: pointer;" :src="i.image" alt="Slika ne postoji" /></td>
+                            <td>{{i.description}}</td>
+	                		<td>{{i.price}}</td>
+	                    </tr>
+	                </tbody>
+	            </table>
+            </div>
+
+            <div class='card-header'>
+                <h2>Komentari restorana</h2>
+            </div>
+
+            <div class='card-body'>
+                
+                <table class="table table-hover table-dark">
+	                <thead>
+	                    <tr>
+                            <th scope="col">Korisničko ime kupca</th>
+                            <th scope="col">Tekst komentara</th>
+                            <th scope="col">Ocena</th>
+                            <th scope="col">Status komentara</th>
+                        </tr>
+	                </thead>
+	                <tbody>
+	                    <tr v-for="c in restaurantBackup.comments">
+                            <td>{{c.buyerUsername}}</td>
+                            <td>{{c.text}}</td>
+                            <td>{{c.rating}}</td>
+                            <td>{{c.commentStatus}}</td>
+	                    </tr>
+	                </tbody>
+	                
+	            </table>
+
+            </div>
+
+        </div>
 	</div>
 	`,
 	
@@ -316,7 +411,18 @@ Vue.component('admin-restaurants', {
 		
 		getFreeManagers: function() {
 			axios.get('rest/data/getFreeManagers').then(response => this.freeManagers = response.data);
-		}
+		},
+		
+		
+		showRestaurant: function(rest) {
+    		this.restaurantBackup = Object.assign({}, rest);
+    		this.showingOne = true;
+    	},
+    	showAll: function() {
+    		this.showingOne = false;
+    		this.restaurantBackup = Object.assign({}, {});
+    	},
+		
 		
 	},
 	
