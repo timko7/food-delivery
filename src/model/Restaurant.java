@@ -159,4 +159,13 @@ public class Restaurant {
 		return null;
 	}
 
+	public Comment containsCommentByTime(String commentTime) {
+		for (Comment comment : comments) {
+			if (comment.getTime().equals(commentTime)) {
+				return comment;
+			}
+		}
+		return null;
+	}
+
 }

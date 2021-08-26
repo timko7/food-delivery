@@ -126,9 +126,25 @@ Vue.component('buyer-restaurants', {
 
             <div class='card-body'>
                 
-                Komentari...
-                buyer::
-                {{buyer}}
+                <table class="table table-hover table-dark">
+	                <thead>
+	                    <tr>
+                            <th scope="col">Korisničko ime kupca</th>
+                            <th scope="col">Tekst komentara</th>
+                            <th scope="col">Ocena</th>                            
+                        </tr>
+	                </thead>
+	                <tbody>
+	                    <tr v-for="c in restaurantBackup.comments" v-if="c.commentStatus === 'ACCEPTED'">
+	                    
+                            <td>{{c.buyerUsername}}</td>
+                            <td>{{c.text}}</td>
+                            <td>{{c.rating}}</td>
+                            
+	                    </tr>
+	                </tbody>
+	                
+	            </table>
 
             </div>
 

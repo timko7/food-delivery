@@ -25,7 +25,7 @@
     "type" : "b",
     "open" : true,
     "logo" : "res/images/restaurants/B/IMG_20200215_124640-EFFECTS.jpg",
-    "averageRating" : 0.0,
+    "averageRating" : 3.5,
     "managerUsername" : "man",
     "items" : [ {
       "name" : "Art1",
@@ -64,7 +64,25 @@
       "image" : "res/images/restaurants/B/Artk2/appIcon4.png",
       "deleted" : true
     } ],
-    "comments" : [ ],
+    "comments" : [ {
+      "time" : "1629807729435",
+      "buyerUsername" : "da",
+      "text" : "Strava",
+      "rating" : 5.0,
+      "commentStatus" : "ACCEPTED"
+    }, {
+      "time" : "1629807754790",
+      "buyerUsername" : "da",
+      "text" : "Da da daaa      ",
+      "rating" : 4.0,
+      "commentStatus" : "REJECTED"
+    }, {
+      "time" : "1629814142069",
+      "buyerUsername" : "da",
+      "text" : "Pfff",
+      "rating" : 2.0,
+      "commentStatus" : "ACCEPTED"
+    } ],
     "location" : {
       "longitude" : "1",
       "latitude" : "2",
