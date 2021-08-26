@@ -15,24 +15,40 @@ Vue.component('login', {
 
     template:
     `
-    <div class="login-form" v-if="!userLoggedIn">
-        <table>
-            <tr><td><input type="text" placeholder="Unesite korisničko ime" v-model="user.username" /> <label v-if="usnameE" style="color: red">Niste uneli korisničko ime!!</label> </td></tr>
-            <tr><td><input type="password" placeholder="Unesite lozinku" v-model="user.password" /> <label v-if="passE" style="color: red">Niste uneli lozinku!!</label> </td></tr>
-            <tr><td><input type="button" value="Prijavi se" v-on:click="login()" /></td></tr>
-            <tr><td colspan="2"><a href="#/registration">Nemaš nalog? Registruj se!</a></td></tr>
-        </table>
-    </div>
-    <div v-else-if="userLoggedIn">
-    	<admin-page v-if="loggedUser.userType === 'ADMIN'" :user="loggedUser"></admin-page>
-    	
-    	<home-page-buyer v-if="loggedUser.userType === 'BUYER'" :user="loggedUser"></home-page-buyer>
-
-    	<manager-page v-if="loggedUser.userType === 'MANAGER'" :user="loggedUser"></manager-page>
-
-    	<delivery-man-page v-if="loggedUser.userType === 'DELIVERY_MAN'" :user="loggedUser"></delivery-man-page>
-
-    </div>
+    <div>
+	    <div v-if="!userLoggedIn">
+		    <div class="login-form">
+		        <table>
+		            <tr><td><input type="text" placeholder="Unesite korisničko ime" v-model="user.username" /> <label v-if="usnameE" style="color: red">Niste uneli korisničko ime!!</label> </td></tr>
+		            <tr><td><input type="password" placeholder="Unesite lozinku" v-model="user.password" /> <label v-if="passE" style="color: red">Niste uneli lozinku!!</label> </td></tr>
+		            <tr><td><input type="button" value="Prijavi se" v-on:click="login()" /></td></tr>
+		            <tr><td colspan="2"><a href="#/registration">Nemaš nalog? Registruj se!</a></td></tr>
+		        </table>
+		    </div>
+		    
+		    <div class="card">
+		    		
+		            <div class="card-body">
+		            	<div class="d-flex justify-content-center">
+		            		<h2><a href="#/allRestaurants">Pogledaj sve restorane (bez logovanja)..</a></h2>
+		            	</div>
+		            </div>
+		            
+		    </div>
+		</div>
+	    
+	    <div v-else-if="userLoggedIn">
+	    	<admin-page v-if="loggedUser.userType === 'ADMIN'" :user="loggedUser"></admin-page>
+	    	
+	    	<home-page-buyer v-if="loggedUser.userType === 'BUYER'" :user="loggedUser"></home-page-buyer>
+	
+	    	<manager-page v-if="loggedUser.userType === 'MANAGER'" :user="loggedUser"></manager-page>
+	
+	    	<delivery-man-page v-if="loggedUser.userType === 'DELIVERY_MAN'" :user="loggedUser"></delivery-man-page>
+	
+	    </div>
+	
+	</div>
     `,
 
     methods: {

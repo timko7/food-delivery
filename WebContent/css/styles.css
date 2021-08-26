@@ -85,9 +85,9 @@ input[type=button]:hover {
 
 .login-form {
   	position: fixed;
-  	top: 50%;
+  	top: 10%;
   	left: 50%;
-  	margin-top: -170px;
+  	margin-top: 50px;
 	margin-left: -100px;
 }
 
