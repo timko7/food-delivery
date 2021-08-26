@@ -3,6 +3,7 @@ Vue.component('manager-restaurant', {
         return {
         	restaurant: null,
         	orders: [],
+        	buyers: [],
         }
     },
     
@@ -190,7 +191,26 @@ Vue.component('manager-restaurant', {
             </div>
             
             <div class='card-body'>
-            	gdfgg
+            	<table class="table table-hover table-dark">
+	                <thead>
+	                    <tr>
+	                        <th scope="col">Korisničko ime</th>
+	                        <th scope="col">Ime</th>
+	                        <th scope="col">Prezime</th>
+	                        <th scope="col">Pol</th>
+	                        <th scope="col">Datum rodjenja</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr v-for="b in buyers">
+	                    	<td>{{b.username}}</td>
+	                		<td>{{b.name}}</td>
+	                		<td>{{b.surname}}</td>
+	                		<td>{{b.gender}}</td>
+	                		<td>{{b.dateOfBirth}}</td>
+	                    </tr>
+	                </tbody>
+	            </table>
             </div>
                         
         </div>
@@ -287,11 +307,16 @@ Vue.component('manager-restaurant', {
 				toastt('Greška prilikom odbacivanja komentara!!');
     		})
         },
+        
+        getBuyersForRestaurant: function() {
+        	axios.get('rest/data/getBuyersForRestaurant/' + this.manager.restaurant).then(response => this.buyers = response.data);
+        },
 
     },
 
     mounted() {
     	axios.get('rest/data/getRestaurant/' + this.manager.restaurant).then(response => this.restaurant = response.data);
     	axios.get('rest/data/getOrdersByRestaurantName/' + this.manager.restaurant).then(response => this.orders = response.data);
+    	this.getBuyersForRestaurant();
     }
 });

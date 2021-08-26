@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -150,6 +151,20 @@ public class Buyers {
 			}
 		}
 		return null;
+	}
+
+	public ArrayList<Buyer> getBuyersForRestaurant(String restaurantName) {
+		ArrayList<Buyer> ret = new ArrayList<>();
+		
+		for (Buyer buyer : buyers.values()) {
+			for (Order order : buyer.getOrders()) {
+				if (order.getRestaurantName().equals(restaurantName)) {
+					ret.add(buyer);
+					break;
+				}
+			}
+		}
+		return ret;
 	}
 
 }

@@ -1120,5 +1120,16 @@ public class DataService {
 		
 	}
 	
+	
+	@GET
+	@Path("/getBuyersForRestaurant/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<Buyer> getBuyersForRestaurant(@PathParam("restaurantName") String restaurantName) {
+		Buyers buyers = Data.getBuyers(servletContext);
+		return buyers.getBuyersForRestaurant(restaurantName);
+	}
+	
+	
 }
 
