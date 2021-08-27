@@ -34,7 +34,19 @@ Vue.component('manager-restaurant', {
 	                    <tr>
 	                    	<td>{{restaurant.name}}</td>
 	                		<td>{{restaurant.type}}</td>
-	                		<td>{{restaurant.location.place}}</td>
+	                		<td>
+	                			<template>
+									<tr>
+										<td>{{restaurant.location.place}} {{restaurant.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurant.location.street}} {{restaurant.location.number}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurant.location.longitude}}, {{restaurant.location.latitude}}</td>
+									</tr>
+								</template>
+	                		</td>
 	                		<td>{{restaurant.averageRating}}</td>
 	                        <td><img style="width: 200px; cursor: pointer;" :src="restaurant.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
 	                		<td v-if="restaurant.open">OTVOREN</td>

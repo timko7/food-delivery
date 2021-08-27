@@ -56,7 +56,19 @@ Vue.component('admin-restaurants', {
 	                    <tr v-for="rest in restaurants">
                             <td><a href="#" v-on:click="showRestaurant(rest)">{{rest.name}}</a></td>
 	                		<td>{{rest.type}}</td>
-	                		<td>{{rest.location.place}}</td>
+	                		<td>
+	                			<template>
+									<tr>
+										<td>{{rest.location.place}} {{rest.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{rest.location.street}} {{rest.location.number}}</td>
+									</tr>
+									<tr>
+										<td>{{rest.location.longitude}}, {{rest.location.latitude}}</td>
+									</tr>
+								</template>
+	                		</td>
 	                		<td>{{rest.averageRating}}</td>
 	                        <td><img style="width: 200px; cursor: pointer;" :src="rest.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
                             <td v-if="rest.open">OTVOREN</td>
@@ -203,7 +215,19 @@ Vue.component('admin-restaurants', {
 	                    <tr>
                             <td>{{restaurantBackup.name}}</td>
                             <td>{{restaurantBackup.type}}</td>
-                            <td>{{restaurantBackup.location.place}}</td>
+                            <td>
+	                			<template>
+									<tr>
+										<td>{{restaurantBackup.location.place}} {{restaurantBackup.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurantBackup.location.street}} {{restaurantBackup.location.number}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurantBackup.location.longitude}}, {{restaurantBackup.location.latitude}}</td>
+									</tr>
+								</template>
+	                		</td>
                             <td>{{restaurantBackup.averageRating}}</td>
                             <td><img style="width: 100px; cursor: pointer;" :src="restaurantBackup.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
                             <td v-if="restaurantBackup.open">OTVOREN</td>

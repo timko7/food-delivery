@@ -42,7 +42,19 @@ Vue.component('buyer-restaurants', {
 	                    <tr v-for="r in restaurants">
                             <td><a href="#" v-on:click="showRestaurant(r)">{{r.name}}</a></td>
                             <td>{{r.type}}</td>
-                            <td>{{r.location.place}}</td>
+                            <td>
+	                			<template>
+									<tr>
+										<td>{{r.location.place}} {{r.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{r.location.street}} {{r.location.number}}</td>
+									</tr>
+									<tr>
+										<td>{{r.location.longitude}}, {{r.location.latitude}}</td>
+									</tr>
+								</template>
+	                		</td>
                             <td>{{r.averageRating}}</td>
                             <td><img style="width: 100px; cursor: pointer;" :src="r.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
                             <td v-if="r.open">OTVOREN</td>
@@ -80,7 +92,19 @@ Vue.component('buyer-restaurants', {
 	                    <tr>
                             <td>{{restaurantBackup.name}}</td>
                             <td>{{restaurantBackup.type}}</td>
-                            <td>{{restaurantBackup.location.place}}</td>
+                            <td>
+	                			<template>
+									<tr>
+										<td>{{restaurantBackup.location.place}} {{restaurantBackup.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurantBackup.location.street}} {{restaurantBackup.location.number}}</td>
+									</tr>
+									<tr>
+										<td>{{restaurantBackup.location.longitude}}, {{restaurantBackup.location.latitude}}</td>
+									</tr>
+								</template>
+	                		</td>
                             <td>{{restaurantBackup.averageRating}}</td>
                             <td><img style="width: 100px; cursor: pointer;" :src="restaurantBackup.logo" alt="Logo ne postoji" onclick="window.open(this.src)" /></td>
                             <td v-if="restaurantBackup.open">OTVOREN</td>
