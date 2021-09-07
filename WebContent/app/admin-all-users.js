@@ -6,7 +6,7 @@ Vue.component('all-users', {
             searchUsername: null,
             searchName: null,
             searchSurname: null,
-            
+            searching: false,
             
             //sort
             usersSorted: [],
@@ -30,6 +30,9 @@ Vue.component('all-users', {
             },
             managerAdd: false,
             deliveryManAdd: false,
+            
+            filtering: false,
+            checkedFilter: [],
             
         }
     },
@@ -78,7 +81,7 @@ Vue.component('all-users', {
 	                
 	            </table>
 	            
-	            <table class="table table-hover w-50" style="float: left;" v-if="!sorting">
+	            <table class="table table-hover w-50" style="float: left;" v-if="!sorting && !filtering">
 	                
 	                <tbody>
 	                    <tr>
@@ -103,7 +106,7 @@ Vue.component('all-users', {
 	                </tbody>
 	            </table>
 	            
-	            <table class="w-25" style="float: left;">
+	            <table class="w-25" style="float: left;" v-if="!searching && !filtering">
 	                
 	                <tbody>
 	                    <tr>
@@ -135,52 +138,37 @@ Vue.component('all-users', {
 	                </tbody>
 	            </table>
 	
-	            <table class="w-25" style="float: left;" v-if="!sorting">
+	            <table class="w-25" style="float: left;" v-if="!sorting && !searching">
 	                <tbody>
 	                    <tr>
 	                        <th>Filtriranje</th>
 	                    </tr>
 	
 	                    <tr>
-	                        <th>
-	                            Uloga:
-	                        </th>
-	                        <th>
-	                            Tip Kupca
-	                        </th> 
-	                    </tr>
-	
-	                    <tr>
 	                        <td>
 	                            <div class="custom-control custom-checkbox m-2">
-	                                <input type="checkbox" class="custom-control-input" id="adminCheck">
+	                                <input type="checkbox" class="custom-control-input" id="adminCheck" value="adminCheck" v-model="checkedFilter">
 	                                <label class="custom-control-label" for="adminCheck">Administrator</label>
 	                            </div>
 	                            <div class="custom-control custom-checkbox m-2">
-	                                <input type="checkbox" class="custom-control-input" id="managerCheck">
+	                                <input type="checkbox" class="custom-control-input" id="managerCheck" value="managerCheck" v-model="checkedFilter">
 	                                <label class="custom-control-label" for="managerCheck">Menadžer</label>
 	                            </div>
 	                            <div class="custom-control custom-checkbox m-2">
-	                                <input type="checkbox" class="custom-control-input" id="buyerCheck">
+	                                <input type="checkbox" class="custom-control-input" id="buyerCheck" value="buyerCheck" v-model="checkedFilter">
 	                                <label class="custom-control-label" for="buyerCheck">Kupac</label>
 	                            </div>
 	                            <div class="custom-control custom-checkbox m-2">
-	                                <input type="checkbox" class="custom-control-input" id="deliveryManCheck">
+	                                <input type="checkbox" class="custom-control-input" id="deliveryManCheck" value="deliveryManCheck" v-model="checkedFilter">
 	                                <label class="custom-control-label" for="deliveryManCheck">Dostavljač</label>
 	                            </div>
 	                        </td>
-	                        <td>
-	                            <div class="custom-control custom-checkbox m-2">
-	                                <input type="checkbox" class="custom-control-input" id="ch1">
-	                                <label class="custom-control-label" for="ch1">Uradi tip kupca</label>
-	                            </div>
-	                        </td>
 	                    </tr>
 	                    <tr>
-	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block">Primeni filtere</button></td>
+	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block" @click="filter()">Primeni filtere</button></td>
 	                    </tr>
 	                    <tr>
-	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block">Poništi filtere</button></td>
+	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block" @click="cancelFilter()">Poništi filtere</button></td>
 	                    </tr>
 	                </tbody>
 	            </table>
@@ -290,6 +278,7 @@ Vue.component('all-users', {
         },
         
         searchByUsername : function() {
+        	this.searching = true;
 			toastt('Search username')
 			if (this.usersBackup.length == 0) {
                 this.usersBackup = this.users;
@@ -310,6 +299,7 @@ Vue.component('all-users', {
 		},
 		
 		searchByName : function() {
+			this.searching = true;
             toastt('Search name')
             if (this.usersBackup.length == 0) {
                 this.usersBackup = this.users;
@@ -330,6 +320,7 @@ Vue.component('all-users', {
 		},
 		
 		searchBySurname: function() {
+			this.searching = true;
             toastt('Search surname');
             if (this.usersBackup.length == 0) {
                 this.usersBackup = this.users;
@@ -354,6 +345,11 @@ Vue.component('all-users', {
                 this.usersBackup = this.users;
             }
 			this.users = this.usersBackup;
+			
+			this.searchUsername = "";
+			this.searchName = "";
+			this.searchSurname = "";
+			this.searching = false;
 		},
 		
 		// f-je sortiranja
@@ -488,6 +484,58 @@ Vue.component('all-users', {
 				return false;
 			}
 			return true;
+		},
+		
+		filter: function() {
+			this.filtering = true;
+			console.log(this.checkedFilter);
+			
+			this.checkedFilter.forEach(element => {
+				if (element === "adminCheck")
+					console.log(element)
+			});
+				
+			
+            if (this.usersBackup.length == 0) {
+                this.usersBackup = this.users;
+            } else {
+                this.users = this.usersBackup;
+            }
+
+            let ret = [];
+
+                        
+            for (let user of this.users) {
+                if (this.checkedFilter.includes("adminCheck") && user.userType === "ADMIN") {
+                    ret.push(user);
+                }
+                
+                if (this.checkedFilter.includes("managerCheck") && user.userType === "MANAGER") {
+                    ret.push(user);
+                }
+                
+                if (this.checkedFilter.includes("buyerCheck") && user.userType === "BUYER") {
+                    ret.push(user);
+                }
+                
+                if (this.checkedFilter.includes("deliveryManCheck") && user.userType === "DELIVERY_MAN") {
+                    ret.push(user);
+                }
+            }
+
+            this.users = ret;
+			
+		},
+		
+		cancelFilter: function() {
+			this.filtering = false;
+			this.checkedFilter = [];
+			console.log(this.checkedFilter);
+			
+			if (this.usersBackup.length == 0) {
+                this.usersBackup = this.users;
+            }
+			this.users = this.usersBackup;
 		},
 		
 		
