@@ -9,6 +9,15 @@ Vue.component('buyer-restaurants', {
         		quantity: null,
         	},
         	quantitiesTemp: [],
+
+        	restaurantsBackup: [],
+        	searchName: "",
+        	searchType: "",
+        	searchLocation: "",
+        	searchRate: "",
+        	
+        	types: [],
+        	checkedFilter: [],
         }
     },
     
@@ -62,6 +71,84 @@ Vue.component('buyer-restaurants', {
 	                    </tr>
 	                </tbody>
 	                
+	            </table>
+	            
+	            <table class="table table-hover w-50" style="float: left;" >
+	                
+	                <tbody>
+	                    <tr>
+	                        <th><label>Pretraži restorane po nazivu:</label></th>
+	                        <td><input type="text" v-model="searchName"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByName()">Pretraži</button></td>
+	                    </tr>
+	                    <tr>
+	                        <th><label>Pretraži restorane po tipu:</label></th>
+	                        <td><input type="text" v-model="searchType"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByType()">Pretraži</button></td>
+	                    </tr>
+	                    <tr>
+	                        <th><label>Pretraži restorane po lokaciji:</label></th>
+	                        <td><input type="text" v-model="searchLocation"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByLocation()">Pretraži</button></td>
+	                    </tr>
+	                    <tr>
+	                        <th><label>Pretraži restorane po prosečnoj oceni:</label></th>
+	                        <td><input type="text" v-model="searchRate"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByRate()">Pretraži</button></td>
+	                    </tr>
+	    				<tr>
+	                        <td colspan="3"><button type="button" class="btn btn-dark btn-block" v-on:click="resetSearch()">Resetuj pretragu</button></td>
+	                    </tr>
+	
+	                </tbody>
+	            </table>
+	            
+	            <table class="w-25" style="float: left;">
+	                
+	                <tbody>
+	                    <tr>
+	                        <th>Sortiranje</th>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <select v-on:change="sorting($event)">
+	                                <option>Odaberite sortiranje</option>
+	                                                            
+	                                <option value="sortNameA">Naziv(rastuće)</option>
+	                                <option value="sortNameD">Naziv(opadajuće)</option>
+	                                
+	                                <option value="sortLocationA">Lokacija(rastuće)</option>
+	                                <option value="sortLocationD">Lokacija(opadajuće)</option>
+	                                
+	                                <option value="sortRateA">Prosečna ocena(rastuće)</option>
+	                                <option value="sortRateD">Prosečna ocena(opadajuće)</option>
+	                                
+	                            </select>
+	                        </td>
+	                    </tr>	
+	                </tbody>
+	                
+	            </table>
+	            
+	            
+	            <table class="w-25" style="float: left;">
+	                <tbody>
+	                    <tr>
+	                        <th>Filtriranje</th>
+	                    </tr>
+	
+	                    <tr>
+	                        <td>
+	                            <div class="custom-control custom-checkbox m-2" v-for="t in types">
+	                                <input type="checkbox" class="custom-control-input" :id="t" :value="t" v-model="checkedFilter">
+	                                <label class="custom-control-label" :for="t">{{t}}</label>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block" @click="filter()">Primeni filtere</button></td>
+	                    </tr>
+	                </tbody>
 	            </table>
 
             </div>
@@ -215,13 +302,206 @@ Vue.component('buyer-restaurants', {
 				toastt('Greska prilikom dodavanja u korpu! \n Može se dodati samo iz istog restorana!');
 				console.log('Greska prilikom dodavanja u korpu! \n Može se dodati samo iz istog restorana!');
     		})
-    	}
+    	},
+    	
+    	
+    	//search restaurants
+    	resetSearch: function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            }
+			this.restaurants = this.restaurantsBackup;
+			
+        	this.searchName = "";
+        	this.searchType = "";
+        	this.searchLocation = "";
+        	this.searchRate = "";
+        	this.checkedFilter = [];
+
+		},
+		
+		searchByName : function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            } else {
+                this.restaurants = this.restaurantsBackup;
+            }
+
+            let ret = [];
+
+            for (let restaurant of this.restaurants) {
+                if (restaurant.name.toLowerCase() === this.searchName.toLowerCase()) {
+                    ret.push(restaurant);
+                }
+            }
+
+            this.restaurants = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchByType : function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            } else {
+                this.restaurants = this.restaurantsBackup;
+            }
+
+            let ret = [];
+
+            for (let restaurant of this.restaurants) {
+                if (restaurant.type.toLowerCase() === this.searchType.toLowerCase()) {
+                    ret.push(restaurant);
+                }
+            }
+
+            this.restaurants = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchByLocation : function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            } else {
+                this.restaurants = this.restaurantsBackup;
+            }
+
+            let ret = [];
+
+            for (let restaurant of this.restaurants) {
+                if (restaurant.location.place.toLowerCase() === this.searchLocation.toLowerCase()) {
+                    ret.push(restaurant);
+                }
+            }
+
+            this.restaurants = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchByRate : function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            } else {
+                this.restaurants = this.restaurantsBackup;
+            }
+
+            let ret = [];
+
+            for (let restaurant of this.restaurants) {
+                if (restaurant.averageRating == this.searchRate.toLowerCase()) {
+                    ret.push(restaurant);
+                }
+            }
+
+            this.restaurants = ret;
+            this.checkedFilter = [];
+		},
+		
+		sorting: function() {
+			if(event.target.value === "sortNameA") {
+				this.sortingNameA();
+			}
+			if(event.target.value === "sortNameD") {
+				this.sortingNameD();
+			}
+			if(event.target.value === "sortLocationA") {
+				this.sortingLocationA();
+			}
+			if(event.target.value === "sortLocationD") {
+				this.sortingLocationD();
+			}
+			if(event.target.value === "sortRateA") {
+				this.sortingRateA();
+			}
+			if(event.target.value === "sortRateD") {
+				this.sortingRateD();
+			}
+		},
+		
+		sortingNameA: function() {
+			this.restaurants.sort(function(a, b){
+			    let x = a.name.toLowerCase();
+			    let y = b.name.toLowerCase();
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingNameD: function() {
+			this.restaurants.sort(function(a, b){
+			    let x = a.name.toLowerCase();
+			    let y = b.name.toLowerCase();
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		sortingLocationA: function() {
+			this.restaurants.sort(function(a, b){
+			    let x = a.location.place.toLowerCase();
+			    let y = b.location.place.toLowerCase();
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingLocationD: function() {
+			this.restaurants.sort(function(a, b){
+			    let x = a.location.place.toLowerCase();
+			    let y = b.location.place.toLowerCase();
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		sortingRateA: function() {
+			this.restaurants.sort(function(a, b){
+			    let x = a.averageRating;
+			    let y = b.averageRating;
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingRateD: function() {
+			this.restaurants.sort(function(a, b){
+				let x = a.averageRating;
+			    let y = b.averageRating;
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		
+		filter: function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            }
+
+            let ret = [];
+            
+            for (let rest of this.restaurants) {
+            	for (let type of this.types) {
+            		if (this.checkedFilter.includes(type) && rest.type === type) {
+                        ret.push(rest);
+                    }
+            	}
+            }
+            
+            this.restaurants = ret;
+		},
+		
+    	
     },
 
     mounted() {
     	axios.get('rest/data/getRestaurantsOpenFirst')
     	.then(response => {
     		this.restaurants = response.data
-    	})
+    	});
+    	
+    	axios.get('rest/data/getTypesOfRestaurants')
+    	.then(response => {
+    		this.types = response.data
+    	});
     }
 });

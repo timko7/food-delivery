@@ -1130,6 +1130,16 @@ public class DataService {
 		return buyers.getBuyersForRestaurant(restaurantName);
 	}
 	
+	@GET
+	@Path("/getTypesOfRestaurants")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public ArrayList<String> getTypesOfRestaurants() {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		ArrayList<String> ret = restaurants.getTypes();
+		return ret;
+	}
+	
 	
 }
 

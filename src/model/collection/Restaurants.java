@@ -166,4 +166,14 @@ public class Restaurants {
 		return ret;
 	}
 
+	public ArrayList<String> getTypes() {
+		ArrayList<String> ret = new ArrayList<>();
+		for (Restaurant restaurant : restaurants.values()) {
+			if (!ret.contains(restaurant.getType())) {
+				ret.add(restaurant.getType());
+			}
+		}
+		return ret;
+	}
+
 }
