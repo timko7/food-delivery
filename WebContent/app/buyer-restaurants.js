@@ -143,6 +143,11 @@ Vue.component('buyer-restaurants', {
 	                                <input type="checkbox" class="custom-control-input" :id="t" :value="t" v-model="checkedFilter">
 	                                <label class="custom-control-label" :for="t">{{t}}</label>
 	                            </div>
+	                            
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="open" value="onlyOpen" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="open">Samo otvoreni</label>
+	                            </div>
 	                        </td>
 	                    </tr>
 	                    <tr>
@@ -481,9 +486,25 @@ Vue.component('buyer-restaurants', {
             
             for (let rest of this.restaurants) {
             	for (let type of this.types) {
-            		if (this.checkedFilter.includes(type) && rest.type === type) {
-                        ret.push(rest);
-                    }
+            		if (this.checkedFilter.includes(type)) {
+            			if (this.checkedFilter.includes("onlyOpen")) {
+            				if (rest.type === type && rest.open) {
+            					ret.push(rest);
+            				}
+            			} else {
+            				if (rest.type === type) {
+            					ret.push(rest);
+            				}
+            			}
+            		}
+            	}
+            }
+            
+            if (this.checkedFilter.length == 1 && this.checkedFilter.includes("onlyOpen")) {
+            	for (let rest of this.restaurants) {
+            		if (rest.open) {
+    					ret.push(rest);
+    				}
             	}
             }
             

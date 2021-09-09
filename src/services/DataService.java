@@ -693,7 +693,7 @@ public class DataService {
 		orderToAdd.setId(idOrder);
 		
 		LocalDateTime time = LocalDateTime.now();
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy. HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         String timeStr = time.format(formatter);
         
 		orderToAdd.setDateTime(timeStr);
@@ -1140,6 +1140,19 @@ public class DataService {
 		return ret;
 	}
 	
+	@GET
+	@Path("/getTypeForRestaurant/{restaurantName}")
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getTypeForRestaurant(@PathParam("restaurantName") String restaurantName) {
+		Restaurants restaurants = Data.getRestaurants(servletContext);
+		Restaurant restaurant = restaurants.containsName(restaurantName);
+		if (restaurant == null) {
+			return null;
+		}
+		
+		return restaurant.getType();
+	}
 	
 }
 

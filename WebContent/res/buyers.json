@@ -8,11 +8,11 @@
     "userType" : "BUYER",
     "dateOfBirth" : "2012-03-25",
     "blocked" : false,
-    "points" : 92.036,
+    "points" : 225.036,
     "typeBuyer" : {
-      "name" : "Obican",
-      "discount" : 0,
-      "requiredPointsForNext" : 100
+      "name" : "Bronzani",
+      "discount" : 10,
+      "requiredPointsForNext" : 300
     },
     "orders" : [ {
       "id" : "PaDSW6j4yC",
@@ -30,7 +30,7 @@
         "quantity" : 2
       } ],
       "restaurantName" : "B",
-      "dateTime" : "04.08.2021. 21:57:43",
+      "dateTime" : "2021.08.04. 21:57:43",
       "price" : 266.0,
       "nameSurname" : "Dada Dic",
       "location" : {
@@ -60,7 +60,7 @@
         "quantity" : 4
       } ],
       "restaurantName" : "B",
-      "dateTime" : "05.08.2021. 16:23:51",
+      "dateTime" : "2021.08.05. 16:23:51",
       "price" : 532.0,
       "nameSurname" : "Dada Dic",
       "location" : {
@@ -102,7 +102,7 @@
         "quantity" : 5
       } ],
       "restaurantName" : "B",
-      "dateTime" : "11.08.2021. 16:48:38",
+      "dateTime" : "2021.08.11. 16:48:38",
       "price" : 958.0,
       "nameSurname" : "Dada Dic",
       "location" : {
@@ -112,6 +112,36 @@
         "number" : "132",
         "place" : "DASDAS",
         "postalCode" : "23132",
+        "address" : null
+      },
+      "orderStatus" : "DELIVERED",
+      "usernameDeliveryMan" : "dos"
+    }, {
+      "id" : "PLBjEXTW6A",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Pasulj",
+          "price" : 500.0,
+          "type" : "Kuvano",
+          "restaurantName" : "C",
+          "quantity" : "",
+          "description" : "",
+          "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+          "deleted" : false
+        },
+        "quantity" : 2
+      } ],
+      "restaurantName" : "C",
+      "dateTime" : "2021.09.09 17:13:00",
+      "price" : 1000.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "Blv",
+        "number" : "32",
+        "place" : "NS",
+        "postalCode" : "21000",
         "address" : null
       },
       "orderStatus" : "DELIVERED",

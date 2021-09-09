@@ -9,6 +9,16 @@ Vue.component('buyer-orders', {
         		text: "",
         		rating: null,
         	},
+        	
+        	ordersBackup: [],
+        	searchName: "",
+        	searchPriceFrom: null,
+        	searchPriceTo: null,
+        	searchDateFrom: null,
+        	searchDateTo: null,
+        	
+        	types: [],
+        	checkedFilter: [],
         }
     },
     
@@ -117,6 +127,111 @@ Vue.component('buyer-orders', {
 	                </tbody>
 	                
 	            </table>
+	            
+	            
+	            <table class="table table-hover w-50" style="float: left;" >
+	                
+	                <tbody>
+	                    <tr>
+	                        <th><label>Pretraži porudžbine po restoranu:</label></th>
+	                        <td><input type="text" v-model="searchName"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByName()">Pretraži</button></td>
+	                    </tr>
+	                    <tr>
+	                        <th><label>Pretraži porudžbine po ceni (od - do):</label></th>
+	                        <td><input type="number" v-model="searchPriceFrom"/></td>
+	                        <td><input type="number" v-model="searchPriceTo"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByPrice()">Pretraži</button></td>
+	                    </tr>
+	                    <tr>
+	                        <th><label>Pretraži porudžbine po datumu (od - do):</label></th>
+	                        <td><input type="date" v-model="searchDateFrom"/></td>
+	                        <td><input type="date" v-model="searchDateTo"/></td>
+	                        <td><button type="button" class="btn btn-dark" v-on:click="searchByDate()">Pretraži</button></td>
+	                    </tr>
+	    				<tr>
+	                        <td colspan="3"><button type="button" class="btn btn-dark btn-block" v-on:click="resetSearch()">Resetuj pretragu</button></td>
+	                    </tr>
+	
+	                </tbody>
+	            </table>
+	            
+	            <table class="w-25" style="float: left;">
+	                
+	                <tbody>
+	                    <tr>
+	                        <th>Sortiranje</th>
+	                    </tr>
+	                    <tr>
+	                        <td>
+	                            <select v-on:change="sorting($event)">
+	                                <option>Odaberite sortiranje</option>
+	                                                            
+	                                <option value="sortNameA">Naziv restorana(rastuće)</option>
+	                                <option value="sortNameD">Naziv restorana(opadajuće)</option>
+	                                
+	                                <option value="sortPriceA">Cena(rastuće)</option>
+	                                <option value="sortPriceD">Cena(opadajuće)</option>
+	                                
+	                                <option value="sortDateA">Datum(rastuće)</option>
+	                                <option value="sortDateD">Datum(opadajuće)</option>
+	                                
+	                            </select>
+	                        </td>
+	                    </tr>	
+	                </tbody>
+	                
+	            </table>
+	            
+	            
+	            <table class="w-25" style="float: left;">
+	                <tbody>
+	                    <tr>
+	                        <th>Filtriranje</th>
+	                    </tr>
+	
+	                    <tr>
+	                        <td>
+	                        	<th>Tip restorana</th>
+	                            <div class="custom-control custom-checkbox m-2" v-for="t in types">
+	                                <input type="checkbox" class="custom-control-input" :id="t" :value="t" v-model="checkedFilter">
+	                                <label class="custom-control-label" :for="t">{{t}}</label>
+	                            </div>
+	                            
+	                            <th>Status porudžbine</th>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="PROCESSING" value="PROCESSING" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="PROCESSING">PROCESSING</label>
+	                            </div>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="IN_PREPARATION" value="IN_PREPARATION" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="IN_PREPARATION">IN_PREPARATION</label>
+	                            </div>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="WAITING_DELIVERY" value="WAITING_DELIVERY" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="WAITING_DELIVERY">WAITING_DELIVERY</label>
+	                            </div>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="IN_TRANSPORT" value="IN_TRANSPORT" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="IN_TRANSPORT">IN_TRANSPORT</label>
+	                            </div>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="DELIVERED" value="DELIVERED" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="DELIVERED">DELIVERED</label>
+	                            </div>
+	                            <div class="custom-control custom-checkbox m-2">
+	                                <input type="checkbox" class="custom-control-input" id="CANCELED" value="CANCELED" v-model="checkedFilter">
+	                                <label class="custom-control-label" for="CANCELED">CANCELED</label>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2"><button type="button" class="btn btn-dark btn-block" @click="filter()">Primeni filtere</button></td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	            
+	            
             </div>
 
         </div>
@@ -247,12 +362,307 @@ Vue.component('buyer-orders', {
 				return false
 			}
     		return true
-    	}
+    	},
     	
+    	
+    	//search 
+    	resetSearch: function() {
+			if (this.ordersBackup.length == 0) {
+                this.ordersBackup = this.buyer.orders;
+            }
+			this.buyer.orders = this.ordersBackup;
+			
+			this.searchName = "";
+			this.searchPriceFrom = null;
+			this.searchPriceTo = null;
+			this.searchDateFrom = null;
+			this.searchDateTo = null;
+        	this.checkedFilter = [];
+
+		},
+		
+		searchByName : function() {
+			if (this.ordersBackup.length == 0) {
+                this.ordersBackup = this.buyer.orders;
+            } else {
+                this.buyer.orders = this.ordersBackup;
+            }
+
+            let ret = [];
+
+            for (let order of this.buyer.orders) {
+                if (order.restaurantName.toLowerCase() === this.searchName.toLowerCase()) {
+                    ret.push(order);
+                }
+            }
+
+            this.buyer.orders = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchByPrice : function() {
+			if (this.searchPriceFrom == null || this.searchPriceTo == null || this.searchPriceFrom === "" || this.searchPriceTo === "") {
+            	toastt('Neuspela pretraga! Popunite oba polja (od - do)!');
+            	return;
+            }
+			
+			if (this.ordersBackup.length == 0) {
+                this.ordersBackup = this.buyer.orders;
+            } else {
+                this.buyer.orders = this.ordersBackup;
+            }
+
+            let ret = [];
+            
+            for (let order of this.buyer.orders) {
+                if (order.price >= this.searchPriceFrom && order.price <= this.searchPriceTo) {
+                    ret.push(order);
+                }
+            }
+
+            this.buyer.orders = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchByDate : function() {
+			if (this.searchDateFrom == null || this.searchDateTo == null) {
+            	toastt('Neuspela pretraga! Popunite oba polja (od - do)!');
+            	return;
+            }
+			
+			if (this.ordersBackup.length == 0) {
+                this.ordersBackup = this.buyer.orders;
+            } else {
+                this.buyer.orders = this.ordersBackup;
+            }
+
+            let ret = [];
+
+            searchNewDFrom = new Date(this.searchDateFrom)
+            searchNewDTo= new Date(this.searchDateTo)
+            
+            for (let order of this.buyer.orders) {
+            	let d = Date.parse(order.dateTime);
+            	newDateOrder = new Date(d);
+                if (+newDateOrder >= +searchNewDFrom && +newDateOrder <= +searchNewDTo) {
+                    ret.push(order);
+                }
+            }
+
+            this.buyer.orders = ret;
+            this.checkedFilter = [];
+		},
+    	
+		sorting: function() {
+			if(event.target.value === "sortNameA") {
+				this.sortingNameA();
+			}
+			if(event.target.value === "sortNameD") {
+				this.sortingNameD();
+			}
+			if(event.target.value === "sortPriceA") {
+				this.sortingPriceA();
+			}
+			if(event.target.value === "sortPriceD") {
+				this.sortingPriceD();
+			}
+			if(event.target.value === "sortDateA") {
+				this.sortingDateA();
+			}
+			if(event.target.value === "sortDateD") {
+				this.sortingDateD();
+			}
+		},
+		
+		sortingNameA: function() {
+			this.buyer.orders.sort(function(a, b){
+			    let x = a.restaurantName.toLowerCase();
+			    let y = b.restaurantName.toLowerCase();
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingNameD: function() {
+			this.buyer.orders.sort(function(a, b){
+			    let x = a.restaurantName.toLowerCase();
+			    let y = b.restaurantName.toLowerCase();
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		sortingPriceA: function() {
+			this.buyer.orders.sort(function(a, b){
+			    let x = a.price;
+			    let y = b.price;
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingPriceD: function() {
+			this.buyer.orders.sort(function(a, b){
+				let x = a.price;
+			    let y = b.price;
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		sortingDateA: function() {
+			this.buyer.orders.sort(function(a, b){
+			    let x = a.dateTime.toLowerCase();
+			    let y = b.dateTime.toLowerCase();
+			    if (x < y) {return -1;}
+			    if (x > y) {return 1;}
+			    return 0;
+			});
+		},
+		sortingDateD: function() {
+			this.buyer.orders.sort(function(a, b){
+			    let x = a.dateTime.toLowerCase();
+			    let y = b.dateTime.toLowerCase();
+			    if (x < y) {return 1;}
+			    if (x > y) {return -1;}
+			    return 0;
+			});
+		},
+		
+		filter: function() {
+			if (this.ordersBackup.length == 0) {
+                this.ordersBackup = this.buyer.orders;
+            }
+
+            let ret = [];
+            
+            let containsStatus = false;
+            let containsType = false;
+            
+            for (let order of this.buyer.orders) {
+            	for (let type of this.types) {
+            		if (this.checkedFilter.includes(type)) {
+            			if (this.checkedFilter.includes("PROCESSING")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "PROCESSING") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (this.checkedFilter.includes("IN_PREPARATION")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "IN_PREPARATION") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (this.checkedFilter.includes("WAITING_DELIVERY")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "WAITING_DELIVERY") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (this.checkedFilter.includes("IN_TRANSPORT")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "IN_TRANSPORT") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (this.checkedFilter.includes("DELIVERED")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "DELIVERED") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (this.checkedFilter.includes("CANCELED")) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type && order.orderStatus === "CANCELED") {
+            						ret.push(order);
+            					}
+            				});
+            				containsStatus = true;
+            			}
+            			if (!containsStatus) {
+            				axios.get('rest/data/getTypeForRestaurant/' + order.restaurantName)
+            				.then(response => {
+            					if (response.data === type) {
+            						ret.push(order);
+            					}
+            				});
+            			}
+            			containsType = true;
+            		}
+            	}
+            }
+            
+            if (!containsType) {
+            	if (this.checkedFilter.includes("PROCESSING")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "PROCESSING") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+    			if (this.checkedFilter.includes("IN_PREPARATION")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "IN_PREPARATION") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+    			if (this.checkedFilter.includes("WAITING_DELIVERY")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "WAITING_DELIVERY") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+    			if (this.checkedFilter.includes("IN_TRANSPORT")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "IN_TRANSPORT") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+    			if (this.checkedFilter.includes("DELIVERED")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "DELIVERED") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+    			if (this.checkedFilter.includes("CANCELED")) {
+    				for (let order of this.buyer.orders) {
+    					if (order.orderStatus === "CANCELED") {
+    						ret.push(order);
+    					}
+    				}
+    			}
+            }
+            
+            this.buyer.orders = ret;
+		},
     	
     },
 
     mounted() {
-    	
+    	axios.get('rest/data/getTypesOfRestaurants')
+    	.then(response => {
+    		this.types = response.data
+    	});
     }
 });

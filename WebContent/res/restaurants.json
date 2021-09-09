@@ -110,7 +110,16 @@
     "logo" : "res/images/restaurants/C/appIcon.png",
     "averageRating" : 0.0,
     "managerUsername" : "peca",
-    "items" : [ ],
+    "items" : [ {
+      "name" : "Pasulj",
+      "price" : 500.0,
+      "type" : "Kuvano",
+      "restaurantName" : "C",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+      "deleted" : false
+    } ],
     "comments" : [ ],
     "location" : {
       "longitude" : "1",
@@ -121,7 +130,11 @@
       "postalCode" : "142142",
       "address" : null
     },
-    "requests" : [ ],
+    "requests" : [ {
+      "idOrder" : "PLBjEXTW6A",
+      "deliveryUsername" : "dos",
+      "requestStatus" : "ACCEPTED"
+    } ],
     "deleted" : false
   }
 }

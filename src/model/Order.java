@@ -8,7 +8,7 @@ public class Order {
 	private String id;
 	private ArrayList<ItemInCart> itemsInCart = new ArrayList<>();
 	private String restaurantName;
-	private String dateTime; // format: dd.MM.yyyy. HH:mm:ss
+	private String dateTime; // format: yyyy.MM.dd. HH:mm:ss
 	private double price;
 	private String nameSurname;
 	private Location location = new Location();
