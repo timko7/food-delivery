@@ -18,6 +18,11 @@ Vue.component('buyer-restaurants', {
         	
         	types: [],
         	checkedFilter: [],
+        	
+        	combinedName: "",
+        	combinedType: "",
+        	combinedLocation: "",
+        	
         }
     },
     
@@ -98,6 +103,40 @@ Vue.component('buyer-restaurants', {
 	                    </tr>
 	    				<tr>
 	                        <td colspan="3"><button type="button" class="btn btn-dark btn-block" v-on:click="resetSearch()">Resetuj pretragu</button></td>
+	                    </tr>
+	                    
+	                    <tr>
+	                    	<td>
+		                    	<tr>
+	                        		<th><h2>Kombinovana pretraga restorana:</h2></th>
+	                    		</tr>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                    	<td>
+		                    	<tr>
+			                        <th><label>Naziv:</label></th>
+			                        <td><input type="text" v-model="combinedName"/></td>
+		                        </tr>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                    	<td>
+		                    	<tr>
+			                        <th><label>Tip:</label></th>
+			                        <td><input type="text" v-model="combinedType"/></td>
+		                        </tr>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                    	<td>
+		                    	<tr>
+			                        <th><label>Lokacija:</label></th>
+			                        <td><input type="text" v-model="combinedLocation"/></td>
+			                        <td colspan="3"><button type="button" class="btn btn-dark" v-on:click="searchCombined()">Pretraži</button></td>
+    								<td colspan="3"><button type="button" class="btn btn-dark" v-on:click="resetSearch()">Resetuj pretragu</button></td>
+		                        </tr>
+	                        </td>
 	                    </tr>
 	
 	                </tbody>
@@ -322,6 +361,9 @@ Vue.component('buyer-restaurants', {
         	this.searchLocation = "";
         	this.searchRate = "";
         	this.checkedFilter = [];
+        	this.combinedName = "";
+        	this.combinedType = "";
+        	this.combinedLocation = "";
 
 		},
 		
@@ -397,6 +439,76 @@ Vue.component('buyer-restaurants', {
                 }
             }
 
+            this.restaurants = ret;
+            this.checkedFilter = [];
+		},
+		
+		searchCombined: function() {
+			if (this.restaurantsBackup.length == 0) {
+                this.restaurantsBackup = this.restaurants;
+            } else {
+                this.restaurants = this.restaurantsBackup;
+            }
+			
+			let ret = [];
+
+			if (this.combinedName == null && this.combinedName.trim() === "" &&
+					this.combinedType == null && this.combinedType.trim() === "" &&
+					this.combinedLocation == null && this.combinedLocation.trim() === "") {
+				this.restaurants = ret;
+	            this.checkedFilter = [];
+	            return;
+			}
+			
+			if (this.combinedName !== "" && this.combinedType !== "" && this.combinedLocation !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.name.toLowerCase() === this.combinedName.toLowerCase() && 
+	                		restaurant.type.toLowerCase() === this.combinedType.toLowerCase() &&
+	                		restaurant.location.place.toLowerCase() === this.combinedLocation.toLowerCase()) {
+	                    ret.push(restaurant);
+	                }
+	            }				
+			} else if (this.combinedName !== "" && this.combinedType !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.name.toLowerCase() === this.combinedName.toLowerCase() && 
+	                		restaurant.type.toLowerCase() === this.combinedType.toLowerCase()) {
+	                    ret.push(restaurant);
+	                }
+	            }
+			} else if (this.combinedName !== "" && this.combinedLocation !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.name.toLowerCase() === this.combinedName.toLowerCase() && 
+	                		restaurant.location.place.toLowerCase() === this.combinedLocation.toLowerCase()) {
+	                    ret.push(restaurant);
+	                }
+	            }
+			} else if (this.combinedType !== "" && this.combinedLocation !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.type.toLowerCase() === this.combinedType.toLowerCase() && 
+	                		restaurant.location.place.toLowerCase() === this.combinedLocation.toLowerCase()) {
+	                    ret.push(restaurant);
+	                }
+	            }
+			} else if (this.combinedName !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.name.toLowerCase() === this.combinedName.toLowerCase()) {
+	                	ret.push(restaurant);
+	                }
+	            }
+			} else if (this.combinedType !== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.type.toLowerCase() === this.combinedType.toLowerCase()) {
+	                	ret.push(restaurant);
+	                }
+	            }
+			} else if (this.combinedLocation!== "") {
+				for (let restaurant of this.restaurants) {
+	                if (restaurant.location.place.toLowerCase() === this.combinedLocation.toLowerCase()) {
+	                	ret.push(restaurant);
+	                }
+	            }
+			}
+			
             this.restaurants = ret;
             this.checkedFilter = [];
 		},
