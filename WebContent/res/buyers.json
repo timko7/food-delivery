@@ -8,11 +8,11 @@
     "userType" : "BUYER",
     "dateOfBirth" : "2012-03-25",
     "blocked" : false,
-    "points" : 225.036,
+    "points" : 351.386,
     "typeBuyer" : {
-      "name" : "Bronzani",
-      "discount" : 10,
-      "requiredPointsForNext" : 300
+      "name" : "Srebrni",
+      "discount" : 20,
+      "requiredPointsForNext" : 500
     },
     "orders" : [ {
       "id" : "PaDSW6j4yC",
@@ -146,6 +146,66 @@
       },
       "orderStatus" : "DELIVERED",
       "usernameDeliveryMan" : "dos"
+    }, {
+      "id" : "Pv2dMQcigt",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Pasulj",
+          "price" : 500.0,
+          "type" : "Kuvano",
+          "restaurantName" : "C",
+          "quantity" : "",
+          "description" : "",
+          "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+          "deleted" : false
+        },
+        "quantity" : 1
+      } ],
+      "restaurantName" : "C",
+      "dateTime" : "2021.09.10 11:18:26",
+      "price" : 500.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "Blb",
+        "number" : "12",
+        "place" : "Fraa",
+        "postalCode" : "21412",
+        "address" : null
+      },
+      "orderStatus" : "PROCESSING",
+      "usernameDeliveryMan" : ""
+    }, {
+      "id" : "Pl8eenOknB",
+      "itemsInCart" : [ {
+        "item" : {
+          "name" : "Pasulj",
+          "price" : 500.0,
+          "type" : "Kuvano",
+          "restaurantName" : "C",
+          "quantity" : "",
+          "description" : "",
+          "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+          "deleted" : false
+        },
+        "quantity" : 1
+      } ],
+      "restaurantName" : "C",
+      "dateTime" : "2021.09.10 11:25:44",
+      "price" : 450.0,
+      "nameSurname" : "Dada Dic",
+      "location" : {
+        "longitude" : null,
+        "latitude" : null,
+        "street" : "Bgd",
+        "number" : "312",
+        "place" : "Bg",
+        "postalCode" : "142142",
+        "address" : null
+      },
+      "orderStatus" : "PROCESSING",
+      "usernameDeliveryMan" : ""
     } ],
     "cart" : {
       "username" : "da",

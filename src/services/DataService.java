@@ -675,7 +675,7 @@ public class DataService {
 	@Path("/makeOrder")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response makeOrder(Order orderToAdd) {	//TODO: uradi za popust
+	public Response makeOrder(Order orderToAdd) {
 		User user = (User) request.getSession().getAttribute("user-info");
 		if (user == null) {
 			return Response.status(400).entity("Cannot make order! \nUser not logged in!").build();
@@ -695,6 +695,9 @@ public class DataService {
 		LocalDateTime time = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
         String timeStr = time.format(formatter);
+        
+        double newPrice = orderToAdd.getPrice() - (1.0 * buyer.getTypeBuyer().getDiscount() / 100 * orderToAdd.getPrice());
+        orderToAdd.setPrice(newPrice);
         
 		orderToAdd.setDateTime(timeStr);
 		orderToAdd.setOrderStatus(OrderStatus.PROCESSING);
