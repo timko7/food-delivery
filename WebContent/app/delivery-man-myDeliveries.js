@@ -29,6 +29,7 @@ Vue.component('delivery-man-myDeliveries', {
                             <th scope="col">Cena</th>
                             <th scope="col">Vreme</th>
                             <th scope="col">Artikli</th>
+                            <th scope="col">Lokacija</th>
                             <th scope="col">Status</th>
                             
                         </tr>
@@ -45,6 +46,14 @@ Vue.component('delivery-man-myDeliveries', {
 									<td>{{ i.item.name }}; </td>
 								</template>
                             </td>
+                            	<template>
+									<tr>
+										<td>{{o.location.place}} {{o.location.postalCode}}</td>
+									</tr>
+									<tr>
+										<td>{{o.location.street}} {{o.location.number}}</td>
+									</tr>
+								</template>
                             <td>{{o.orderStatus}}</td>
                             
                             <td v-if="o.orderStatus === 'IN_TRANSPORT'"><button class="btn btn-primary" @click="arrived(o)">Dostavljeno</button></td>

@@ -1,13 +1,24 @@
 {
+  "din" : {
+    "username" : "din",
+    "password" : "din",
+    "name" : "Dina",
+    "surname" : "Tomic",
+    "gender" : "FEMALE",
+    "userType" : "DELIVERY_MAN",
+    "dateOfBirth" : "2004-09-13",
+    "blocked" : false,
+    "ordersToDeliver" : [ "PhLuukkVDJ", "P8jeYYhY9r", "PyLF4zexGe" ]
+  },
   "dos" : {
     "username" : "dos",
     "password" : "dos",
-    "name" : "Dos",
-    "surname" : "Dosic",
-    "gender" : "FEMALE",
+    "name" : "Tom",
+    "surname" : "Tomic",
+    "gender" : "MALE",
     "userType" : "DELIVERY_MAN",
-    "dateOfBirth" : "2000-06-15",
+    "dateOfBirth" : "2005-09-13",
     "blocked" : false,
-    "ordersToDeliver" : [ "PUKua6sPev", "PZKoH0ijY7", "PLBjEXTW6A" ]
+    "ordersToDeliver" : [ ]
   }
 }

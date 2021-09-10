@@ -463,6 +463,7 @@ Vue.component('admin-restaurants', {
 									toastt('Greska prilikom dodele logoa2!');
 								} else {
 									toastt('Uspesno dodat logo2..');
+									this.restaurants.push(response.data)
 								}
 							});
 						}

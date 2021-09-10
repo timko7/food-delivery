@@ -179,7 +179,7 @@ Vue.component('manager-items', {
 				} else {
 					toastt('Uspešno kreiran artikal!')
 					//this.restaurant.items.push(response.data)
-					this.items.push(response.data)
+					
 				}
 				
 				if (this.selectedImage != null) {
@@ -202,6 +202,7 @@ Vue.component('manager-items', {
 								} else {
 									toastt('Uspesno dodata slika2..');
 									this.selectedImage = null;
+									this.items.push(response.data)
 								}
 							});
 						}

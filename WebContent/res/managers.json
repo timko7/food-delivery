@@ -1,38 +1,50 @@
 {
-  "manager" : {
-    "username" : "manager",
-    "password" : "manager",
-    "name" : "Man",
-    "surname" : "Ager",
-    "gender" : "MALE",
-    "userType" : "MANAGER",
-    "dateOfBirth" : "2021-06-02",
-    "blocked" : false,
-    "restaurant" : "A",
-    "inCharge" : true
-  },
-  "peca" : {
-    "username" : "peca",
-    "password" : "peca",
-    "name" : "Peca",
-    "surname" : "Pecic",
-    "gender" : "MALE",
-    "userType" : "MANAGER",
-    "dateOfBirth" : "2021-06-15",
-    "blocked" : false,
-    "restaurant" : "C",
-    "inCharge" : true
-  },
-  "man" : {
-    "username" : "man",
-    "password" : "man",
-    "name" : "Mendzer",
-    "surname" : "Mendzeric",
+  "mena" : {
+    "username" : "mena",
+    "password" : "mena",
+    "name" : "Mena",
+    "surname" : "Menic",
     "gender" : "FEMALE",
     "userType" : "MANAGER",
-    "dateOfBirth" : "2021-06-02",
+    "dateOfBirth" : "1994-08-30",
     "blocked" : false,
-    "restaurant" : "B",
+    "restaurant" : "Macak",
+    "inCharge" : true
+  },
+  "kutlaca" : {
+    "username" : "kutlaca",
+    "password" : "kutlaca",
+    "name" : "Kata",
+    "surname" : "Katic",
+    "gender" : "FEMALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "1996-09-20",
+    "blocked" : false,
+    "restaurant" : "Kutlaca Bar",
+    "inCharge" : true
+  },
+  "gril" : {
+    "username" : "gril",
+    "password" : "gril",
+    "name" : "Pera",
+    "surname" : "Perovic",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "1980-09-10",
+    "blocked" : false,
+    "restaurant" : "Djava",
+    "inCharge" : true
+  },
+  "marko" : {
+    "username" : "marko",
+    "password" : "marko",
+    "name" : "Marko",
+    "surname" : "Markic",
+    "gender" : "MALE",
+    "userType" : "MANAGER",
+    "dateOfBirth" : "1990-09-14",
+    "blocked" : false,
+    "restaurant" : "Karibik",
     "inCharge" : true
   }
 }

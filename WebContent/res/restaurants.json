@@ -1,138 +1,262 @@
 {
-  "A" : {
-    "name" : "A",
-    "type" : "a",
+  "Macak" : {
+    "name" : "Macak",
+    "type" : "picerija",
     "open" : true,
-    "logo" : "res/images/restaurants/A/1_PHuNOhupnXwBWWUtYuieag.jpeg",
+    "logo" : "res/images/restaurants/Macak/picerijaMacak.jpg",
+    "averageRating" : 3.5,
+    "managerUsername" : "mena",
+    "items" : [ {
+      "name" : "Pica",
+      "price" : 200.0,
+      "type" : "jelo",
+      "restaurantName" : "Macak",
+      "quantity" : "30cm",
+      "description" : "",
+      "image" : "res/images/restaurants/Macak/Pica/pica.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Sendvic",
+      "price" : 150.0,
+      "type" : "jelo",
+      "restaurantName" : "Macak",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/Macak/Sendvic/sendvic-sunka2.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Kola",
+      "price" : 90.0,
+      "type" : "pi\u0107e",
+      "restaurantName" : "Macak",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/Macak/Kola/kola.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Voda",
+      "price" : 50.0,
+      "type" : "pi\u0107e",
+      "restaurantName" : "Macak",
+      "quantity" : "",
+      "description" : "rosa",
+      "image" : "res/images/restaurants/Macak/Voda/rosa.jpg",
+      "deleted" : false
+    } ],
+    "comments" : [ {
+      "time" : "1631296862675",
+      "buyerUsername" : "pera",
+      "text" : "Ahhhh...",
+      "rating" : 3.0,
+      "commentStatus" : "ACCEPTED"
+    }, {
+      "time" : "1631296871063",
+      "buyerUsername" : "pera",
+      "text" : "Fino..",
+      "rating" : 4.0,
+      "commentStatus" : "ACCEPTED"
+    }, {
+      "time" : "1631296885418",
+      "buyerUsername" : "pera",
+      "text" : "ccccccccccccccc",
+      "rating" : 1.0,
+      "commentStatus" : "REJECTED"
+    } ],
+    "location" : {
+      "longitude" : "19.862663338693164",
+      "latitude" : "45.255000077409676",
+      "street" : "Beogradska",
+      "number" : "19",
+      "place" : "Petrovaradin",
+      "postalCode" : "21131",
+      "address" : null
+    },
+    "requests" : [ {
+      "idOrder" : "PhLuukkVDJ",
+      "deliveryUsername" : "din",
+      "requestStatus" : "ACCEPTED"
+    } ],
+    "deleted" : false
+  },
+  "Kutlaca Bar" : {
+    "name" : "Kutlaca Bar",
+    "type" : "kuvano",
+    "open" : true,
+    "logo" : "res/images/restaurants/Kutlaca Bar/kutlacaBar.jpg",
+    "averageRating" : 4.0,
+    "managerUsername" : "kutlaca",
+    "items" : [ {
+      "name" : "Pasulj",
+      "price" : 200.0,
+      "type" : "Jelo",
+      "restaurantName" : "Kutlaca Bar",
+      "quantity" : "400ml",
+      "description" : "",
+      "image" : "res/images/restaurants/Kutlaca Bar/Pasulj/pasulj.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Gulas",
+      "price" : 300.0,
+      "type" : "Jelo",
+      "restaurantName" : "Kutlaca Bar",
+      "quantity" : "400ml",
+      "description" : "",
+      "image" : "res/images/restaurants/Kutlaca Bar/Gulas/gulas.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Krempita",
+      "price" : 100.0,
+      "type" : "Kola\u010D",
+      "restaurantName" : "Kutlaca Bar",
+      "quantity" : "150g",
+      "description" : "",
+      "image" : "res/images/restaurants/Kutlaca Bar/Krempita/krempita.jpg",
+      "deleted" : false
+    } ],
+    "comments" : [ {
+      "time" : "1631296842523",
+      "buyerUsername" : "pera",
+      "text" : "Super je, al moze bolje..",
+      "rating" : 4.0,
+      "commentStatus" : "ACCEPTED"
+    } ],
+    "location" : {
+      "longitude" : "19.840161320392426",
+      "latitude" : "45.24812992093376",
+      "street" : "Maksima Gorkog",
+      "number" : "2",
+      "place" : "Novi Sad",
+      "postalCode" : "21000",
+      "address" : null
+    },
+    "requests" : [ {
+      "idOrder" : "PyLF4zexGe",
+      "deliveryUsername" : "din",
+      "requestStatus" : "ACCEPTED"
+    }, {
+      "idOrder" : "PyLF4zexGe",
+      "deliveryUsername" : "din",
+      "requestStatus" : "SENT"
+    } ],
+    "deleted" : false
+  },
+  "Karibik" : {
+    "name" : "Karibik",
+    "type" : "picerija",
+    "open" : false,
+    "logo" : "res/images/restaurants/Karibik/caribicLogo.png",
     "averageRating" : 0.0,
-    "managerUsername" : "manager",
-    "items" : [ ],
+    "managerUsername" : "marko",
+    "items" : [ {
+      "name" : "Pica",
+      "price" : 200.0,
+      "type" : "jelo",
+      "restaurantName" : "Karibik",
+      "quantity" : "30cm",
+      "description" : "kapri\u0107oza",
+      "image" : "res/images/restaurants/Karibik/Pica/pica2.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Palacinka",
+      "price" : 170.0,
+      "type" : "jelo",
+      "restaurantName" : "Karibik",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/Karibik/Palacinka/Palatschinke.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Kola",
+      "price" : 100.0,
+      "type" : "pi\u0107e",
+      "restaurantName" : "Karibik",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/Karibik/Kola/kola.jpg",
+      "deleted" : false
+    } ],
     "comments" : [ ],
     "location" : {
-      "longitude" : "1",
-      "latitude" : "2",
-      "street" : "3",
-      "number" : "123",
-      "place" : "DSA",
-      "postalCode" : "321",
+      "longitude" : "19.846066205575976",
+      "latitude" : "45.254807016862344",
+      "street" : "Modene",
+      "number" : "1",
+      "place" : "Novi Sad",
+      "postalCode" : "21000",
       "address" : null
     },
     "requests" : [ ],
     "deleted" : false
   },
-  "B" : {
-    "name" : "B",
-    "type" : "b",
+  "Djava" : {
+    "name" : "Djava",
+    "type" : "gril",
     "open" : true,
-    "logo" : "res/images/restaurants/B/IMG_20200215_124640-EFFECTS.jpg",
-    "averageRating" : 3.5,
-    "managerUsername" : "man",
+    "logo" : "res/images/restaurants/Djava/djavaGril.jpg",
+    "averageRating" : 4.5,
+    "managerUsername" : "gril",
     "items" : [ {
-      "name" : "Art1",
-      "price" : 133.0,
-      "type" : "Pice",
-      "restaurantName" : "B",
-      "quantity" : "",
-      "description" : "Ovo je artikal prvi..",
-      "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
-      "deleted" : false
-    }, {
-      "name" : "v",
-      "price" : 32.0,
-      "type" : "vdsg",
-      "restaurantName" : "B",
-      "quantity" : "fdssdf",
-      "description" : "sddsf",
-      "image" : "res/images/restaurants/B/v/appIcon2.png",
-      "deleted" : false
-    }, {
-      "name" : "vv",
-      "price" : 111111.0,
-      "type" : "sad",
-      "restaurantName" : "B",
-      "quantity" : "sfd",
-      "description" : "tttretrttrte",
-      "image" : "res/images/restaurants/B/vv/appIcon.png",
-      "deleted" : true
-    }, {
-      "name" : "Artk2",
+      "name" : "Pljeskavica",
       "price" : 200.0,
-      "type" : "cas",
-      "restaurantName" : "B",
+      "type" : "jelo",
+      "restaurantName" : "Djava",
+      "quantity" : "150g",
+      "description" : "",
+      "image" : "res/images/restaurants/Djava/Pljeskavica/pljeska.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Pomfrit",
+      "price" : 100.0,
+      "type" : "jelo",
+      "restaurantName" : "Djava",
+      "quantity" : "200g",
+      "description" : "",
+      "image" : "res/images/restaurants/Djava/Pomfrit/pomes.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Kola",
+      "price" : 100.0,
+      "type" : "pi\u0107e",
+      "restaurantName" : "Djava",
       "quantity" : "",
       "description" : "",
-      "image" : "res/images/restaurants/B/Artk2/appIcon4.png",
-      "deleted" : true
+      "image" : "res/images/restaurants/Djava/Kola/kola.jpg",
+      "deleted" : false
+    }, {
+      "name" : "Voda",
+      "price" : 80.0,
+      "type" : "pi\u0107e",
+      "restaurantName" : "Djava",
+      "quantity" : "",
+      "description" : "",
+      "image" : "res/images/restaurants/Djava/Voda/rosa.jpg",
+      "deleted" : false
     } ],
     "comments" : [ {
-      "time" : "1629807729435",
-      "buyerUsername" : "da",
-      "text" : "Strava",
+      "time" : "1631296787407",
+      "buyerUsername" : "pera",
+      "text" : "Dobra pljeska.. A tek pomes.... :D",
       "rating" : 5.0,
       "commentStatus" : "ACCEPTED"
     }, {
-      "time" : "1629807754790",
-      "buyerUsername" : "da",
-      "text" : "Da da daaa      ",
+      "time" : "1631296807155",
+      "buyerUsername" : "pera",
+      "text" : "Vrrrlo dobro..",
       "rating" : 4.0,
-      "commentStatus" : "REJECTED"
-    }, {
-      "time" : "1629814142069",
-      "buyerUsername" : "da",
-      "text" : "Pfff",
-      "rating" : 2.0,
       "commentStatus" : "ACCEPTED"
     } ],
     "location" : {
-      "longitude" : "1",
-      "latitude" : "2",
-      "street" : "3",
-      "number" : "4",
-      "place" : "Qweq",
-      "postalCode" : "321",
+      "longitude" : "19.872426568558403",
+      "latitude" : "45.25203849525199",
+      "street" : "Preradoviceva",
+      "number" : "8",
+      "place" : "Petrovaradin",
+      "postalCode" : "21131",
       "address" : null
     },
     "requests" : [ {
-      "idOrder" : "PUKua6sPev",
-      "deliveryUsername" : "dos",
-      "requestStatus" : "ACCEPTED"
-    }, {
-      "idOrder" : "PZKoH0ijY7",
-      "deliveryUsername" : "dos",
-      "requestStatus" : "ACCEPTED"
-    } ],
-    "deleted" : false
-  },
-  "C" : {
-    "name" : "C",
-    "type" : "c",
-    "open" : true,
-    "logo" : "res/images/restaurants/C/appIcon.png",
-    "averageRating" : 0.0,
-    "managerUsername" : "peca",
-    "items" : [ {
-      "name" : "Pasulj",
-      "price" : 500.0,
-      "type" : "Kuvano",
-      "restaurantName" : "C",
-      "quantity" : "",
-      "description" : "",
-      "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
-      "deleted" : false
-    } ],
-    "comments" : [ ],
-    "location" : {
-      "longitude" : "1",
-      "latitude" : "2",
-      "street" : "3",
-      "number" : "313",
-      "place" : "Trea",
-      "postalCode" : "142142",
-      "address" : null
-    },
-    "requests" : [ {
-      "idOrder" : "PLBjEXTW6A",
-      "deliveryUsername" : "dos",
+      "idOrder" : "P8jeYYhY9r",
+      "deliveryUsername" : "din",
       "requestStatus" : "ACCEPTED"
     } ],
     "deleted" : false

@@ -126,8 +126,6 @@ Vue.component('all-users', {
 	                                <option value="sortUsernameA">Korisnicko ime(rastuće)</option>
 	                                <option value="sortUsernameD">Korisnicko ime(opadajuće)</option>
 	                                
-	                                <option>Broju bodova(rastuće)</option>
-	                                <option>Broju bodova(opadajuće)</option>
 	                            </select>
 	                        </td>
 	                    </tr>
@@ -444,6 +442,7 @@ Vue.component('all-users', {
                     toastt('Greška prilikom kreiranja menadžera. Korisničko ime je zauzeto.');
 				} else {
 					toastt('Uspešno kreiranje menadžera!')
+					this.users.push(response.data)
 				}				
 			})
 		}, 
@@ -458,6 +457,7 @@ Vue.component('all-users', {
                     toastt('Greška prilikom kreiranja dostavljača. Korisničko ime je zauzeto.');
 				} else {
 					toastt('Uspešno kreiranje dostavljača!')
+					this.users.push(response.data)
 				}				
 			})
 		},

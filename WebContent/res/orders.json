@@ -1,200 +1,210 @@
 {
-  "PLBjEXTW6A" : {
-    "id" : "PLBjEXTW6A",
+  "PpQqEDrfI7" : {
+    "id" : "PpQqEDrfI7",
     "itemsInCart" : [ {
       "item" : {
-        "name" : "Pasulj",
-        "price" : 500.0,
-        "type" : "Kuvano",
-        "restaurantName" : "C",
+        "name" : "Kola",
+        "price" : 100.0,
+        "type" : "pi\u0107e",
+        "restaurantName" : "Djava",
         "quantity" : "",
         "description" : "",
-        "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+        "image" : "res/images/restaurants/Djava/Kola/kola.jpg",
+        "deleted" : false
+      },
+      "quantity" : 2
+    }, {
+      "item" : {
+        "name" : "Pomfrit",
+        "price" : 100.0,
+        "type" : "jelo",
+        "restaurantName" : "Djava",
+        "quantity" : "200g",
+        "description" : "",
+        "image" : "res/images/restaurants/Djava/Pomfrit/pomes.jpg",
+        "deleted" : false
+      },
+      "quantity" : 2
+    }, {
+      "item" : {
+        "name" : "Pljeskavica",
+        "price" : 200.0,
+        "type" : "jelo",
+        "restaurantName" : "Djava",
+        "quantity" : "150g",
+        "description" : "",
+        "image" : "res/images/restaurants/Djava/Pljeskavica/pljeska.jpg",
         "deleted" : false
       },
       "quantity" : 2
     } ],
-    "restaurantName" : "C",
-    "dateTime" : "2021.09.09 17:13:00",
-    "price" : 1000.0,
-    "nameSurname" : "Dada Dic",
+    "restaurantName" : "Djava",
+    "dateTime" : "2021.09.10 19:28:37",
+    "price" : 800.0,
+    "nameSurname" : "Petar Petric",
     "location" : {
       "longitude" : null,
       "latitude" : null,
-      "street" : "Blv",
-      "number" : "32",
+      "street" : "Pere peric",
+      "number" : "1",
       "place" : "NS",
       "postalCode" : "21000",
-      "address" : null
-    },
-    "orderStatus" : "DELIVERED",
-    "usernameDeliveryMan" : "dos"
-  },
-  "PUKua6sPev" : {
-    "id" : "PUKua6sPev",
-    "itemsInCart" : [ {
-      "item" : {
-        "name" : "Art1",
-        "price" : 133.0,
-        "type" : "Pice",
-        "restaurantName" : "B",
-        "quantity" : "",
-        "description" : "Ovo je artikal prvi..",
-        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
-        "deleted" : false
-      },
-      "quantity" : 4
-    } ],
-    "restaurantName" : "B",
-    "dateTime" : "2021.08.05. 16:23:51",
-    "price" : 532.0,
-    "nameSurname" : "Dada Dic",
-    "location" : {
-      "longitude" : null,
-      "latitude" : null,
-      "street" : "As",
-      "number" : "12",
-      "place" : "dsad",
-      "postalCode" : "321",
-      "address" : null
-    },
-    "orderStatus" : "DELIVERED",
-    "usernameDeliveryMan" : "dos"
-  },
-  "Pl8eenOknB" : {
-    "id" : "Pl8eenOknB",
-    "itemsInCart" : [ {
-      "item" : {
-        "name" : "Pasulj",
-        "price" : 500.0,
-        "type" : "Kuvano",
-        "restaurantName" : "C",
-        "quantity" : "",
-        "description" : "",
-        "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
-        "deleted" : false
-      },
-      "quantity" : 1
-    } ],
-    "restaurantName" : "C",
-    "dateTime" : "2021.09.10 11:25:44",
-    "price" : 450.0,
-    "nameSurname" : "Dada Dic",
-    "location" : {
-      "longitude" : null,
-      "latitude" : null,
-      "street" : "Bgd",
-      "number" : "312",
-      "place" : "Bg",
-      "postalCode" : "142142",
-      "address" : null
-    },
-    "orderStatus" : "PROCESSING",
-    "usernameDeliveryMan" : ""
-  },
-  "PaDSW6j4yC" : {
-    "id" : "PaDSW6j4yC",
-    "itemsInCart" : [ {
-      "item" : {
-        "name" : "Art1",
-        "price" : 133.0,
-        "type" : "Pice",
-        "restaurantName" : "B",
-        "quantity" : "",
-        "description" : "Ovo je artikal prvi..",
-        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
-        "deleted" : false
-      },
-      "quantity" : 2
-    } ],
-    "restaurantName" : "B",
-    "dateTime" : "2021.08.04. 21:57:43",
-    "price" : 266.0,
-    "nameSurname" : "Dada Dic",
-    "location" : {
-      "longitude" : null,
-      "latitude" : null,
-      "street" : "ASD",
-      "number" : "13",
-      "place" : "DS",
-      "postalCode" : "213",
       "address" : null
     },
     "orderStatus" : "CANCELED",
     "usernameDeliveryMan" : ""
   },
-  "PZKoH0ijY7" : {
-    "id" : "PZKoH0ijY7",
+  "PyLF4zexGe" : {
+    "id" : "PyLF4zexGe",
     "itemsInCart" : [ {
       "item" : {
-        "name" : "Art1",
-        "price" : 133.0,
-        "type" : "Pice",
-        "restaurantName" : "B",
-        "quantity" : "",
-        "description" : "Ovo je artikal prvi..",
-        "image" : "res/images/restaurants/B/Art1/appIcon.jpg",
+        "name" : "Pasulj",
+        "price" : 200.0,
+        "type" : "Jelo",
+        "restaurantName" : "Kutlaca Bar",
+        "quantity" : "400ml",
+        "description" : "",
+        "image" : "res/images/restaurants/Kutlaca Bar/Pasulj/pasulj.jpg",
         "deleted" : false
       },
-      "quantity" : 6
+      "quantity" : 2
     }, {
       "item" : {
-        "name" : "v",
-        "price" : 32.0,
-        "type" : "vdsg",
-        "restaurantName" : "B",
-        "quantity" : "fdssdf",
-        "description" : "sddsf",
-        "image" : "res/images/restaurants/B/v/appIcon2.png",
+        "name" : "Gulas",
+        "price" : 300.0,
+        "type" : "Jelo",
+        "restaurantName" : "Kutlaca Bar",
+        "quantity" : "400ml",
+        "description" : "",
+        "image" : "res/images/restaurants/Kutlaca Bar/Gulas/gulas.jpg",
+        "deleted" : false
+      },
+      "quantity" : 4
+    }, {
+      "item" : {
+        "name" : "Krempita",
+        "price" : 100.0,
+        "type" : "Kola\u010D",
+        "restaurantName" : "Kutlaca Bar",
+        "quantity" : "150g",
+        "description" : "",
+        "image" : "res/images/restaurants/Kutlaca Bar/Krempita/krempita.jpg",
         "deleted" : false
       },
       "quantity" : 5
     } ],
-    "restaurantName" : "B",
-    "dateTime" : "2021.08.11. 16:48:38",
-    "price" : 958.0,
-    "nameSurname" : "Dada Dic",
+    "restaurantName" : "Kutlaca Bar",
+    "dateTime" : "2021.09.10 19:34:51",
+    "price" : 2100.0,
+    "nameSurname" : "Petar Petric",
     "location" : {
       "longitude" : null,
       "latitude" : null,
-      "street" : "Da",
-      "number" : "132",
-      "place" : "DASDAS",
-      "postalCode" : "23132",
+      "street" : "Voj.",
+      "number" : "3",
+      "place" : "NS",
+      "postalCode" : "21000",
       "address" : null
     },
     "orderStatus" : "DELIVERED",
-    "usernameDeliveryMan" : "dos"
+    "usernameDeliveryMan" : "din"
   },
-  "Pv2dMQcigt" : {
-    "id" : "Pv2dMQcigt",
+  "PhLuukkVDJ" : {
+    "id" : "PhLuukkVDJ",
     "itemsInCart" : [ {
       "item" : {
-        "name" : "Pasulj",
-        "price" : 500.0,
-        "type" : "Kuvano",
-        "restaurantName" : "C",
-        "quantity" : "",
+        "name" : "Pica",
+        "price" : 200.0,
+        "type" : "jelo",
+        "restaurantName" : "Macak",
+        "quantity" : "30cm",
         "description" : "",
-        "image" : "res/images/restaurants/C/Pasulj/appIcon3.png",
+        "image" : "res/images/restaurants/Macak/Pica/pica.jpg",
+        "deleted" : false
+      },
+      "quantity" : 2
+    }, {
+      "item" : {
+        "name" : "Voda",
+        "price" : 50.0,
+        "type" : "pi\u0107e",
+        "restaurantName" : "Macak",
+        "quantity" : "",
+        "description" : "rosa",
+        "image" : "res/images/restaurants/Macak/Voda/rosa.jpg",
         "deleted" : false
       },
       "quantity" : 1
     } ],
-    "restaurantName" : "C",
-    "dateTime" : "2021.09.10 11:18:26",
-    "price" : 500.0,
-    "nameSurname" : "Dada Dic",
+    "restaurantName" : "Macak",
+    "dateTime" : "2021.09.10 19:38:59",
+    "price" : 405.0,
+    "nameSurname" : "Petar Petric",
     "location" : {
       "longitude" : null,
       "latitude" : null,
-      "street" : "Blb",
-      "number" : "12",
-      "place" : "Fraa",
-      "postalCode" : "21412",
+      "street" : "Voj.",
+      "number" : "2",
+      "place" : "NS",
+      "postalCode" : "21000",
       "address" : null
     },
-    "orderStatus" : "PROCESSING",
-    "usernameDeliveryMan" : ""
+    "orderStatus" : "DELIVERED",
+    "usernameDeliveryMan" : "din"
+  },
+  "P8jeYYhY9r" : {
+    "id" : "P8jeYYhY9r",
+    "itemsInCart" : [ {
+      "item" : {
+        "name" : "Kola",
+        "price" : 100.0,
+        "type" : "pi\u0107e",
+        "restaurantName" : "Djava",
+        "quantity" : "",
+        "description" : "",
+        "image" : "res/images/restaurants/Djava/Kola/kola.jpg",
+        "deleted" : false
+      },
+      "quantity" : 4
+    }, {
+      "item" : {
+        "name" : "Pomfrit",
+        "price" : 100.0,
+        "type" : "jelo",
+        "restaurantName" : "Djava",
+        "quantity" : "200g",
+        "description" : "",
+        "image" : "res/images/restaurants/Djava/Pomfrit/pomes.jpg",
+        "deleted" : false
+      },
+      "quantity" : 4
+    }, {
+      "item" : {
+        "name" : "Pljeskavica",
+        "price" : 200.0,
+        "type" : "jelo",
+        "restaurantName" : "Djava",
+        "quantity" : "150g",
+        "description" : "",
+        "image" : "res/images/restaurants/Djava/Pljeskavica/pljeska.jpg",
+        "deleted" : false
+      },
+      "quantity" : 4
+    } ],
+    "restaurantName" : "Djava",
+    "dateTime" : "2021.09.10 19:30:45",
+    "price" : 1600.0,
+    "nameSurname" : "Petar Petric",
+    "location" : {
+      "longitude" : null,
+      "latitude" : null,
+      "street" : "Voj.",
+      "number" : "2",
+      "place" : "NS",
+      "postalCode" : "21000",
+      "address" : null
+    },
+    "orderStatus" : "DELIVERED",
+    "usernameDeliveryMan" : "din"
   }
 }
